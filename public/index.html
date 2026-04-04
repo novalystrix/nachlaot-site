@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>נחלות למכירה — מרכז ישראל 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Heebo', sans-serif; background: #f8f9fa; color: #1a1a2e; line-height: 1.6; }
+
+/* Hero */
+.hero {
+  background: linear-gradient(135deg, #1a472a 0%, #2d6a4f 50%, #40916c 100%);
+  color: white; padding: 3rem 1.5rem 2rem; text-align: center;
+  position: relative; overflow: hidden;
+}
+.hero::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+  background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  opacity: 0.3;
+}
+.hero h1 { font-size: 2rem; font-weight: 800; margin-bottom: 0.5rem; position: relative; }
+.hero p { font-size: 0.95rem; opacity: 0.9; position: relative; }
+.hero .stats { display: flex; justify-content: center; gap: 1.5rem; margin-top: 1.5rem; flex-wrap: wrap; position: relative; }
+.hero .stat { background: rgba(255,255,255,0.15); border-radius: 12px; padding: 0.75rem 1.25rem; backdrop-filter: blur(10px); }
+.hero .stat .num { font-size: 1.5rem; font-weight: 700; }
+.hero .stat .label { font-size: 0.8rem; opacity: 0.85; }
+
+/* Filter Bar */
+.filters {
+  background: white; padding: 1rem 1.5rem; position: sticky; top: 0; z-index: 100;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08); display: flex; gap: 0.5rem; overflow-x: auto;
+}
+.filter-btn {
+  background: #f0f0f0; border: none; padding: 0.5rem 1rem; border-radius: 20px;
+  font-family: 'Heebo'; font-size: 0.85rem; cursor: pointer; white-space: nowrap;
+  transition: all 0.2s;
+}
+.filter-btn.active, .filter-btn:hover { background: #2d6a4f; color: white; }
+
+/* Summary Table */
+.summary { max-width: 800px; margin: 1.5rem auto; padding: 0 1rem; }
+.summary table { width: 100%; border-collapse: collapse; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+.summary th { background: #2d6a4f; color: white; padding: 0.75rem 0.5rem; font-size: 0.85rem; font-weight: 600; }
+.summary td { background: white; padding: 0.6rem 0.5rem; font-size: 0.85rem; text-align: center; border-bottom: 1px solid #f0f0f0; }
+.summary tr:last-child td { border-bottom: none; }
+
+/* Top Picks */
+.top-picks { max-width: 800px; margin: 1.5rem auto; padding: 0 1rem; }
+.top-picks h2 { font-size: 1.3rem; margin-bottom: 1rem; color: #1a472a; }
+.pick { display: flex; align-items: center; gap: 0.75rem; background: white; padding: 0.75rem 1rem; border-radius: 10px; margin-bottom: 0.5rem; box-shadow: 0 1px 4px rgba(0,0,0,0.04); }
+.pick-num { background: #f0c040; color: #1a1a2e; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.85rem; flex-shrink: 0; }
+.pick-text { font-size: 0.9rem; }
+
+/* Section */
+.section { max-width: 800px; margin: 2rem auto; padding: 0 1rem; }
+.section-title {
+  font-size: 1.3rem; font-weight: 700; color: #1a472a; margin-bottom: 1rem;
+  padding-bottom: 0.5rem; border-bottom: 3px solid #2d6a4f;
+  display: flex; align-items: center; gap: 0.5rem;
+}
+.section-count { background: #2d6a4f; color: white; font-size: 0.75rem; padding: 0.2rem 0.6rem; border-radius: 10px; font-weight: 500; }
+
+/* Property Card */
+.card {
+  background: white; border-radius: 14px; padding: 1.25rem; margin-bottom: 1rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06); border-right: 4px solid #e0e0e0;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.card:hover { transform: translateY(-2px); box-shadow: 0 4px 16px rgba(0,0,0,0.1); }
+.card.starred { border-right-color: #f0c040; }
+.card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.75rem; }
+.card-title { font-size: 1.05rem; font-weight: 700; color: #1a1a2e; }
+.card-num { color: #999; font-size: 0.85rem; }
+.star-badge { background: #fff8e1; color: #f0a000; padding: 0.2rem 0.5rem; border-radius: 6px; font-size: 0.75rem; font-weight: 600; }
+.card-details { display: grid; grid-template-columns: auto 1fr; gap: 0.3rem 0.75rem; font-size: 0.9rem; margin-bottom: 0.75rem; }
+.card-label { color: #666; font-weight: 500; }
+.card-value { color: #1a1a2e; }
+.card-price { font-size: 1.1rem; font-weight: 700; color: #2d6a4f; }
+.card-desc { color: #555; font-size: 0.88rem; margin-bottom: 0.75rem; background: #f8f9fa; padding: 0.75rem; border-radius: 8px; }
+.card-actions { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+.btn {
+  display: inline-flex; align-items: center; gap: 0.3rem;
+  padding: 0.5rem 1rem; border-radius: 8px; font-family: 'Heebo';
+  font-size: 0.85rem; text-decoration: none; font-weight: 500; transition: all 0.2s;
+}
+.btn-primary { background: #2d6a4f; color: white; }
+.btn-primary:hover { background: #1a472a; }
+.btn-outline { background: white; color: #2d6a4f; border: 1.5px solid #2d6a4f; }
+.btn-outline:hover { background: #f0f7f4; }
+.btn-whatsapp { background: #25d366; color: white; }
+.btn-whatsapp:hover { background: #1da851; }
+
+/* Agents */
+.agents { max-width: 800px; margin: 2rem auto; padding: 0 1rem 3rem; }
+.agents h2 { font-size: 1.3rem; font-weight: 700; color: #1a472a; margin-bottom: 1rem; }
+.agent-card { background: white; border-radius: 12px; padding: 1rem; margin-bottom: 0.75rem; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
+.agent-name { font-weight: 700; font-size: 1rem; margin-bottom: 0.25rem; }
+.agent-detail { font-size: 0.85rem; color: #666; }
+.agent-card a { color: #2d6a4f; text-decoration: none; font-weight: 500; }
+.agent-card a:hover { text-decoration: underline; }
+
+/* Footer */
+.footer { background: #1a472a; color: rgba(255,255,255,0.7); text-align: center; padding: 1.5rem; font-size: 0.85rem; }
+
+/* Mobile fixes */
+@media (max-width: 480px) {
+  .hero h1 { font-size: 1.5rem; }
+  .hero .stats { gap: 0.75rem; }
+  .hero .stat { padding: 0.5rem 0.75rem; }
+  .hero .stat .num { font-size: 1.2rem; }
+  .card-details { grid-template-columns: 1fr; }
+  .card-label { font-weight: 600; }
+}
+
+.hidden { display: none !important; }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>🏡 נחלות למכירה</h1>
+  <p>מרכז ישראל 2026 · מינימום 10 דונם · עד שעה מתל אביב</p>
+  <div class="stats">
+    <div class="stat"><div class="num">26</div><div class="label">נכסים</div></div>
+    <div class="stat"><div class="num">₪8M</div><div class="label">מחיר מינימום</div></div>
+    <div class="stat"><div class="num">30</div><div class="label">דונם מקסימום</div></div>
+    <div class="stat"><div class="num">5</div><div class="label">אזורים</div></div>
+  </div>
+</div>
+
+<div class="filters">
+  <button class="filter-btn active" data-filter="all">הכל (26)</button>
+  <button class="filter-btn" data-filter="sde-warburg">שדה ורבורג (17)</button>
+  <button class="filter-btn" data-filter="bnei-zion">בני ציון (5)</button>
+  <button class="filter-btn" data-filter="rishpon">רשפון (2)</button>
+  <button class="filter-btn" data-filter="other">אזורים סמוכים (2)</button>
+  <button class="filter-btn" data-filter="starred">⭐ מומלצים</button>
+</div>
+
+<div class="summary">
+  <table>
+    <tr><th>אזור</th><th>נכסים</th><th>טווח מחירים</th><th>שטח</th></tr>
+    <tr><td>שדה ורבורג</td><td>17</td><td>₪8M–₪31M</td><td>12–30 דונם</td></tr>
+    <tr><td>בני ציון</td><td>5</td><td>₪40M–₪60M</td><td>10–19 דונם</td></tr>
+    <tr><td>רשפון</td><td>2</td><td>₪50M</td><td>8–9 דונם</td></tr>
+    <tr><td>עין ורד / צור משה</td><td>2</td><td>₪21M–₪32M</td><td>16–28 דונם</td></tr>
+  </table>
+</div>
+
+<div class="top-picks">
+  <h2>⭐ TOP PICKS</h2>
+  <div class="pick"><div class="pick-num">1</div><div class="pick-text">15 דונם ריק, שדה ורבורג — ₪22.5M — לבנייה מאפס, נוף דרמטי</div></div>
+  <div class="pick"><div class="pick-num">2</div><div class="pick-text">30 דונם, שדה ורבורג — ₪11M — שטח ענק, מחיר נמוך</div></div>
+  <div class="pick"><div class="pick-num">3</div><div class="pick-text">12 דונם, שדה ורבורג — ₪8M — המחיר הנמוך ביותר</div></div>
+  <div class="pick"><div class="pick-num">4</div><div class="pick-text">18 דונם, בני ציון — ₪40M — מיקום מעולה, נוף ירוק</div></div>
+  <div class="pick"><div class="pick-num">5</div><div class="pick-text">24 דונם מהוון, שדה ורבורג — זכויות ל-3 בתים, בנייה מיידית</div></div>
+  <div class="pick"><div class="pick-num">6</div><div class="pick-text">28 דונם, עין ורד — ₪21M — וילה 530 מ"ר בנויה</div></div>
+</div>
+
+<!-- SADE WARBURG -->
+<div class="section" id="sde-warburg">
+  <div class="section-title">🌾 שדה ורבורג <span class="section-count">17 נכסים</span></div>
+
+  <div class="card starred" data-area="sde-warburg" data-starred>
+    <div class="card-header">
+      <div><span class="card-num">#1</span> <span class="star-badge">⭐ מומלץ</span></div>
+    </div>
+    <div class="card-title">נחלה ללא בית — 15 דונם רציף</div>
+    <div class="card-details">
+      <span class="card-label">שטח:</span><span class="card-value">15 דונם</span>
+      <span class="card-label">מחיר:</span><span class="card-value card-price">₪22,500,000</span>
+    </div>
+    <div class="card-desc">נחלה ללא בית. 15 דונם ברצף, חזית 78 מטר. נוף דרמטי לכל הכיוונים. פרטיות נדירה. כניסה מידית.</div>
+    <div class="card-actions">
+      <a href="https://www.yad2.co.il/realestate/item/center-and-sharon/fiyu7ei2" target="_blank" class="btn btn-primary">📋 צפה במודעה</a>
+      <a href="https://wa.me/972559895695" target="_blank" class="btn btn-whatsapp">💬 עוזי גיל</a>
+    </div>
+  </div>
+
+  <div class="card starred" data-area="sde-warburg" data-starred>
+    <div class="card-header">
+      <div><span class="card-num">#2</span> <span class="star-badge">⭐ מומלץ</span></div>
+    </div>
+    <div class="card-title">נחלה 30 דונם — מחיר נמוך</div>
+    <div class="card-details">
+      <span class="card-label">שטח:</span><span class="card-value">30 דונם</span>
+      <span class="card-label">מחיר:</span><span class="card-value card-price">₪11,000,000</span>
+    </div>
+    <div class="card-actions">
+      <a href="https://www.yad2.co.il/realestate/item/center-and-sharon/2wa1s4l0" target="_blank" class="btn btn-primary">📋 צפה במודעה</a>
+      <a href="https://wa.me/972559895695" target="_blank" class="btn btn-whatsapp">💬 עוזי גיל</a>
+    </div>
+  </div>
+
+  <div class="card starred" data-area="sde-warburg" data-starred>
+    <div class="card-header">
+      <div><span class="card-num">#3</span> <span class="star-badge">⭐ מומלץ</span></div>
+    </div>
+    <div class="card-title">נחלה 12 דונם — המחיר הנמוך ביותר</div>
+    <div class="card-details">
+      <span class="card-label">שטח:</span><span class="card-value">12 דונם</span>
+      <span class="card-label">מחיר:</span><span class="card-value card-price">₪8,000,000</span>
+    </div>
+    <div class="card-actions">
+      <a href="https://www.yad2.co.il/realestate/item/center-and-sharon/g5xkdf48" target="_blank" class="btn btn-primary">📋 צפה במודעה</a>
+    </div>
+  </div>
+
+  <div class="card starred" data-area="sde-warburg" data-starred>
+    <div class="card-header">
+      <div><span class="card-num">#4</span> <span class="star-badge">⭐ מומלץ</span></div>
+    </div>
+    <div class="card-title">נחלה 24 דונם — מהוון, בנייה מיידית</div>
+    <div class="card-details">
+      <span class="card-label">שטח:</span><span class="card-value">24 דונם (15 רציף + 5 חקלאי + 4 לבנייה)</span>
+    </div>
+    <div class="card-desc">מהוונת. ניתן לבנות מיידית. זכויות לבניית בתים ל-3 משפחות.</div>
+    <div class="card-actions">
+      <a href="https://www.yad2.co.il/realestate/item/center-and-sharon/y73tld3u" target="_blank" class="btn btn-primary">📋 Yad2</a>
+      <a href="https://www.facebook.com/groups/1146010634231230/posts/1333024368863188/" target="_blank" class="btn btn-outline">📘 Facebook</a>
+    </div>
+  </div>
+
+  <div class="card" data-area="sde-warburg">
+    <div class="card-header"><span class="card-num">#5</span></div>
+    <div class="card-title">נחלה 14 דונם — נוף מדהים</div>
+    <div class="card-details">
+      <span class="card-label">שטח:</span><span class="card-value">7+7 דונם</span>
+      <span class="card-label">מחיר:</span><span class="card-value card-price">₪27,000,000</span>
+    </div>
+    <div class="card-desc">175 מ"ר בנוי, 6 חדרים, בריכת שחייה, בוסתן פירות. זכות לבית נוסף.</div>
+    <div class="card-actions">
+      <a href="https://luxury-realestate-israel.com/1565_325_An-estate-with-an-amazing-view-in-Sde-Warburg.htm" target="_blank" class="btn btn-primary">📋 צפה במודעה</a>
+    </div>
+  </div>
+
+  <div class="card" data-area="sde-warburg">
+    <div class="card-header"><span class="card-num">#6</span></div>
+    <div class="card-title">נחלה 30 דונם (B)</div>
+    <div class="card-details">
+      <span class="card-label">שטח:</span><span class="card-value">30 דונם</span>
+      <span class="card-label">מחיר:</span><span class="card-value card-price">₪31,000,000</span>
+    </div>
+    <div class="card-actions">
+      <a href="https://www.yad2.co.il/realestate/item/center-and-sharon/hwj44lyt" target="_blank" class="btn btn-primary">📋 צפה במודעה</a>
+    </div>
+  </div>
+
+  <div class="card" data-area="sde-warburg">
+    <div class="card-header"><span class="card-num">#7</span></div>
+    <div class="card-title">נחלה 24 דונם</div>
+    <div class="card-details">
+      <span class="card-label">שטח:</span><span class="card-value">24 דונם</span>
+      <span class="card-label">מחיר:</span><span class="card-value card-price">₪31,000,000</span>
+    </div>
+    <div class="card-actions">
+      <a href="https://www.yad2.co.il/realestate/item/center-and-sharon/y73tld3u" target="_blank" class="btn btn-primary">📋 צפה במודעה</a>
+    </div>
+  </div>
+
+  <div class="card" data-area="sde-warburg">
+    <div class="card-header"><span class="card-num">#8</span></div>
+    <div class="card-title">נחלה 15 דונם</div>
+    <div class="card-details">
+      <span class="card-label">שטח:</span><span class="card-value">15 דונם</span>
+      <span class="card-label">מחיר:</span><span class="card-value card-price">₪20,000,000</span>
+    </div>
+    <div class="card-actions">
+      <a href="https://www.yad2.co.il/realestate/item/center-and-sharon/xxpi7re4" target="_blank" class="btn btn-primary">📋 צפה במודעה</a>
+    </div>
+  </div>
+
+  <div class="card" data-area="sde-warburg">
+    <div class="card-header"><span class="card-num">#9</span></div>
+    <div class="card-title">נחלה 15 דונם (B)</div>
+    <div class="card-details">
+      <span class="card-label">שטח:</span><span class="card-value">15 דונם</span>
+      <span class="card-label">מחיר:</span><span class="card-value card-price">₪20,000,000</span>
+    </div>
+    <div class="card-actions">
+      <a href="https://www.yad2.co.il/realestate/item/center-and-sharon/74ccy6d3" target="_blank" class="btn btn-primary">📋 צפה במודעה</a>
+    </div>
+  </div>
+
+  <div class="card" data-area="sde-warburg">
+    <div class="card-header"><span class="card-num">#10</span></div>
+    <div class="card-title">נחלה 13.5 דונם</div>
+    <div class="card-details">
+      <span class="card-label">שטח:</span><span class="card-value">13.5 דונם</span>
+      <span class="card-label">מחיר:</span><span class="card-value card-price">₪20,000,000</span>
+    </div>
+    <div class="card-actions">
+      <a href="https://www.yad2.co.il/realestate/item/center-and-sharon/095nilk0" target="_blank" class="btn btn-primary">📋 צפה במודעה</a>
+    </div>
+  </div>
+
+  <div class="card" data-area="sde-warburg">
+    <div class="card-header"><span class="card-num">#11</span></div>
+    <div class="card-title">נחלה 14 דונם</div>
+    <div class="card-details">
+      <span class="card-label">שטח:</span><span class="card-value">14 דונם</span>
+      <span class="card-label">מחיר:</span><span class="card-value card-price">₪27,000,000</span>
+    </div>
+    <div class="card-actions">
+      <a href="https://www.yad2.co.il/realestate/item/center-and-sharon/zqfuy9x3" target="_blank" class="btn btn-primary">📋 צפה במודעה</a>
+    </div>
+  </div>
+
+  <div class="card" data-area="sde-warburg">
+    <div class="card-header"><span class="card-num">#12</span></div>
+    <div class="card-title">נחלה 14 דונם — רחוב ההדרים</div>
+    <div class="card-details">
+      <span class="card-label">שטח:</span><span class="card-value">7 דונם + חלקות נוספות</span>
+    </div>
+    <div class="card-desc">175 מ"ר בנוי, בריכה 14×4.5 מ', בוסתן.</div>
+    <div class="card-actions">
+      <a href="https://nadlan-bneyzion.com/he/property/230" target="_blank" class="btn btn-primary">📋 צפה במודעה</a>
+    </div>
+  </div>
+
+  <div class="card" data-area="sde-warburg">
+    <div class="card-header"><span class="card-num">#13</span></div>
+    <div class="card-title">נחלה 14 דונם — עוזי גיל</div>
+    <div class="card-details">
+      <span class="card-label">שטח:</span><span class="card-value">7+7 דונם | 175 מ"ר + מרפסת 24 מ"ר | בריכה | זכות בית נוסף</span>
+    </div>
+    <div class="card-actions">
+      <a href="https://www.uzigil.co.il/?property=%D7%A0%D7%97%D7%9C%D7%94-%D7%9C%D7%9E%D7%9B%D7%99%D7%A8%D7%94-%D7%91%D7%A9%D7%93%D7%94-%D7%95%D7%A8%D7%91%D7%95%D7%A8%D7%92-4" target="_blank" class="btn btn-primary">📋 צפה במודעה</a>
+      <a href="https://wa.me/972559895695" target="_blank" class="btn btn-whatsapp">💬 עוזי גיל</a>
+    </div>
+  </div>
+
+  <div class="card" data-area="sde-warburg">
+    <div class="card-header"><span class="card-num">#14</span></div>
+    <div class="card-title">נחלה 7 דונם — גרוסמן</div>
+    <div class="card-details">
+      <span class="card-label">שטח:</span><span class="card-value">7 דונם</span>
+      <span class="card-label">מחיר:</span><span class="card-value card-price">₪10,000,000</span>
+    </div>
+    <div class="card-actions">
+      <a href="https://www.yad2.co.il/realestate/item/center-and-sharon/kmpd3fkz" target="_blank" class="btn btn-primary">📋 צפה במודעה</a>
+    </div>
+  </div>
+
+  <div class="card" data-area="sde-warburg">
+    <div class="card-header"><span class="card-num">#15</span></div>
+    <div class="card-title">נחלה 7 דונם — ארז בשרון</div>
+    <div class="card-details">
+      <span class="card-label">שטח:</span><span class="card-value">7 דונם</span>
+      <span class="card-label">מחיר:</span><span class="card-value card-price">₪18,000,000</span>
+    </div>
+    <div class="card-actions">
+      <a href="https://www.yad2.co.il/realestate/item/center-and-sharon/9towehmu" target="_blank" class="btn btn-primary">📋 צפה במודעה</a>
+    </div>
+  </div>
+
+  <div class="card" data-area="sde-warburg">
+    <div class="card-header"><span class="card-num">#16</span></div>
+    <div class="card-title">נחלה 14 דונם (B)</div>
+    <div class="card-actions">
+      <a href="https://www.yad2.co.il/realestate/item/center-and-sharon/ljh3t1lh" target="_blank" class="btn btn-primary">📋 צפה במודעה</a>
+    </div>
+  </div>
+
+  <div class="card" data-area="sde-warburg">
+    <div class="card-header"><span class="card-num">#17</span></div>
+    <div class="card-title">נחלה ~14.8 דונם</div>
+    <div class="card-details">
+      <span class="card-label">שטח:</span><span class="card-value">~14.8 דונם</span>
+      <span class="card-label">מחיר:</span><span class="card-value card-price">₪20,000,000</span>
+    </div>
+    <div class="card-actions">
+      <a href="https://www.yad2.co.il/realestate/item/center-and-sharon/jijd726n" target="_blank" class="btn btn-primary">📋 צפה במודעה</a>
+    </div>
+  </div>
+</div>
+
+<!-- BNEI ZION -->
+<div class="section" id="bnei-zion">
+  <div class="section-title">🏘️ בני ציון <span class="section-count">5 נכסים</span></div>
+
+  <div class="card starred" data-area="bnei-zion" data-starred>
+    <div class="card-header">
+      <div><span class="card-num">#18</span> <span class="star-badge">⭐ מומלץ</span></div>
+    </div>
+    <div class="card-title">נחלה 18 דונם — מיקום מעולה</div>
+    <div class="card-details">
+      <span class="card-label">שטח:</span><span class="card-value">18 דונם</span>
+      <span class="card-label">מחיר:</span><span class="card-value card-price">₪40,000,000</span>
+    </div>
+    <div class="card-desc">מיקום גבוה, טופוגרפיה יפה, נוף ירוק.</div>
+    <div class="card-actions">
+      <a href="https://luxury-realestate-israel.com/1469_325_estate-bnei-zion.htm" target="_blank" class="btn btn-primary">📋 צפה במודעה</a>
+    </div>
+  </div>
+
+  <div class="card" data-area="bnei-zion">
+    <div class="card-header"><span class="card-num">#19</span></div>
+    <div class="card-title">נחלה 15 דונם — 700 מ"ר בנוי</div>
+    <div class="card-details">
+      <span class="card-label">שטח:</span><span class="card-value">15 דונם</span>
+      <span class="card-label">מחיר:</span><span class="card-value card-price">₪60,000,000</span>
+    </div>
+    <div class="card-desc">700 מ"ר בנוי, 7 ח"ש, בריכה, קולנוע ביתי, חשמל חכם, חימום רצפתי.</div>
+    <div class="card-actions">
+      <a href="https://luxury-realestate-israel.com/1539_325_estate-bnei-zion-invested.htm" target="_blank" class="btn btn-primary">📋 צפה במודעה</a>
+    </div>
+  </div>
+
+  <div class="card" data-area="bnei-zion">
+    <div class="card-header"><span class="card-num">#20</span></div>
+    <div class="card-title">נחלה 19 דונם — חוות סוסים</div>
+    <div class="card-details">
+      <span class="card-label">שטח:</span><span class="card-value">19 דונם</span>
+      <span class="card-label">מחיר:</span><span class="card-value card-price">₪40,000,000</span>
+    </div>
+    <div class="card-actions">
+      <a href="https://luxury-realestate-israel.com/1540_325_Real-estate-with-a-horse-farm-for-sale-in-center-district---hasharon-area.htm" target="_blank" class="btn btn-primary">📋 צפה במודעה</a>
+    </div>
+  </div>
+
+  <div class="card" data-area="bnei-zion">
+    <div class="card-header"><span class="card-num">#21</span></div>
+    <div class="card-title">אחוזה ענקית — 15 דונם</div>
+    <div class="card-details">
+      <span class="card-label">שטח:</span><span class="card-value">15 דונם</span>
+      <span class="card-label">מחיר:</span><span class="card-value">פנה לסוכן</span>
+    </div>
+    <div class="card-desc">1000+ מ"ר בנוי, 11 חדרים (8 ח"ש), בריכה, חדר כושר, מרתף.</div>
+    <div class="card-actions">
+      <a href="https://luxury-realestate-israel.com/837_325_estate-bnei-zion-large.htm" target="_blank" class="btn btn-primary">📋 צפה במודעה</a>
+    </div>
+  </div>
+
+  <div class="card" data-area="bnei-zion">
+    <div class="card-header"><span class="card-num">#22</span></div>
+    <div class="card-title">מבחר נחלות — 10 דונם</div>
+    <div class="card-details">
+      <span class="card-label">שטח:</span><span class="card-value">10 דונם | 550 מ"ר בנוי</span>
+      <span class="card-label">מחיר:</span><span class="card-value">פנה לסוכן</span>
+    </div>
+    <div class="card-actions">
+      <a href="https://luxury-realestate-israel.com/1511_325_A-selection-of-estates-for-sale-in-Moshav-Bnei-Zion.htm" target="_blank" class="btn btn-primary">📋 צפה במודעה</a>
+    </div>
+  </div>
+</div>
+
+<!-- RISHPON -->
+<div class="section" id="rishpon">
+  <div class="section-title">🌳 רשפון <span class="section-count">2 נכסים</span></div>
+
+  <div class="card" data-area="rishpon">
+    <div class="card-header"><span class="card-num">#23</span></div>
+    <div class="card-title">נחלה עם חוות סוסים — 9 דונם</div>
+    <div class="card-details">
+      <span class="card-label">שטח:</span><span class="card-value">9 דונם</span>
+      <span class="card-label">מחיר:</span><span class="card-value card-price">₪50,000,000</span>
+    </div>
+    <div class="card-desc">330 מ"ר, 5 ח"ש, חוות סוסים, בריכה, ספא.</div>
+    <div class="card-actions">
+      <a href="https://luxury-realestate-israel.com/1541_325_An-amazing-estate-in-Rashpon-with-a-horse-farm.htm" target="_blank" class="btn btn-primary">📋 צפה במודעה</a>
+    </div>
+  </div>
+
+  <div class="card" data-area="rishpon">
+    <div class="card-header"><span class="card-num">#24</span></div>
+    <div class="card-title">בית ים תיכוני — 8 דונם</div>
+    <div class="card-details">
+      <span class="card-label">שטח:</span><span class="card-value">8 דונם</span>
+      <span class="card-label">מחיר:</span><span class="card-value card-price">₪50,000,000</span>
+    </div>
+    <div class="card-desc">360 מ"ר, 8 חדרים, 4 ח"ש. בריכה, מרפסת 60 מ"ר, טרה קוטה, חלונות בלגי.</div>
+    <div class="card-actions">
+      <a href="https://luxury-realestate-israel.com/727_325_Stunning,-1-story-Home-on-8-Dunams-near-TA.htm" target="_blank" class="btn btn-primary">📋 צפה במודעה</a>
+    </div>
+  </div>
+</div>
+
+<!-- OTHER AREAS -->
+<div class="section" id="other">
+  <div class="section-title">📍 אזורים סמוכים <span class="section-count">2 נכסים</span></div>
+
+  <div class="card starred" data-area="other" data-starred>
+    <div class="card-header">
+      <div><span class="card-num">#25</span> <span class="star-badge">⭐ מומלץ</span></div>
+    </div>
+    <div class="card-title">עין ורד — 28 דונם</div>
+    <div class="card-details">
+      <span class="card-label">שטח:</span><span class="card-value">4+24 = 28 דונם</span>
+      <span class="card-label">מחיר:</span><span class="card-value card-price">₪21,000,000</span>
+    </div>
+    <div class="card-desc">וילה 530 מ"ר, מפלס אחד. 8 חדרים, 5 ח"ש, מרפסת 150 מ"ר. בריכה, חימום רצפתי, בוסתן.</div>
+    <div class="card-actions">
+      <a href="https://luxury-realestate-israel.com/1569_325_A-luxury-estate-for-sale-in-Moshav-Ein-Vared.htm" target="_blank" class="btn btn-primary">📋 צפה במודעה</a>
+    </div>
+  </div>
+
+  <div class="card" data-area="other">
+    <div class="card-header"><span class="card-num">#26</span></div>
+    <div class="card-title">צור משה — 16 דונם</div>
+    <div class="card-details">
+      <span class="card-label">שטח:</span><span class="card-value">16 דונם</span>
+      <span class="card-label">מחיר:</span><span class="card-value card-price">₪32,000,000</span>
+    </div>
+    <div class="card-actions">
+      <a href="https://luxury-realestate-israel.com/1633_325_Luxurious-mansion-for-sale-in-Tzur-Moshe.htm" target="_blank" class="btn btn-primary">📋 צפה במודעה</a>
+    </div>
+  </div>
+</div>
+
+<!-- AGENTS -->
+<div class="agents">
+  <h2>📞 סוכני נדל"ן</h2>
+
+  <div class="agent-card">
+    <div class="agent-name">🏢 מיכאל סילאם — נאות שירן</div>
+    <div class="agent-detail"><a href="https://luxury-realestate-israel.com" target="_blank">luxury-realestate-israel.com</a></div>
+    <div class="agent-detail">התמחות: נחלות ואחוזות יוקרה — בני ציון, רשפון, שדה ורבורג, עין ורד</div>
+  </div>
+
+  <div class="agent-card">
+    <div class="agent-name">🏢 עוזי גיל — 47 שנות ניסיון</div>
+    <div class="agent-detail"><a href="https://www.uzigil.co.il" target="_blank">uzigil.co.il</a> · <a href="https://wa.me/972559895695" target="_blank">WhatsApp</a> · רישיון 2047</div>
+  </div>
+
+  <div class="agent-card">
+    <div class="agent-name">🏢 יעקב גרוסמן</div>
+    <div class="agent-detail"><a href="https://grossman-nadlan.co.il" target="_blank">grossman-nadlan.co.il</a></div>
+  </div>
+
+  <div class="agent-card">
+    <div class="agent-name">🏢 נדל"ן בני ציון</div>
+    <div class="agent-detail"><a href="https://nadlan-bneyzion.com" target="_blank">nadlan-bneyzion.com</a></div>
+  </div>
+
+  <div class="agent-card">
+    <div class="agent-detail" style="color:#999">TH נכסים · ארז בשרון · מתן נסטל · בית משלי נכסים — דרך yad2.co.il</div>
+  </div>
+</div>
+
+<div class="footer">
+  נחלות למכירה — מרכז ישראל 2026<br>
+  מקורות: Yad2, Naot Shiran, Uzi Gil, Nadlan Bneyzion, Facebook
+</div>
+
+<script>
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const filter = btn.dataset.filter;
+    document.querySelectorAll('.card').forEach(card => {
+      if (filter === 'all') { card.classList.remove('hidden'); return; }
+      if (filter === 'starred') { card.classList.toggle('hidden', !card.hasAttribute('data-starred')); return; }
+      card.classList.toggle('hidden', card.dataset.area !== filter);
+    });
+    document.querySelectorAll('.section').forEach(sec => {
+      if (filter === 'all' || filter === 'starred') { sec.classList.remove('hidden'); return; }
+      sec.classList.toggle('hidden', sec.id !== filter);
+    });
+  });
+});
+</script>
+</body>
+</html>
