@@ -105,6 +105,65 @@ body { font-family: 'Heebo', sans-serif; background: #f8f9fa; color: #1a1a2e; li
 /* Footer */
 .footer { background: #1a472a; color: rgba(255,255,255,0.7); text-align: center; padding: 1.5rem; font-size: 0.85rem; }
 
+/* Card Thumbnail */
+.card-images {
+  margin: -1.25rem -1.25rem 1rem -1.25rem;
+  border-radius: 14px 14px 0 0;
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+  background: #e8e8e8;
+}
+.card-images img {
+  width: 100%; height: 200px; object-fit: cover; display: block;
+  transition: opacity 0.3s;
+}
+.card-images .img-count {
+  position: absolute; bottom: 8px; left: 8px;
+  background: rgba(0,0,0,0.6); color: white; padding: 0.2rem 0.6rem;
+  border-radius: 6px; font-size: 0.75rem; font-weight: 500;
+}
+.card-images .img-placeholder {
+  width: 100%; height: 200px; display: flex; align-items: center; justify-content: center;
+  color: #999; font-size: 0.9rem;
+}
+
+/* Lightbox Gallery */
+.lightbox {
+  position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.95); z-index: 9999;
+  display: none; flex-direction: column; align-items: center; justify-content: center;
+}
+.lightbox.active { display: flex; }
+.lightbox-close {
+  position: absolute; top: 16px; right: 16px;
+  background: rgba(255,255,255,0.2); border: none; color: white;
+  width: 44px; height: 44px; border-radius: 50%; font-size: 1.5rem;
+  cursor: pointer; z-index: 10001; display: flex; align-items: center; justify-content: center;
+}
+.lightbox-close:hover { background: rgba(255,255,255,0.3); }
+.lightbox-img-wrap {
+  flex: 1; display: flex; align-items: center; justify-content: center;
+  width: 100%; overflow: hidden; padding: 60px 50px;
+}
+.lightbox-img-wrap img {
+  max-width: 100%; max-height: 100%; object-fit: contain; border-radius: 8px;
+}
+.lightbox-nav {
+  position: absolute; top: 50%; transform: translateY(-50%);
+  background: rgba(255,255,255,0.15); border: none; color: white;
+  width: 48px; height: 48px; border-radius: 50%; font-size: 1.5rem;
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+  transition: background 0.2s;
+}
+.lightbox-nav:hover { background: rgba(255,255,255,0.3); }
+.lightbox-prev { left: 12px; }
+.lightbox-next { right: 12px; }
+.lightbox-counter {
+  position: absolute; bottom: 16px;
+  color: rgba(255,255,255,0.7); font-size: 0.9rem;
+}
+
 /* Mobile fixes */
 @media (max-width: 480px) {
   .hero h1 { font-size: 1.5rem; }
@@ -113,6 +172,11 @@ body { font-family: 'Heebo', sans-serif; background: #f8f9fa; color: #1a1a2e; li
   .hero .stat .num { font-size: 1.2rem; }
   .card-details { grid-template-columns: 1fr; }
   .card-label { font-weight: 600; }
+  .card-images img { height: 180px; }
+  .lightbox-img-wrap { padding: 50px 8px; }
+  .lightbox-nav { width: 36px; height: 36px; font-size: 1.2rem; }
+  .lightbox-prev { left: 4px; }
+  .lightbox-next { right: 4px; }
 }
 
 .hidden { display: none !important; }
@@ -164,7 +228,7 @@ body { font-family: 'Heebo', sans-serif; background: #f8f9fa; color: #1a1a2e; li
 <div class="section" id="sde-warburg">
   <div class="section-title">🌾 שדה ורבורג <span class="section-count">17 נכסים</span></div>
 
-  <div class="card starred" data-area="sde-warburg" data-starred>
+  <div data-prop="1" class="card starred" data-area="sde-warburg" data-starred>
     <div class="card-header">
       <div><span class="card-num">#1</span> <span class="star-badge">⭐ מומלץ</span></div>
     </div>
@@ -180,7 +244,7 @@ body { font-family: 'Heebo', sans-serif; background: #f8f9fa; color: #1a1a2e; li
     </div>
   </div>
 
-  <div class="card starred" data-area="sde-warburg" data-starred>
+  <div data-prop="2" class="card starred" data-area="sde-warburg" data-starred>
     <div class="card-header">
       <div><span class="card-num">#2</span> <span class="star-badge">⭐ מומלץ</span></div>
     </div>
@@ -195,7 +259,7 @@ body { font-family: 'Heebo', sans-serif; background: #f8f9fa; color: #1a1a2e; li
     </div>
   </div>
 
-  <div class="card starred" data-area="sde-warburg" data-starred>
+  <div data-prop="3" class="card starred" data-area="sde-warburg" data-starred>
     <div class="card-header">
       <div><span class="card-num">#3</span> <span class="star-badge">⭐ מומלץ</span></div>
     </div>
@@ -209,7 +273,7 @@ body { font-family: 'Heebo', sans-serif; background: #f8f9fa; color: #1a1a2e; li
     </div>
   </div>
 
-  <div class="card starred" data-area="sde-warburg" data-starred>
+  <div data-prop="4" class="card starred" data-area="sde-warburg" data-starred>
     <div class="card-header">
       <div><span class="card-num">#4</span> <span class="star-badge">⭐ מומלץ</span></div>
     </div>
@@ -224,7 +288,8 @@ body { font-family: 'Heebo', sans-serif; background: #f8f9fa; color: #1a1a2e; li
     </div>
   </div>
 
-  <div class="card" data-area="sde-warburg">
+  <div data-prop="5" class="card" data-area="sde-warburg">
+    <div class="card-images" onclick="openLightbox(5)"><div class="img-placeholder">📷</div></div>
     <div class="card-header"><span class="card-num">#5</span></div>
     <div class="card-title">נחלה 14 דונם — נוף מדהים</div>
     <div class="card-details">
@@ -237,7 +302,7 @@ body { font-family: 'Heebo', sans-serif; background: #f8f9fa; color: #1a1a2e; li
     </div>
   </div>
 
-  <div class="card" data-area="sde-warburg">
+  <div data-prop="6" class="card" data-area="sde-warburg">
     <div class="card-header"><span class="card-num">#6</span></div>
     <div class="card-title">נחלה 30 דונם (B)</div>
     <div class="card-details">
@@ -249,7 +314,7 @@ body { font-family: 'Heebo', sans-serif; background: #f8f9fa; color: #1a1a2e; li
     </div>
   </div>
 
-  <div class="card" data-area="sde-warburg">
+  <div data-prop="7" class="card" data-area="sde-warburg">
     <div class="card-header"><span class="card-num">#7</span></div>
     <div class="card-title">נחלה 24 דונם</div>
     <div class="card-details">
@@ -261,7 +326,7 @@ body { font-family: 'Heebo', sans-serif; background: #f8f9fa; color: #1a1a2e; li
     </div>
   </div>
 
-  <div class="card" data-area="sde-warburg">
+  <div data-prop="8" class="card" data-area="sde-warburg">
     <div class="card-header"><span class="card-num">#8</span></div>
     <div class="card-title">נחלה 15 דונם</div>
     <div class="card-details">
@@ -273,7 +338,7 @@ body { font-family: 'Heebo', sans-serif; background: #f8f9fa; color: #1a1a2e; li
     </div>
   </div>
 
-  <div class="card" data-area="sde-warburg">
+  <div data-prop="9" class="card" data-area="sde-warburg">
     <div class="card-header"><span class="card-num">#9</span></div>
     <div class="card-title">נחלה 15 דונם (B)</div>
     <div class="card-details">
@@ -285,7 +350,7 @@ body { font-family: 'Heebo', sans-serif; background: #f8f9fa; color: #1a1a2e; li
     </div>
   </div>
 
-  <div class="card" data-area="sde-warburg">
+  <div data-prop="10" class="card" data-area="sde-warburg">
     <div class="card-header"><span class="card-num">#10</span></div>
     <div class="card-title">נחלה 13.5 דונם</div>
     <div class="card-details">
@@ -297,7 +362,7 @@ body { font-family: 'Heebo', sans-serif; background: #f8f9fa; color: #1a1a2e; li
     </div>
   </div>
 
-  <div class="card" data-area="sde-warburg">
+  <div data-prop="11" class="card" data-area="sde-warburg">
     <div class="card-header"><span class="card-num">#11</span></div>
     <div class="card-title">נחלה 14 דונם</div>
     <div class="card-details">
@@ -309,7 +374,7 @@ body { font-family: 'Heebo', sans-serif; background: #f8f9fa; color: #1a1a2e; li
     </div>
   </div>
 
-  <div class="card" data-area="sde-warburg">
+  <div data-prop="12" class="card" data-area="sde-warburg">
     <div class="card-header"><span class="card-num">#12</span></div>
     <div class="card-title">נחלה 14 דונם — רחוב ההדרים</div>
     <div class="card-details">
@@ -321,7 +386,7 @@ body { font-family: 'Heebo', sans-serif; background: #f8f9fa; color: #1a1a2e; li
     </div>
   </div>
 
-  <div class="card" data-area="sde-warburg">
+  <div data-prop="13" class="card" data-area="sde-warburg">
     <div class="card-header"><span class="card-num">#13</span></div>
     <div class="card-title">נחלה 14 דונם — עוזי גיל</div>
     <div class="card-details">
@@ -333,7 +398,7 @@ body { font-family: 'Heebo', sans-serif; background: #f8f9fa; color: #1a1a2e; li
     </div>
   </div>
 
-  <div class="card" data-area="sde-warburg">
+  <div data-prop="14" class="card" data-area="sde-warburg">
     <div class="card-header"><span class="card-num">#14</span></div>
     <div class="card-title">נחלה 7 דונם — גרוסמן</div>
     <div class="card-details">
@@ -345,7 +410,7 @@ body { font-family: 'Heebo', sans-serif; background: #f8f9fa; color: #1a1a2e; li
     </div>
   </div>
 
-  <div class="card" data-area="sde-warburg">
+  <div data-prop="15" class="card" data-area="sde-warburg">
     <div class="card-header"><span class="card-num">#15</span></div>
     <div class="card-title">נחלה 7 דונם — ארז בשרון</div>
     <div class="card-details">
@@ -357,7 +422,7 @@ body { font-family: 'Heebo', sans-serif; background: #f8f9fa; color: #1a1a2e; li
     </div>
   </div>
 
-  <div class="card" data-area="sde-warburg">
+  <div data-prop="16" class="card" data-area="sde-warburg">
     <div class="card-header"><span class="card-num">#16</span></div>
     <div class="card-title">נחלה 14 דונם (B)</div>
     <div class="card-actions">
@@ -365,7 +430,7 @@ body { font-family: 'Heebo', sans-serif; background: #f8f9fa; color: #1a1a2e; li
     </div>
   </div>
 
-  <div class="card" data-area="sde-warburg">
+  <div data-prop="17" class="card" data-area="sde-warburg">
     <div class="card-header"><span class="card-num">#17</span></div>
     <div class="card-title">נחלה ~14.8 דונם</div>
     <div class="card-details">
@@ -382,7 +447,8 @@ body { font-family: 'Heebo', sans-serif; background: #f8f9fa; color: #1a1a2e; li
 <div class="section" id="bnei-zion">
   <div class="section-title">🏘️ בני ציון <span class="section-count">5 נכסים</span></div>
 
-  <div class="card starred" data-area="bnei-zion" data-starred>
+  <div data-prop="18" class="card starred" data-area="bnei-zion" data-starred>
+    <div class="card-images" onclick="openLightbox(18)"><div class="img-placeholder">📷</div></div>
     <div class="card-header">
       <div><span class="card-num">#18</span> <span class="star-badge">⭐ מומלץ</span></div>
     </div>
@@ -397,7 +463,8 @@ body { font-family: 'Heebo', sans-serif; background: #f8f9fa; color: #1a1a2e; li
     </div>
   </div>
 
-  <div class="card" data-area="bnei-zion">
+  <div data-prop="19" class="card" data-area="bnei-zion">
+    <div class="card-images" onclick="openLightbox(19)"><div class="img-placeholder">📷</div></div>
     <div class="card-header"><span class="card-num">#19</span></div>
     <div class="card-title">נחלה 15 דונם — 700 מ"ר בנוי</div>
     <div class="card-details">
@@ -410,7 +477,8 @@ body { font-family: 'Heebo', sans-serif; background: #f8f9fa; color: #1a1a2e; li
     </div>
   </div>
 
-  <div class="card" data-area="bnei-zion">
+  <div data-prop="20" class="card" data-area="bnei-zion">
+    <div class="card-images" onclick="openLightbox(20)"><div class="img-placeholder">📷</div></div>
     <div class="card-header"><span class="card-num">#20</span></div>
     <div class="card-title">נחלה 19 דונם — חוות סוסים</div>
     <div class="card-details">
@@ -422,7 +490,8 @@ body { font-family: 'Heebo', sans-serif; background: #f8f9fa; color: #1a1a2e; li
     </div>
   </div>
 
-  <div class="card" data-area="bnei-zion">
+  <div data-prop="21" class="card" data-area="bnei-zion">
+    <div class="card-images" onclick="openLightbox(21)"><div class="img-placeholder">📷</div></div>
     <div class="card-header"><span class="card-num">#21</span></div>
     <div class="card-title">אחוזה ענקית — 15 דונם</div>
     <div class="card-details">
@@ -435,7 +504,8 @@ body { font-family: 'Heebo', sans-serif; background: #f8f9fa; color: #1a1a2e; li
     </div>
   </div>
 
-  <div class="card" data-area="bnei-zion">
+  <div data-prop="22" class="card" data-area="bnei-zion">
+    <div class="card-images" onclick="openLightbox(22)"><div class="img-placeholder">📷</div></div>
     <div class="card-header"><span class="card-num">#22</span></div>
     <div class="card-title">מבחר נחלות — 10 דונם</div>
     <div class="card-details">
@@ -452,7 +522,8 @@ body { font-family: 'Heebo', sans-serif; background: #f8f9fa; color: #1a1a2e; li
 <div class="section" id="rishpon">
   <div class="section-title">🌳 רשפון <span class="section-count">2 נכסים</span></div>
 
-  <div class="card" data-area="rishpon">
+  <div data-prop="23" class="card" data-area="rishpon">
+    <div class="card-images" onclick="openLightbox(23)"><div class="img-placeholder">📷</div></div>
     <div class="card-header"><span class="card-num">#23</span></div>
     <div class="card-title">נחלה עם חוות סוסים — 9 דונם</div>
     <div class="card-details">
@@ -465,7 +536,8 @@ body { font-family: 'Heebo', sans-serif; background: #f8f9fa; color: #1a1a2e; li
     </div>
   </div>
 
-  <div class="card" data-area="rishpon">
+  <div data-prop="24" class="card" data-area="rishpon">
+    <div class="card-images" onclick="openLightbox(24)"><div class="img-placeholder">📷</div></div>
     <div class="card-header"><span class="card-num">#24</span></div>
     <div class="card-title">בית ים תיכוני — 8 דונם</div>
     <div class="card-details">
@@ -483,7 +555,8 @@ body { font-family: 'Heebo', sans-serif; background: #f8f9fa; color: #1a1a2e; li
 <div class="section" id="other">
   <div class="section-title">📍 אזורים סמוכים <span class="section-count">2 נכסים</span></div>
 
-  <div class="card starred" data-area="other" data-starred>
+  <div data-prop="25" class="card starred" data-area="other" data-starred>
+    <div class="card-images" onclick="openLightbox(25)"><div class="img-placeholder">📷</div></div>
     <div class="card-header">
       <div><span class="card-num">#25</span> <span class="star-badge">⭐ מומלץ</span></div>
     </div>
@@ -498,7 +571,8 @@ body { font-family: 'Heebo', sans-serif; background: #f8f9fa; color: #1a1a2e; li
     </div>
   </div>
 
-  <div class="card" data-area="other">
+  <div data-prop="26" class="card" data-area="other">
+    <div class="card-images" onclick="openLightbox(26)"><div class="img-placeholder">📷</div></div>
     <div class="card-header"><span class="card-num">#26</span></div>
     <div class="card-title">צור משה — 16 דונם</div>
     <div class="card-details">
@@ -546,22 +620,117 @@ body { font-family: 'Heebo', sans-serif; background: #f8f9fa; color: #1a1a2e; li
   מקורות: Yad2, Naot Shiran, Uzi Gil, Nadlan Bneyzion, Facebook
 </div>
 
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+  <button class="lightbox-nav lightbox-prev" onclick="navLightbox(-1)">‹</button>
+  <div class="lightbox-img-wrap">
+    <img id="lightbox-img" src="" alt="">
+  </div>
+  <button class="lightbox-nav lightbox-next" onclick="navLightbox(1)">›</button>
+  <div class="lightbox-counter" id="lightbox-counter"></div>
+</div>
+
 <script>
+// Filter logic
 document.querySelectorAll('.filter-btn').forEach(btn => {
   btn.addEventListener('click', () => {
     document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
     const filter = btn.dataset.filter;
+    const isAll = filter === 'all';
+    const isStarred = filter === 'starred';
+    const isArea = !isAll && !isStarred;
+    // Show/hide summary + top picks
+    var summary = document.querySelector('.summary');
+    var topPicks = document.querySelector('.top-picks');
+    if (summary) summary.classList.toggle('hidden', isArea);
+    if (topPicks) topPicks.classList.toggle('hidden', isArea);
+    // Filter cards
     document.querySelectorAll('.card').forEach(card => {
-      if (filter === 'all') { card.classList.remove('hidden'); return; }
-      if (filter === 'starred') { card.classList.toggle('hidden', !card.hasAttribute('data-starred')); return; }
+      if (isAll) { card.classList.remove('hidden'); return; }
+      if (isStarred) { card.classList.toggle('hidden', !card.hasAttribute('data-starred')); return; }
       card.classList.toggle('hidden', card.dataset.area !== filter);
     });
+    // Filter sections
     document.querySelectorAll('.section').forEach(sec => {
-      if (filter === 'all' || filter === 'starred') { sec.classList.remove('hidden'); return; }
+      if (isAll || isStarred) { sec.classList.remove('hidden'); return; }
       sec.classList.toggle('hidden', sec.id !== filter);
     });
+    // Scroll to first visible section
+    if (isArea) {
+      var target = document.getElementById(filter);
+      if (target) target.scrollIntoView({behavior: 'smooth', block: 'start'});
+    }
   });
+});
+
+// ── Hardcoded image URLs per property (from luxury-realestate-israel.com) ──
+const L = 'https://luxury-realestate-israel.com/inventory_images/800/';
+const propertyImages = {
+  5: [L+'1565_12.jpg',L+'1565_11.jpg',L+'1565_13.jpg',L+'1565_15.jpg',L+'1565_18.jpg',L+'1565_110.jpg',L+'1565_111.jpg',L+'1565_118.jpg',L+'1565_119.jpg',L+'1565_121.jpg',L+'1565_123.jpg',L+'1565_124.jpg',L+'1565_125.jpg'],
+  18: [L+'1469_14692.jpg',L+'1469_14691.jpg'],
+  19: [L+'1539_img_0371.jpg'],
+  20: [L+'1540_0485d1c5-857a-447a-946c-328a3d7267a2.jpg'],
+  21: [L+'837_g0044969x123.jpg',L+'837_photo-2022-06-22-11-31-50.jpg',L+'837_photo-2022-06-22-11-31-49.jpg'],
+  22: [L+'1511_img_0371.jpg'],
+  23: [L+'1541_0485d1c5-857a-447a-946c-328a3d7267a2.jpg'],
+  24: [L+'727_aice2.jpg',L+'727_4.jpg',L+'727_13.jpg',L+'727_img_0214.jpg',L+'727_img_0235.jpg',L+'727_9.jpg',L+'727_5.jpg',L+'727_img_0210.jpg',L+'727_8.jpg',L+'727_3.jpg',L+'727_10.jpg',L+'727_2.jpg',L+'727_12.jpg',L+'727_11.jpg'],
+  25: [L+'1569_2fbffab5-e57d-4ed2-8880-ae1c6b5861de.jpg'],
+  26: [L+'1633_photo-2025-10-28-10-28-48-2.jpg',L+'1633_photo-2025-10-28-10-28-48-3.jpg',L+'1633_photo-2025-10-28-10-28-48-8.jpg',L+'1633_photo-2025-10-28-10-28-48-9.jpg',L+'1633_photo-2025-10-28-10-28-48-11.jpg',L+'1633_photo-2025-10-28-10-28-48-12.jpg',L+'1633_photo-2025-10-28-10-28-48-13.jpg',L+'1633_photo-2025-10-28-10-28-48-21.jpg',L+'1633_photo-2025-10-28-10-28-48-17.jpg',L+'1633_photo-2025-10-28-10-28-48-20.jpg',L+'1633_photo-2025-10-28-10-28-48-15.jpg',L+'1633_photo-2025-10-28-10-28-48-10.jpg']
+};
+
+// ── Proxy helper (luxury-realestate-israel.com needs proxy for CORS) ──
+function px(url) { return '/api/proxy?url=' + encodeURIComponent(url); }
+
+// ── Lightbox ──
+let lbImages = [], lbIdx = 0;
+
+function openLightbox(propNum) {
+  const imgs = propertyImages[propNum];
+  if (!imgs || !imgs.length) return;
+  lbImages = imgs; lbIdx = 0;
+  showLbImage();
+  document.getElementById('lightbox').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('active');
+  document.body.style.overflow = '';
+}
+function navLightbox(dir) {
+  lbIdx = (lbIdx + dir + lbImages.length) % lbImages.length;
+  showLbImage();
+}
+function showLbImage() {
+  document.getElementById('lightbox-img').src = px(lbImages[lbIdx]);
+  document.getElementById('lightbox-counter').textContent = (lbIdx + 1) + ' / ' + lbImages.length;
+}
+
+// Keyboard & touch
+document.addEventListener('keydown', e => {
+  if (!document.getElementById('lightbox').classList.contains('active')) return;
+  if (e.key === 'Escape') closeLightbox();
+  if (e.key === 'ArrowLeft') navLightbox(1);
+  if (e.key === 'ArrowRight') navLightbox(-1);
+});
+let tsX = 0;
+document.getElementById('lightbox').addEventListener('touchstart', e => { tsX = e.changedTouches[0].screenX; });
+document.getElementById('lightbox').addEventListener('touchend', e => {
+  const d = e.changedTouches[0].screenX - tsX;
+  if (Math.abs(d) > 50) navLightbox(d > 0 ? 1 : -1);
+});
+
+// ── Render thumbnails on page load ──
+document.addEventListener('DOMContentLoaded', () => {
+  for (const [num, imgs] of Object.entries(propertyImages)) {
+    const card = document.querySelector('[data-prop="' + num + '"]');
+    if (!card) continue;
+    const wrap = card.querySelector('.card-images');
+    if (!wrap) continue;
+    const count = imgs.length > 1 ? '<div class="img-count">📷 ' + imgs.length + ' תמונות</div>' : '';
+    wrap.innerHTML = '<img src="' + px(imgs[0]) + '" alt="תמונת נכס" loading="lazy">' + count;
+  }
 });
 </script>
 </body>
