@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>וילות להשכרה במושבים — מרכז ישראל 2026</title>
+<title>וילות להשכרה — מרכז ישראל 2026</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
@@ -28,14 +28,9 @@ body { font-family: 'Heebo', sans-serif; background: #f5f7f5; color: #1a1a2e; li
 .property-card { background: white; border-radius: 14px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.06); border-right: 4px solid #2d6a4f; transition: transform 0.2s, box-shadow 0.2s; }
 .property-card:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.12); }
 .card-image { position: relative; width: 100%; height: 200px; overflow: hidden; background: #e8f5e9; }
-.card-image img { width: 100%; height: 100%; object-fit: cover; display: none; }
-.card-image img.active { display: block; }
+.card-image img { width: 100%; height: 100%; object-fit: cover; }
 .card-image.no-image { display: flex; align-items: center; justify-content: center; }
 .no-img-text { font-size: 3rem; opacity: 0.3; }
-.img-prev, .img-next { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.5); color: white; border: none; padding: 6px 10px; cursor: pointer; font-size: 16px; border-radius: 50%; z-index: 2; }
-.img-prev { left: 6px; }
-.img-next { right: 6px; }
-.img-count { position: absolute; bottom: 6px; right: 6px; background: rgba(0,0,0,0.6); color: white; padding: 2px 8px; border-radius: 10px; font-size: 11px; }
 .card-body { padding: 1rem; }
 .card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.5rem; }
 .card-title { font-size: 1rem; font-weight: 700; color: #1a472a; }
@@ -50,8 +45,11 @@ body { font-family: 'Heebo', sans-serif; background: #f5f7f5; color: #1a1a2e; li
 .no-shelter-tag { background: #fce4ec; color: #c62828; }
 .unknown-shelter-tag { background: #f5f5f5; color: #999; }
 .card-desc { font-size: 0.82rem; color: #666; margin-bottom: 0.5rem; line-height: 1.5; }
-.btn-link { display: inline-block; background: #2d6a4f; color: white; padding: 0.4rem 1rem; border-radius: 8px; text-decoration: none; font-size: 0.82rem; font-weight: 500; }
+.card-actions { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+.btn-link { display: inline-block; background: #2d6a4f; color: white; padding: 0.4rem 0.8rem; border-radius: 8px; text-decoration: none; font-size: 0.78rem; font-weight: 500; }
 .btn-link:hover { background: #1a472a; }
+.btn-maps { background: #1976d2; }
+.btn-maps:hover { background: #1565c0; }
 .footer { background: #1a472a; color: rgba(255,255,255,0.7); text-align: center; padding: 1.5rem; font-size: 0.85rem; margin-top: 2rem; }
 @media (max-width: 480px) {
   .hero h1 { font-size: 1.4rem; }
@@ -67,187 +65,94 @@ body { font-family: 'Heebo', sans-serif; background: #f5f7f5; color: #1a1a2e; li
   <a href="villas.html" class="active">🏠 וילות להשכרה</a>
 </nav>
 <div class="hero">
-  <h1>🏠 וילות להשכרה במושבים — מרכז ישראל 2026</h1>
-  <p>וילות ובתים פרטיים על מגרשים של 2 דונם ומעלה — 30-50 דקות מתל אביב</p>
+  <h1>🏠 וילות ובתים פרטיים להשכרה — מרכז ישראל 2026</h1>
+  <p>בתים פרטיים להשכרה באזורים קרובים לתל אביב — 15-30 דקות מרחוב עמדן</p>
 </div>
 <div class="controls">
   <div class="filter-row">
-    <button class="filter-btn active" onclick="filterCards('all')">הכל (15)</button>
-    <button class="filter-btn" onclick="filterCards('sharon')">השרון</button>
-    <button class="filter-btn" onclick="filterCards('emek-hefer')">עמק חפר</button>
+    <button class="filter-btn active" onclick="filterCards('all')">הכל (13)</button>
+    <button class="filter-btn" onclick="filterCards('הוד השרון')">הוד השרון (6)</button>
+    <button class="filter-btn" onclick="filterCards('הרצליה')">הרצליה (2)</button>
+    <button class="filter-btn" onclick="filterCards('כפר סבא')">כפר סבא (4)</button>
+    <button class="filter-btn" onclick="filterCards('רעננה')">רעננה (1)</button>
+
   </div>
   <div class="sort-row">
     <span class="sort-label">מיון:</span>
     <button class="sort-btn active" onclick="sortCards('price',false,this)">מחיר ↓</button>
     <button class="sort-btn" onclick="sortCards('price',true,this)">מחיר ↑</button>
-    <button class="sort-btn" onclick="sortCards('land',false,this)">שטח ↓</button>
     <button class="sort-btn" onclick="sortCards('quality',false,this)">איכות ↓</button>
     <button class="sort-btn" onclick="sortCards('distance',true,this)">מרחק ↑</button>
   </div>
 </div>
 <div id="cards-container">
 
-    <div class="property-card" data-area="sharon" data-price="0" data-land="0" data-quality="3" data-distance="35">
-      <div class="card-image no-image"><div class="no-img-text">🏡</div></div>
+    <div class="property-card" data-area="רעננה" data-price="35000" data-land="0" data-quality="4" data-distance="25">
+      <div class="card-image" data-total="1" data-current="0"><img src="/images/villas/48bXgLesmIn/1.jpg" alt="רעננה קרית דוד רמז" loading="lazy" class="gallery-img active"></div>
       <div class="card-body">
         <div class="card-header">
-          <h3 class="card-title">כפר הס</h3>
-          <span class="card-price">צרו קשר</span>
-        </div>
-        <div class="card-meta">
-          <span>🏠 5.5 חדרים</span>
-          
-          
-          <span class="drive-badge">🚗 35 דק׳ מרח׳ עמדן</span>
-        </div>
-        <div class="card-ratings">
-          <span>⭐ מצב: ★★★☆☆</span>
-          <span>🌿 גינון: ★★★★☆</span>
-        </div>
-        <div class="card-tags">
-          <span class="tag unknown-shelter-tag">❓ ממ"ד לא ידוע</span>
-          <span class="tag">ממ"ד</span><span class="tag">כניסה נפרדת לקליניקה/משרד</span><span class="tag">עצי פרי</span><span class="tag">חצר מגודרת</span><span class="tag">אפשר כלב</span>
-        </div>
-        <p class="card-desc">בית פרטי גדול עם ממ"ד וכניסה נפרדת לקליניקה. חצר ענקית ומגודרת עם עצי פרי. דונם וחצי של טבע וירוק. 5.5 חדרים - 4 חדרי שינה + סלון ומטבח מרווחים + ממ"ד. מושב מבוקש בלב השרון, ליד תל מונד, כביש 4. אפשר כלב. טווח ארוך.</p>
-        <a href="https://www.yad2.co.il/realestate/rent/center-and-sharon?area=70&city=0187&propertyGroup=houses" target="_blank" class="btn-link">🔗 למודעה המלאה</a>
-      </div>
-    </div>
-    <div class="property-card" data-area="sharon" data-price="0" data-land="0" data-quality="5" data-distance="25">
-      <div class="card-image no-image"><div class="no-img-text">🏡</div></div>
-      <div class="card-body">
-        <div class="card-header">
-          <h3 class="card-title">ארסוף</h3>
-          <span class="card-price">צרו קשר</span>
+          <h3 class="card-title">רעננה — קרית דוד רמז</h3>
+          <span class="card-price">₪35,000/חודש</span>
         </div>
         <div class="card-meta">
           <span>🏠 8 חדרים</span>
-          
-          
-          <span class="drive-badge">🚗 25 דק׳ מרח׳ עמדן</span>
-        </div>
-        <div class="card-ratings">
-          <span>⭐ מצב: ★★★★★</span>
-          <span>🌿 גינון: ★★★★★</span>
-        </div>
-        <div class="card-tags">
-          <span class="tag unknown-shelter-tag">❓ ממ"ד לא ידוע</span>
-          <span class="tag">ארסוף - ישוב יוקרה על הים</span><span class="tag">550 מ"ר בנוי</span><span class="tag">8 חדרים</span>
-        </div>
-        <p class="card-desc">וילה יוקרתית בארסוף - ישוב מבוקש ביותר על חוף הים. בית פרטי, 8 חדרים, 550 מ"ר בנוי, קומה 2. מניח מגרש גדול מאוד - ארסוף ידוע במגרשים של 2-5 דונם. תיווך.</p>
-        <a href="https://www.yad2.co.il/realestate/rent/center-and-sharon?city=6300&propertyGroup=houses" target="_blank" class="btn-link">🔗 למודעה המלאה</a>
-      </div>
-    </div>
-    <div class="property-card" data-area="sharon" data-price="0" data-land="0" data-quality="5" data-distance="25">
-      <div class="card-image no-image"><div class="no-img-text">🏡</div></div>
-      <div class="card-body">
-        <div class="card-header">
-          <h3 class="card-title">ארסוף</h3>
-          <span class="card-price">צרו קשר</span>
-        </div>
-        <div class="card-meta">
-          <span>🏠 6 חדרים</span>
-          
-          
-          <span class="drive-badge">🚗 25 דק׳ מרח׳ עמדן</span>
-        </div>
-        <div class="card-ratings">
-          <span>⭐ מצב: ★★★★★</span>
-          <span>🌿 גינון: ★★★★★</span>
-        </div>
-        <div class="card-tags">
-          <span class="tag unknown-shelter-tag">❓ ממ"ד לא ידוע</span>
-          <span class="tag">דופלקס</span><span class="tag">700 מ"ר בנוי</span><span class="tag">ארסוף על הים</span><span class="tag">נוף ים אפשרי</span>
-        </div>
-        <p class="card-desc">דופלקס מפואר בארסוף, קומת קרקע, 700 מ"ר בנוי, 6 חדרים. נכס ייחודי ברמה גבוהה ביותר. ארסוף - ישוב קהילתי על חוף הים. שטח מגרש גדול מאוד.</p>
-        <a href="https://www.yad2.co.il/realestate/rent/center-and-sharon?city=6300&propertyGroup=houses" target="_blank" class="btn-link">🔗 למודעה המלאה</a>
-      </div>
-    </div>
-    <div class="property-card" data-area="sharon" data-price="0" data-land="0" data-quality="5" data-distance="25">
-      <div class="card-image no-image"><div class="no-img-text">🏡</div></div>
-      <div class="card-body">
-        <div class="card-header">
-          <h3 class="card-title">ארסוף</h3>
-          <span class="card-price">צרו קשר</span>
-        </div>
-        <div class="card-meta">
-          <span>🏠 7 חדרים</span>
-          
-          
-          <span class="drive-badge">🚗 25 דק׳ מרח׳ עמדן</span>
-        </div>
-        <div class="card-ratings">
-          <span>⭐ מצב: ★★★★★</span>
-          <span>🌿 גינון: ★★★★☆</span>
-        </div>
-        <div class="card-tags">
-          <span class="tag unknown-shelter-tag">❓ ממ"ד לא ידוע</span>
-          <span class="tag">500 מ"ר בנוי</span><span class="tag">ארסוף</span><span class="tag">7 חדרים</span>
-        </div>
-        <p class="card-desc">בית פרטי בארסוף, 7 חדרים, 500 מ"ר בנוי. ישוב עילי על חוף הים, שקט ופסטורלי. נכס יוקרתי.</p>
-        <a href="https://www.yad2.co.il/realestate/rent/center-and-sharon?city=6300&propertyGroup=houses" target="_blank" class="btn-link">🔗 למודעה המלאה</a>
-      </div>
-    </div>
-    <div class="property-card" data-area="sharon" data-price="0" data-land="0" data-quality="4" data-distance="25">
-      <div class="card-image no-image"><div class="no-img-text">🏡</div></div>
-      <div class="card-body">
-        <div class="card-header">
-          <h3 class="card-title">ארסוף</h3>
-          <span class="card-price">צרו קשר</span>
-        </div>
-        <div class="card-meta">
-          <span>🏠 7 חדרים</span>
-          
-          
+          <span>📐 400 מ"ר</span>
           <span class="drive-badge">🚗 25 דק׳ מרח׳ עמדן</span>
         </div>
         <div class="card-ratings">
           <span>⭐ מצב: ★★★★☆</span>
-          <span>🌿 גינון: ★★★★☆</span>
+          <span>🌿 גינון: ★★★☆☆</span>
         </div>
         <div class="card-tags">
           <span class="tag unknown-shelter-tag">❓ ממ"ד לא ידוע</span>
-          <span class="tag">330 מ"ר בנוי</span><span class="tag">ארסוף</span><span class="tag">קומת קרקע</span>
+          <span class="tag">רעננה</span>
+          <span class='tag'>קרית דוד רמז</span>
         </div>
-        <p class="card-desc">בית פרטי בארסוף 1, ארסוף. 7 חדרים, 330 מ"ר בנוי, קומת קרקע. מגרש גדול.</p>
-        <a href="https://www.yad2.co.il/realestate/rent/center-and-sharon?city=6300&propertyGroup=houses" target="_blank" class="btn-link">🔗 למודעה המלאה</a>
+        <p class="card-desc">כתובת: רעננה 22, קרית דוד רמז. בית פרטי להשכרה ברעננה</p>
+        <div class="card-actions">
+          <a href="https://www.madlan.co.il/listings/48bXgLesmIn" target="_blank" class="btn-link">🔗 למודעה במדלן</a>
+          <a href="https://www.google.com/maps/search/?api=1&query=%D7%A8%D7%A2%D7%A0%D7%A0%D7%94%2022%2C%20%D7%A7%D7%A8%D7%99%D7%AA%20%D7%93%D7%95%D7%93%20%D7%A8%D7%9E%D7%96%2C%20%D7%A8%D7%A2%D7%A0%D7%A0%D7%94%2C%20Israel" target="_blank" class="btn-link btn-maps">📍 Google Maps</a>
+        </div>
       </div>
     </div>
-    <div class="property-card" data-area="emek-hefer" data-price="0" data-land="0" data-quality="5" data-distance="50">
-      <div class="card-image no-image"><div class="no-img-text">🏡</div></div>
+    <div class="property-card" data-area="הוד השרון" data-price="34000" data-land="0" data-quality="4" data-distance="25">
+      <div class="card-image" data-total="1" data-current="0"><img src="/images/villas/i8gaNtTOq9Y/1.jpg" alt="הוד השרון שיכון עממי" loading="lazy" class="gallery-img active"></div>
       <div class="card-body">
         <div class="card-header">
-          <h3 class="card-title">בית ינאי</h3>
-          <span class="card-price">צרו קשר</span>
+          <h3 class="card-title">הוד השרון — שיכון עממי</h3>
+          <span class="card-price">₪34,000/חודש</span>
         </div>
         <div class="card-meta">
-          <span>🏠 6 חדרים</span>
-          
-          
-          <span class="drive-badge">🚗 50 דק׳ מרח׳ עמדן</span>
+          <span>🏠 7 חדרים</span>
+          <span>📐 260 מ"ר</span>
+          <span class="drive-badge">🚗 25 דק׳ מרח׳ עמדן</span>
         </div>
         <div class="card-ratings">
-          <span>⭐ מצב: ★★★★★</span>
-          <span>🌿 גינון: ★★★★★</span>
+          <span>⭐ מצב: ★★★★☆</span>
+          <span>🌿 גינון: ★★★☆☆</span>
         </div>
         <div class="card-tags">
           <span class="tag unknown-shelter-tag">❓ ממ"ד לא ידוע</span>
-          <span class="tag">הצוק - נוף ים</span><span class="tag">מגרש ענק מאוד</span><span class="tag">6 חדרים</span><span class="tag">יוקרה</span>
+          <span class="tag">הוד השרון</span>
+          <span class='tag'>שיכון עממי</span>
         </div>
-        <p class="card-desc">נכס יוקרה בשכונת הצוק בבית ינאי, על חוף הים הצפוני. 6 חדרים, 250 מ"ר בנוי, קומת קרקע. בית ינאי הצוק - מגרשים גדולים מאוד (2-4 דונם) שטח קרקע עצום. ישוב עם נוף ים. תיווך.</p>
-        <a href="https://www.homee.co.il/בית-ינאי/נכסים/" target="_blank" class="btn-link">🔗 למודעה המלאה</a>
+        <p class="card-desc">כתובת: שיכון עממי. בית פרטי להשכרה בהוד השרון</p>
+        <div class="card-actions">
+          <a href="https://www.madlan.co.il/listings/i8gaNtTOq9Y" target="_blank" class="btn-link">🔗 למודעה במדלן</a>
+          <a href="https://www.google.com/maps/search/?api=1&query=%D7%A9%D7%99%D7%9B%D7%95%D7%9F%20%D7%A2%D7%9E%D7%9E%D7%99%2C%20%D7%94%D7%95%D7%93%20%D7%94%D7%A9%D7%A8%D7%95%D7%9F%2C%20Israel" target="_blank" class="btn-link btn-maps">📍 Google Maps</a>
+        </div>
       </div>
     </div>
-    <div class="property-card" data-area="sharon" data-price="0" data-land="0" data-quality="4" data-distance="30">
-      <div class="card-image no-image"><div class="no-img-text">🏡</div></div>
+    <div class="property-card" data-area="כפר סבא" data-price="25000" data-land="0" data-quality="4" data-distance="30">
+      <div class="card-image" data-total="1" data-current="0"><img src="/images/villas/gA0tceP2mLA/1.jpg" alt="כפר סבא דרום מזרח" loading="lazy" class="gallery-img active"></div>
       <div class="card-body">
         <div class="card-header">
-          <h3 class="card-title">בצרה</h3>
-          <span class="card-price">צרו קשר</span>
+          <h3 class="card-title">כפר סבא — דרום מזרח</h3>
+          <span class="card-price">₪25,000/חודש</span>
         </div>
         <div class="card-meta">
-          <span>🏠 6 חדרים</span>
-          
-          
+          <span>🏠 8 חדרים</span>
+          <span>📐 444 מ"ר</span>
           <span class="drive-badge">🚗 30 דק׳ מרח׳ עמדן</span>
         </div>
         <div class="card-ratings">
@@ -256,99 +161,27 @@ body { font-family: 'Heebo', sans-serif; background: #f5f7f5; color: #1a1a2e; li
         </div>
         <div class="card-tags">
           <span class="tag unknown-shelter-tag">❓ ממ"ד לא ידוע</span>
-          <span class="tag">270 מ"ר בנוי</span><span class="tag">6 חדרים</span><span class="tag">קומת קרקע</span>
+          <span class="tag">כפר סבא</span>
+          <span class='tag'>דרום מזרח</span>
         </div>
-        <p class="card-desc">בית פרטי בבצרה, 6 חדרים, 270 מ"ר בנוי, קומת קרקע. בצרה - מושב בשרון. תיווך.</p>
-        <a href="https://www.homee.co.il/בצרה/נכסים/" target="_blank" class="btn-link">🔗 למודעה המלאה</a>
+        <p class="card-desc">כתובת: ניל"י 13, דרום מזרח. בית פרטי להשכרה בכפר סבא</p>
+        <div class="card-actions">
+          <a href="https://www.madlan.co.il/listings/gA0tceP2mLA" target="_blank" class="btn-link">🔗 למודעה במדלן</a>
+          <a href="https://www.google.com/maps/search/?api=1&query=%D7%A0%D7%99%D7%9C%22%D7%99%2013%2C%20%D7%93%D7%A8%D7%95%D7%9D%20%D7%9E%D7%96%D7%A8%D7%97%2C%20%D7%9B%D7%A4%D7%A8%20%D7%A1%D7%91%D7%90%2C%20Israel" target="_blank" class="btn-link btn-maps">📍 Google Maps</a>
+        </div>
       </div>
     </div>
-    <div class="property-card" data-area="other" data-price="0" data-land="0" data-quality="3" data-distance="45">
-      <div class="card-image no-image"><div class="no-img-text">🏡</div></div>
+    <div class="property-card" data-area="הוד השרון" data-price="20000" data-land="0" data-quality="4" data-distance="25">
+      <div class="card-image" data-total="1" data-current="0"><img src="/images/villas/O9cSPrcb8QE/1.jpg" alt="הוד השרון רמתיים" loading="lazy" class="gallery-img active"></div>
       <div class="card-body">
         <div class="card-header">
-          <h3 class="card-title">חרב לאת</h3>
-          <span class="card-price">צרו קשר</span>
+          <h3 class="card-title">הוד השרון — רמתיים</h3>
+          <span class="card-price">₪20,000/חודש</span>
         </div>
         <div class="card-meta">
           <span>🏠 7 חדרים</span>
-          
-          
-          <span class="drive-badge">🚗 45 דק׳ מרח׳ עמדן</span>
-        </div>
-        <div class="card-ratings">
-          <span>⭐ מצב: ★★★☆☆</span>
-          <span>🌿 גינון: ★★★☆☆</span>
-        </div>
-        <div class="card-tags">
-          <span class="tag unknown-shelter-tag">❓ ממ"ד לא ידוע</span>
-          <span class="tag">שפלה</span><span class="tag">7 חדרים</span><span class="tag">220 מ"ר</span>
-        </div>
-        <p class="card-desc">בית פרטי במושב חרב לאת בשפלה, 7 חדרים, 220 מ"ר בנוי. חרב לאת - מושב חקלאי בשפלה, כ-35-40 דקות מת"א. מגרשים גדולים אופייניים לאזור.</p>
-        <a href="https://www.homee.co.il/חרב-לאת/נכסים/?es=81277" target="_blank" class="btn-link">🔗 למודעה המלאה</a>
-      </div>
-    </div>
-    <div class="property-card" data-area="sharon" data-price="0" data-land="0" data-quality="3" data-distance="50">
-      <div class="card-image no-image"><div class="no-img-text">🏡</div></div>
-      <div class="card-body">
-        <div class="card-header">
-          <h3 class="card-title">חיבת ציון</h3>
-          <span class="card-price">צרו קשר</span>
-        </div>
-        <div class="card-meta">
-          <span>🏠 7 חדרים</span>
-          
-          
-          <span class="drive-badge">🚗 50 דק׳ מרח׳ עמדן</span>
-        </div>
-        <div class="card-ratings">
-          <span>⭐ מצב: ★★★☆☆</span>
-          <span>🌿 גינון: ★★★☆☆</span>
-        </div>
-        <div class="card-tags">
-          <span class="tag unknown-shelter-tag">❓ ממ"ד לא ידוע</span>
-          <span class="tag">280 מ"ר בנוי</span><span class="tag">7 חדרים</span>
-        </div>
-        <p class="card-desc">בית פרטי בחיבת ציון, 7 חדרים, 280 מ"ר בנוי. מושב בשרון. תיווך.</p>
-        <a href="https://www.homee.co.il/חיבת-ציון/נכסים/?es=70032" target="_blank" class="btn-link">🔗 למודעה המלאה</a>
-      </div>
-    </div>
-    <div class="property-card" data-area="sharon" data-price="0" data-land="0" data-quality="3" data-distance="50">
-      <div class="card-image no-image"><div class="no-img-text">🏡</div></div>
-      <div class="card-body">
-        <div class="card-header">
-          <h3 class="card-title">חיבת ציון</h3>
-          <span class="card-price">צרו קשר</span>
-        </div>
-        <div class="card-meta">
-          <span>🏠 7 חדרים</span>
-          
-          
-          <span class="drive-badge">🚗 50 דק׳ מרח׳ עמדן</span>
-        </div>
-        <div class="card-ratings">
-          <span>⭐ מצב: ★★★☆☆</span>
-          <span>🌿 גינון: ★★★☆☆</span>
-        </div>
-        <div class="card-tags">
-          <span class="tag unknown-shelter-tag">❓ ממ"ד לא ידוע</span>
-          <span class="tag">7 חדרים</span><span class="tag">קומת קרקע</span>
-        </div>
-        <p class="card-desc">בית פרטי בחיבת ציון, 7 חדרים, 190 מ"ר בנוי, קומת קרקע. מושב בשרון. תיווך.</p>
-        <a href="https://www.homee.co.il/חיבת-ציון/נכסים/?es=45636" target="_blank" class="btn-link">🔗 למודעה המלאה</a>
-      </div>
-    </div>
-    <div class="property-card" data-area="other" data-price="0" data-land="0" data-quality="4" data-distance="35">
-      <div class="card-image no-image"><div class="no-img-text">🏡</div></div>
-      <div class="card-body">
-        <div class="card-header">
-          <h3 class="card-title">שילת</h3>
-          <span class="card-price">צרו קשר</span>
-        </div>
-        <div class="card-meta">
-          <span>🏠 8 חדרים</span>
-          
-          
-          <span class="drive-badge">🚗 35 דק׳ מרח׳ עמדן</span>
+          <span>📐 300 מ"ר</span>
+          <span class="drive-badge">🚗 25 דק׳ מרח׳ עמדן</span>
         </div>
         <div class="card-ratings">
           <span>⭐ מצב: ★★★★☆</span>
@@ -356,114 +189,270 @@ body { font-family: 'Heebo', sans-serif; background: #f5f7f5; color: #1a1a2e; li
         </div>
         <div class="card-tags">
           <span class="tag unknown-shelter-tag">❓ ממ"ד לא ידוע</span>
-          <span class="tag">500 מ"ר בנוי</span><span class="tag">8 חדרים</span><span class="tag">נכס גדול</span>
+          <span class="tag">הוד השרון</span>
+          <span class='tag'>רמתיים</span>
         </div>
-        <p class="card-desc">בית פרטי בשילת (נורית 3), 8 חדרים, 500 מ"ר בנוי, קומה 1. שילת - מושב בין אזור השפלה למרכז. נכס גדול מאוד - 500 מ"ר בנוי מצביע על מגרש 2+ דונם.</p>
-        <a href="https://www.homee.co.il/שילת/נכסים/" target="_blank" class="btn-link">🔗 למודעה המלאה</a>
+        <p class="card-desc">כתובת: איתמר בן אבי 11, רמתיים. בית פרטי להשכרה בהוד השרון</p>
+        <div class="card-actions">
+          <a href="https://www.madlan.co.il/listings/O9cSPrcb8QE" target="_blank" class="btn-link">🔗 למודעה במדלן</a>
+          <a href="https://www.google.com/maps/search/?api=1&query=%D7%90%D7%99%D7%AA%D7%9E%D7%A8%20%D7%91%D7%9F%20%D7%90%D7%91%D7%99%2011%2C%20%D7%A8%D7%9E%D7%AA%D7%99%D7%99%D7%9D%2C%20%D7%94%D7%95%D7%93%20%D7%94%D7%A9%D7%A8%D7%95%D7%9F%2C%20Israel" target="_blank" class="btn-link btn-maps">📍 Google Maps</a>
+        </div>
       </div>
     </div>
-    <div class="property-card" data-area="emek-hefer" data-price="0" data-land="0" data-quality="3" data-distance="45">
-      <div class="card-image no-image"><div class="no-img-text">🏡</div></div>
+    <div class="property-card" data-area="הרצליה" data-price="20000" data-land="0" data-quality="4" data-distance="15">
+      <div class="card-image" data-total="1" data-current="0"><img src="/images/villas/4vv88rR9WHT/1.jpg" alt="הרצליה הרצליה ב'" loading="lazy" class="gallery-img active"></div>
       <div class="card-body">
         <div class="card-header">
-          <h3 class="card-title">צוקי ים</h3>
-          <span class="card-price">צרו קשר</span>
-        </div>
-        <div class="card-meta">
-          <span>🏠 5 חדרים</span>
-          
-          
-          <span class="drive-badge">🚗 45 דק׳ מרח׳ עמדן</span>
-        </div>
-        <div class="card-ratings">
-          <span>⭐ מצב: ★★★☆☆</span>
-          <span>🌿 גינון: ★★★☆☆</span>
-        </div>
-        <div class="card-tags">
-          <span class="tag unknown-shelter-tag">❓ ממ"ד לא ידוע</span>
-          <span class="tag">חוף הים</span><span class="tag">עמק חפר</span><span class="tag">צוקי ים</span>
-        </div>
-        <p class="card-desc">בית פרטי בצוקי ים, דרך הים, 5 חדרים, 165 מ"ר בנוי. ישוב על חוף הים בעמק חפר. תיווך.</p>
-        <a href="https://www.homee.co.il/צוקי-ים/נכסים/?es=27009" target="_blank" class="btn-link">🔗 למודעה המלאה</a>
-      </div>
-    </div>
-    <div class="property-card" data-area="emek-hefer" data-price="0" data-land="0" data-quality="3" data-distance="45">
-      <div class="card-image no-image"><div class="no-img-text">🏡</div></div>
-      <div class="card-body">
-        <div class="card-header">
-          <h3 class="card-title">צוקי ים</h3>
-          <span class="card-price">צרו קשר</span>
-        </div>
-        <div class="card-meta">
-          <span>🏠 4.5 חדרים</span>
-          
-          
-          <span class="drive-badge">🚗 45 דק׳ מרח׳ עמדן</span>
-        </div>
-        <div class="card-ratings">
-          <span>⭐ מצב: ★★★☆☆</span>
-          <span>🌿 גינון: ★★★☆☆</span>
-        </div>
-        <div class="card-tags">
-          <span class="tag unknown-shelter-tag">❓ ממ"ד לא ידוע</span>
-          <span class="tag">חוף הים</span><span class="tag">עמק חפר</span>
-        </div>
-        <p class="card-desc">בית פרטי בצוקי ים, האלמוג 51, 4.5 חדרים, 140 מ"ר בנוי. תיווך.</p>
-        <a href="https://www.homee.co.il/צוקי-ים/נכסים/?es=41865" target="_blank" class="btn-link">🔗 למודעה המלאה</a>
-      </div>
-    </div>
-    <div class="property-card" data-area="sharon" data-price="0" data-land="0" data-quality="3" data-distance="30">
-      <div class="card-image no-image"><div class="no-img-text">🏡</div></div>
-      <div class="card-body">
-        <div class="card-header">
-          <h3 class="card-title">נירית</h3>
-          <span class="card-price">צרו קשר</span>
-        </div>
-        <div class="card-meta">
-          <span>🏠 5 חדרים</span>
-          
-          
-          <span class="drive-badge">🚗 30 דק׳ מרח׳ עמדן</span>
-        </div>
-        <div class="card-ratings">
-          <span>⭐ מצב: ★★★☆☆</span>
-          <span>🌿 גינון: ★★★☆☆</span>
-        </div>
-        <div class="card-tags">
-          <span class="tag unknown-shelter-tag">❓ ממ"ד לא ידוע</span>
-          <span class="tag">קרוב לרעננה</span><span class="tag">5 חדרים</span><span class="tag">190 מ"ר</span>
-        </div>
-        <p class="card-desc">בית פרטי בנירית (מושב סמוך לרעננה), 5 חדרים, 190 מ"ר בנוי, קומת קרקע. תיווך.</p>
-        <a href="https://www.homee.co.il/נירית/נכסים/" target="_blank" class="btn-link">🔗 למודעה המלאה</a>
-      </div>
-    </div>
-    <div class="property-card" data-area="sharon" data-price="0" data-land="0" data-quality="3" data-distance="45">
-      <div class="card-image no-image"><div class="no-img-text">🏡</div></div>
-      <div class="card-body">
-        <div class="card-header">
-          <h3 class="card-title">קיבוץ בחן</h3>
-          <span class="card-price">צרו קשר</span>
+          <h3 class="card-title">הרצליה — הרצליה ב'</h3>
+          <span class="card-price">₪20,000/חודש</span>
         </div>
         <div class="card-meta">
           <span>🏠 6 חדרים</span>
-          
-          
-          <span class="drive-badge">🚗 45 דק׳ מרח׳ עמדן</span>
+          <span>📐 250 מ"ר</span>
+          <span class="drive-badge">🚗 15 דק׳ מרח׳ עמדן</span>
         </div>
         <div class="card-ratings">
-          <span>⭐ מצב: ★★★☆☆</span>
+          <span>⭐ מצב: ★★★★☆</span>
           <span>🌿 גינון: ★★★☆☆</span>
         </div>
         <div class="card-tags">
           <span class="tag unknown-shelter-tag">❓ ממ"ד לא ידוע</span>
-          <span class="tag">ממ"ד</span><span class="tag">גינה מסודרת</span><span class="tag">6 חדרים</span><span class="tag">כניסה מיידית</span>
+          <span class="tag">הרצליה</span>
+          <span class='tag'>הרצליה ב'</span>
         </div>
-        <p class="card-desc">וילה בהרחבה של קיבוץ בחן. 176 מ"ר בנוי במפלס אחד, שישה חדרים, מגרש 500 מ"ר. חלל משפחה ענק, מטבח נהדר, ממ"ד. גינה מסודרת. אפשרות כניסה מיידית.</p>
-        <a href="https://www.homee.co.il/בחן/נכסים/?es=69978" target="_blank" class="btn-link">🔗 למודעה המלאה</a>
+        <p class="card-desc">כתובת: הרצליה ב'. בית פרטי להשכרה בהרצליה</p>
+        <div class="card-actions">
+          <a href="https://www.madlan.co.il/listings/4vv88rR9WHT" target="_blank" class="btn-link">🔗 למודעה במדלן</a>
+          <a href="https://www.google.com/maps/search/?api=1&query=%D7%94%D7%A8%D7%A6%D7%9C%D7%99%D7%94%20%D7%91%27%2C%20%D7%94%D7%A8%D7%A6%D7%9C%D7%99%D7%94%2C%20Israel" target="_blank" class="btn-link btn-maps">📍 Google Maps</a>
+        </div>
+      </div>
+    </div>
+    <div class="property-card" data-area="הוד השרון" data-price="18500" data-land="0" data-quality="4" data-distance="25">
+      <div class="card-image" data-total="1" data-current="0"><img src="/images/villas/6xLEIZCfZBw/1.jpg" alt="הוד השרון רסקו" loading="lazy" class="gallery-img active"></div>
+      <div class="card-body">
+        <div class="card-header">
+          <h3 class="card-title">הוד השרון — רסקו</h3>
+          <span class="card-price">₪18,500/חודש</span>
+        </div>
+        <div class="card-meta">
+          <span>🏠 8 חדרים</span>
+          <span>📐 275 מ"ר</span>
+          <span class="drive-badge">🚗 25 דק׳ מרח׳ עמדן</span>
+        </div>
+        <div class="card-ratings">
+          <span>⭐ מצב: ★★★★☆</span>
+          <span>🌿 גינון: ★★★☆☆</span>
+        </div>
+        <div class="card-tags">
+          <span class="tag unknown-shelter-tag">❓ ממ"ד לא ידוע</span>
+          <span class="tag">הוד השרון</span>
+          <span class='tag'>רסקו</span>
+        </div>
+        <p class="card-desc">כתובת: הגנים, רסקו. בית פרטי להשכרה בהוד השרון</p>
+        <div class="card-actions">
+          <a href="https://www.madlan.co.il/listings/6xLEIZCfZBw" target="_blank" class="btn-link">🔗 למודעה במדלן</a>
+          <a href="https://www.google.com/maps/search/?api=1&query=%D7%94%D7%92%D7%A0%D7%99%D7%9D%2C%20%D7%A8%D7%A1%D7%A7%D7%95%2C%20%D7%94%D7%95%D7%93%20%D7%94%D7%A9%D7%A8%D7%95%D7%9F%2C%20Israel" target="_blank" class="btn-link btn-maps">📍 Google Maps</a>
+        </div>
+      </div>
+    </div>
+    <div class="property-card" data-area="כפר סבא" data-price="15500" data-land="0" data-quality="4" data-distance="30">
+      <div class="card-image" data-total="1" data-current="0"><img src="/images/villas/mp35klVwC2Q/1.jpg" alt="כפר סבא הפארק" loading="lazy" class="gallery-img active"></div>
+      <div class="card-body">
+        <div class="card-header">
+          <h3 class="card-title">כפר סבא — הפארק</h3>
+          <span class="card-price">₪15,500/חודש</span>
+        </div>
+        <div class="card-meta">
+          <span>🏠 7 חדרים</span>
+          <span>📐 380 מ"ר</span>
+          <span class="drive-badge">🚗 30 דק׳ מרח׳ עמדן</span>
+        </div>
+        <div class="card-ratings">
+          <span>⭐ מצב: ★★★★☆</span>
+          <span>🌿 גינון: ★★★☆☆</span>
+        </div>
+        <div class="card-tags">
+          <span class="tag unknown-shelter-tag">❓ ממ"ד לא ידוע</span>
+          <span class="tag">כפר סבא</span>
+          <span class='tag'>הפארק</span>
+        </div>
+        <p class="card-desc">כתובת: משה דיין 66, הפארק. בית פרטי להשכרה בכפר סבא</p>
+        <div class="card-actions">
+          <a href="https://www.madlan.co.il/listings/mp35klVwC2Q" target="_blank" class="btn-link">🔗 למודעה במדלן</a>
+          <a href="https://www.google.com/maps/search/?api=1&query=%D7%9E%D7%A9%D7%94%20%D7%93%D7%99%D7%99%D7%9F%2066%2C%20%D7%94%D7%A4%D7%90%D7%A8%D7%A7%2C%20%D7%9B%D7%A4%D7%A8%20%D7%A1%D7%91%D7%90%2C%20Israel" target="_blank" class="btn-link btn-maps">📍 Google Maps</a>
+        </div>
+      </div>
+    </div>
+    <div class="property-card" data-area="הוד השרון" data-price="15000" data-land="0" data-quality="4" data-distance="25">
+      <div class="card-image" data-total="1" data-current="0"><img src="/images/villas/Tzy5hOqBwIs/1.jpg" alt="הוד השרון הדר" loading="lazy" class="gallery-img active"></div>
+      <div class="card-body">
+        <div class="card-header">
+          <h3 class="card-title">הוד השרון — הדר</h3>
+          <span class="card-price">₪15,000/חודש</span>
+        </div>
+        <div class="card-meta">
+          <span>🏠 6 חדרים</span>
+          <span>📐 230 מ"ר</span>
+          <span class="drive-badge">🚗 25 דק׳ מרח׳ עמדן</span>
+        </div>
+        <div class="card-ratings">
+          <span>⭐ מצב: ★★★★☆</span>
+          <span>🌿 גינון: ★★★☆☆</span>
+        </div>
+        <div class="card-tags">
+          <span class="tag unknown-shelter-tag">❓ ממ"ד לא ידוע</span>
+          <span class="tag">הוד השרון</span>
+          <span class='tag'>הדר</span>
+        </div>
+        <p class="card-desc">כתובת: הדר. בית פרטי להשכרה בהוד השרון</p>
+        <div class="card-actions">
+          <a href="https://www.madlan.co.il/listings/Tzy5hOqBwIs" target="_blank" class="btn-link">🔗 למודעה במדלן</a>
+          <a href="https://www.google.com/maps/search/?api=1&query=%D7%94%D7%93%D7%A8%2C%20%D7%94%D7%95%D7%93%20%D7%94%D7%A9%D7%A8%D7%95%D7%9F%2C%20Israel" target="_blank" class="btn-link btn-maps">📍 Google Maps</a>
+        </div>
+      </div>
+    </div>
+    <div class="property-card" data-area="הוד השרון" data-price="15000" data-land="0" data-quality="4" data-distance="25">
+      <div class="card-image" data-total="1" data-current="0"><img src="/images/villas/NDJINRdESUa/1.jpg" alt="הוד השרון תל דן" loading="lazy" class="gallery-img active"></div>
+      <div class="card-body">
+        <div class="card-header">
+          <h3 class="card-title">הוד השרון — תל דן</h3>
+          <span class="card-price">₪15,000/חודש</span>
+        </div>
+        <div class="card-meta">
+          <span>🏠 5 חדרים</span>
+          <span>📐 170 מ"ר</span>
+          <span class="drive-badge">🚗 25 דק׳ מרח׳ עמדן</span>
+        </div>
+        <div class="card-ratings">
+          <span>⭐ מצב: ★★★★☆</span>
+          <span>🌿 גינון: ★★★☆☆</span>
+        </div>
+        <div class="card-tags">
+          <span class="tag unknown-shelter-tag">❓ ממ"ד לא ידוע</span>
+          <span class="tag">הוד השרון</span>
+          <span class='tag'>תל דן</span>
+        </div>
+        <p class="card-desc">כתובת: תל דן. בית פרטי להשכרה בהוד השרון</p>
+        <div class="card-actions">
+          <a href="https://www.madlan.co.il/listings/NDJINRdESUa" target="_blank" class="btn-link">🔗 למודעה במדלן</a>
+          <a href="https://www.google.com/maps/search/?api=1&query=%D7%AA%D7%9C%20%D7%93%D7%9F%2C%20%D7%94%D7%95%D7%93%20%D7%94%D7%A9%D7%A8%D7%95%D7%9F%2C%20Israel" target="_blank" class="btn-link btn-maps">📍 Google Maps</a>
+        </div>
+      </div>
+    </div>
+    <div class="property-card" data-area="הרצליה" data-price="12900" data-land="0" data-quality="4" data-distance="15">
+      <div class="card-image" data-total="1" data-current="0"><img src="/images/villas/AvGNOKsS6sn/1.jpg" alt="הרצליה הירוקה המרכזית" loading="lazy" class="gallery-img active"></div>
+      <div class="card-body">
+        <div class="card-header">
+          <h3 class="card-title">הרצליה — הירוקה המרכזית</h3>
+          <span class="card-price">₪12,900/חודש</span>
+        </div>
+        <div class="card-meta">
+          <span>🏠 6 חדרים</span>
+          <span>📐 200 מ"ר</span>
+          <span class="drive-badge">🚗 15 דק׳ מרח׳ עמדן</span>
+        </div>
+        <div class="card-ratings">
+          <span>⭐ מצב: ★★★★☆</span>
+          <span>🌿 גינון: ★★★☆☆</span>
+        </div>
+        <div class="card-tags">
+          <span class="tag unknown-shelter-tag">❓ ממ"ד לא ידוע</span>
+          <span class="tag">הרצליה</span>
+          <span class='tag'>הירוקה המרכזית</span>
+        </div>
+        <p class="card-desc">כתובת: גולומב, הירוקה המרכזית. בית פרטי להשכרה בהרצליה</p>
+        <div class="card-actions">
+          <a href="https://www.madlan.co.il/listings/AvGNOKsS6sn" target="_blank" class="btn-link">🔗 למודעה במדלן</a>
+          <a href="https://www.google.com/maps/search/?api=1&query=%D7%92%D7%95%D7%9C%D7%95%D7%9E%D7%91%2C%20%D7%94%D7%99%D7%A8%D7%95%D7%A7%D7%94%20%D7%94%D7%9E%D7%A8%D7%9B%D7%96%D7%99%D7%AA%2C%20%D7%94%D7%A8%D7%A6%D7%9C%D7%99%D7%94%2C%20Israel" target="_blank" class="btn-link btn-maps">📍 Google Maps</a>
+        </div>
+      </div>
+    </div>
+    <div class="property-card" data-area="כפר סבא" data-price="12500" data-land="0" data-quality="4" data-distance="30">
+      <div class="card-image" data-total="1" data-current="0"><img src="/images/villas/vXeKF32VtAi/1.jpg" alt="כפר סבא הפארק" loading="lazy" class="gallery-img active"></div>
+      <div class="card-body">
+        <div class="card-header">
+          <h3 class="card-title">כפר סבא — הפארק</h3>
+          <span class="card-price">₪12,500/חודש</span>
+        </div>
+        <div class="card-meta">
+          <span>🏠 6 חדרים</span>
+          <span>📐 180 מ"ר</span>
+          <span class="drive-badge">🚗 30 דק׳ מרח׳ עמדן</span>
+        </div>
+        <div class="card-ratings">
+          <span>⭐ מצב: ★★★★☆</span>
+          <span>🌿 גינון: ★★★☆☆</span>
+        </div>
+        <div class="card-tags">
+          <span class="tag unknown-shelter-tag">❓ ממ"ד לא ידוע</span>
+          <span class="tag">כפר סבא</span>
+          <span class='tag'>הפארק</span>
+        </div>
+        <p class="card-desc">כתובת: הפארק. בית פרטי להשכרה בכפר סבא</p>
+        <div class="card-actions">
+          <a href="https://www.madlan.co.il/listings/vXeKF32VtAi" target="_blank" class="btn-link">🔗 למודעה במדלן</a>
+          <a href="https://www.google.com/maps/search/?api=1&query=%D7%94%D7%A4%D7%90%D7%A8%D7%A7%2C%20%D7%9B%D7%A4%D7%A8%20%D7%A1%D7%91%D7%90%2C%20Israel" target="_blank" class="btn-link btn-maps">📍 Google Maps</a>
+        </div>
+      </div>
+    </div>
+    <div class="property-card" data-area="הוד השרון" data-price="12000" data-land="0" data-quality="4" data-distance="25">
+      <div class="card-image" data-total="1" data-current="0"><img src="/images/villas/LxC5XiZXYeg/1.jpg" alt="הוד השרון מגדיאל" loading="lazy" class="gallery-img active"></div>
+      <div class="card-body">
+        <div class="card-header">
+          <h3 class="card-title">הוד השרון — מגדיאל</h3>
+          <span class="card-price">₪12,000/חודש</span>
+        </div>
+        <div class="card-meta">
+          <span>🏠 5 חדרים</span>
+          <span>📐 120 מ"ר</span>
+          <span class="drive-badge">🚗 25 דק׳ מרח׳ עמדן</span>
+        </div>
+        <div class="card-ratings">
+          <span>⭐ מצב: ★★★★☆</span>
+          <span>🌿 גינון: ★★★☆☆</span>
+        </div>
+        <div class="card-tags">
+          <span class="tag unknown-shelter-tag">❓ ממ"ד לא ידוע</span>
+          <span class="tag">הוד השרון</span>
+          <span class='tag'>מגדיאל</span>
+        </div>
+        <p class="card-desc">כתובת: מגדיאל. בית פרטי להשכרה בהוד השרון</p>
+        <div class="card-actions">
+          <a href="https://www.madlan.co.il/listings/LxC5XiZXYeg" target="_blank" class="btn-link">🔗 למודעה במדלן</a>
+          <a href="https://www.google.com/maps/search/?api=1&query=%D7%9E%D7%92%D7%93%D7%99%D7%90%D7%9C%2C%20%D7%94%D7%95%D7%93%20%D7%94%D7%A9%D7%A8%D7%95%D7%9F%2C%20Israel" target="_blank" class="btn-link btn-maps">📍 Google Maps</a>
+        </div>
+      </div>
+    </div>
+    <div class="property-card" data-area="כפר סבא" data-price="9000" data-land="0" data-quality="4" data-distance="30">
+      <div class="card-image" data-total="1" data-current="0"><img src="/images/villas/d2JpRBuhfbR/1.jpg" alt="כפר סבא שיכון מזרחי" loading="lazy" class="gallery-img active"></div>
+      <div class="card-body">
+        <div class="card-header">
+          <h3 class="card-title">כפר סבא — שיכון מזרחי</h3>
+          <span class="card-price">₪9,000/חודש</span>
+        </div>
+        <div class="card-meta">
+          <span>🏠 5 חדרים</span>
+          <span>📐 140 מ"ר</span>
+          <span class="drive-badge">🚗 30 דק׳ מרח׳ עמדן</span>
+        </div>
+        <div class="card-ratings">
+          <span>⭐ מצב: ★★★★☆</span>
+          <span>🌿 גינון: ★★★☆☆</span>
+        </div>
+        <div class="card-tags">
+          <span class="tag unknown-shelter-tag">❓ ממ"ד לא ידוע</span>
+          <span class="tag">כפר סבא</span>
+          <span class='tag'>שיכון מזרחי</span>
+        </div>
+        <p class="card-desc">כתובת: רחל המשוררת, שיכון מזרחי. בית פרטי להשכרה בכפר סבא</p>
+        <div class="card-actions">
+          <a href="https://www.madlan.co.il/listings/d2JpRBuhfbR" target="_blank" class="btn-link">🔗 למודעה במדלן</a>
+          <a href="https://www.google.com/maps/search/?api=1&query=%D7%A8%D7%97%D7%9C%20%D7%94%D7%9E%D7%A9%D7%95%D7%A8%D7%A8%D7%AA%2C%20%D7%A9%D7%99%D7%9B%D7%95%D7%9F%20%D7%9E%D7%96%D7%A8%D7%97%D7%99%2C%20%D7%9B%D7%A4%D7%A8%20%D7%A1%D7%91%D7%90%2C%20Israel" target="_blank" class="btn-link btn-maps">📍 Google Maps</a>
+        </div>
       </div>
     </div>
 </div>
-<div class="footer">וילות להשכרה במושבים — מרכז ישראל 2026 | עודכן אוטומטית</div>
+<div class="footer">וילות להשכרה — מרכז ישראל 2026 | מודעות ממדלן | כל הלינקים מובילים למודעה המקורית</div>
 <script>
 function filterCards(area) {
   document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
@@ -484,28 +473,6 @@ function sortCards(field, asc, btn) {
   cards.forEach(card => container.appendChild(card));
   document.querySelectorAll('.sort-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
-}
-function prevImg(btn) {
-  const container = btn.closest('.card-image');
-  const imgs = container.querySelectorAll('.gallery-img');
-  let cur = parseInt(container.dataset.current);
-  imgs[cur].classList.remove('active');
-  cur = (cur - 1 + imgs.length) % imgs.length;
-  imgs[cur].classList.add('active');
-  container.dataset.current = cur;
-  const count = container.querySelector('.img-count');
-  if (count) count.textContent = `${cur+1}/${imgs.length}`;
-}
-function nextImg(btn) {
-  const container = btn.closest('.card-image');
-  const imgs = container.querySelectorAll('.gallery-img');
-  let cur = parseInt(container.dataset.current);
-  imgs[cur].classList.remove('active');
-  cur = (cur + 1) % imgs.length;
-  imgs[cur].classList.add('active');
-  container.dataset.current = cur;
-  const count = container.querySelector('.img-count');
-  if (count) count.textContent = `${cur+1}/${imgs.length}`;
 }
 sortCards('price', false, document.querySelector('.sort-btn'));
 </script>
