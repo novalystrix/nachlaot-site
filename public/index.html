@@ -10,6 +10,17 @@
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body { font-family: 'Heebo', sans-serif; background: #f8f9fa; color: #1a1a2e; line-height: 1.6; }
 
+/* Nav */
+.top-nav {
+  background: #0f2e1a; display: flex; justify-content: center; gap: 0; font-size: 0.95rem;
+}
+.top-nav a {
+  color: rgba(255,255,255,0.7); text-decoration: none; padding: 0.6rem 1.5rem;
+  font-weight: 500; transition: all 0.2s; border-bottom: 3px solid transparent;
+}
+.top-nav a:hover { color: white; background: rgba(255,255,255,0.05); }
+.top-nav a.active { color: white; border-bottom-color: #40916c; background: rgba(255,255,255,0.08); }
+
 /* Hero */
 .hero {
   background: linear-gradient(135deg, #1a472a 0%, #2d6a4f 50%, #40916c 100%);
@@ -179,10 +190,19 @@ body { font-family: 'Heebo', sans-serif; background: #f8f9fa; color: #1a1a2e; li
   .lightbox-next { right: 4px; }
 }
 
+@media (max-width: 480px) {
+  .top-nav { font-size: 0.85rem; }
+  .top-nav a { padding: 0.5rem 1rem; }
+}
 .hidden { display: none !important; }
 </style>
 </head>
 <body>
+
+<nav class="top-nav">
+  <a href="index.html" class="active">🏡 למכירה</a>
+  <a href="rentals.html">🔑 להשכרה</a>
+</nav>
 
 <div class="hero">
   <h1>🏡 נחלות למכירה</h1>
