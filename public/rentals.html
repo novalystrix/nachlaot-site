@@ -102,31 +102,121 @@ body { font-family: 'Heebo', sans-serif; background: #f8f9fa; color: #1a1a2e; li
 .ratings { display: flex; gap: 1rem; margin-bottom: 0.5rem; font-size: 0.85rem; }
 .rating-item { display: flex; align-items: center; gap: 0.25rem; }
 
-/* Card Gallery */
-.card-gallery {
+/* Image Carousel */
+.card-carousel {
+  margin: -1.25rem -1.25rem 1rem -1.25rem;
+  border-radius: 14px 14px 0 0;
+  overflow: hidden;
+  position: relative;
+  height: 250px;
+  background: #e8e8e8;
+}
+.card-carousel .carousel-slide {
+  width: 100%; height: 100%; position: relative;
+}
+.card-carousel .carousel-slide img {
+  width: 100%; height: 250px; object-fit: cover; display: block;
+  position: absolute; top: 0; left: 0; opacity: 0; transition: opacity 0.3s;
+}
+.card-carousel .carousel-slide img.active { opacity: 1; }
+.card-carousel .carousel-nav {
+  position: absolute; top: 50%; transform: translateY(-50%);
+  background: rgba(0,0,0,0.4); color: white; border: none;
+  width: 36px; height: 36px; border-radius: 50%; font-size: 1.2rem;
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+  transition: background 0.2s; z-index: 2;
+}
+.card-carousel .carousel-nav:hover { background: rgba(0,0,0,0.6); }
+.card-carousel .carousel-prev { right: 12px; }
+.card-carousel .carousel-next { left: 12px; }
+.card-carousel .carousel-dots {
+  position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%);
+  display: flex; gap: 6px; z-index: 2;
+}
+.card-carousel .carousel-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: rgba(255,255,255,0.5); border: none; cursor: pointer;
+  transition: background 0.2s;
+}
+.card-carousel .carousel-dot.active { background: white; }
+.card-carousel .img-count {
+  position: absolute; top: 10px; left: 10px;
+  background: rgba(0,0,0,0.5); color: white; padding: 0.2rem 0.6rem;
+  border-radius: 6px; font-size: 0.75rem; font-weight: 500; z-index: 2;
+}
+
+/* Card Gallery Placeholder (no images) */
+.card-gallery-placeholder {
   margin: -1.25rem -1.25rem 1rem -1.25rem;
   border-radius: 14px 14px 0 0;
   overflow: hidden;
   background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
-  height: 120px;
+  height: 180px;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.75rem;
+  flex-direction: column;
+  gap: 0.5rem;
   position: relative;
 }
-.card-gallery .gallery-icon {
-  font-size: 2rem;
-  opacity: 0.4;
+.card-gallery-placeholder .placeholder-icon {
+  font-size: 3rem;
+  opacity: 0.3;
 }
-.card-gallery .gallery-btn {
+.card-gallery-placeholder .gallery-btn {
   display: inline-flex; align-items: center; gap: 0.4rem;
   padding: 0.5rem 1.2rem; border-radius: 8px;
   background: rgba(45,106,79,0.85); color: white;
   text-decoration: none; font-family: 'Heebo'; font-size: 0.85rem;
   font-weight: 500; transition: all 0.2s; backdrop-filter: blur(4px);
 }
-.card-gallery .gallery-btn:hover { background: rgba(26,71,42,0.95); }
+.card-gallery-placeholder .gallery-btn:hover { background: rgba(26,71,42,0.95); }
+
+/* Lightbox */
+.lightbox {
+  position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.95); z-index: 9999;
+  display: none; flex-direction: column; align-items: center; justify-content: center;
+}
+.lightbox.active { display: flex; }
+.lightbox-close {
+  position: absolute; top: 16px; right: 16px;
+  background: rgba(255,255,255,0.2); border: none; color: white;
+  width: 44px; height: 44px; border-radius: 50%; font-size: 1.5rem;
+  cursor: pointer; z-index: 10001; display: flex; align-items: center; justify-content: center;
+}
+.lightbox-close:hover { background: rgba(255,255,255,0.3); }
+.lightbox-img-wrap {
+  flex: 1; display: flex; align-items: center; justify-content: center;
+  width: 100%; overflow: hidden; padding: 60px 50px;
+}
+.lightbox-img-wrap img {
+  max-width: 100%; max-height: 100%; object-fit: contain; border-radius: 8px;
+}
+.lightbox-nav {
+  position: absolute; top: 50%; transform: translateY(-50%);
+  background: rgba(255,255,255,0.15); border: none; color: white;
+  width: 48px; height: 48px; border-radius: 50%; font-size: 1.5rem;
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+  transition: background 0.2s;
+}
+.lightbox-nav:hover { background: rgba(255,255,255,0.3); }
+.lightbox-prev { right: 12px; }
+.lightbox-next { left: 12px; }
+.lightbox-counter {
+  position: absolute; bottom: 16px;
+  color: rgba(255,255,255,0.7); font-size: 0.9rem;
+}
+
+@media (max-width: 480px) {
+  .card-carousel { height: 200px; }
+  .card-carousel .carousel-slide img { height: 200px; }
+  .card-carousel .carousel-nav { width: 30px; height: 30px; font-size: 1rem; }
+  .lightbox-img-wrap { padding: 50px 8px; }
+  .lightbox-nav { width: 36px; height: 36px; font-size: 1.2rem; }
+  .lightbox-prev { right: 4px; }
+  .lightbox-next { left: 4px; }
+}
 
 /* Footer */
 .footer { background: #1a472a; color: rgba(255,255,255,0.7); text-align: center; padding: 1.5rem; font-size: 0.85rem; }
@@ -191,7 +281,7 @@ body { font-family: 'Heebo', sans-serif; background: #f8f9fa; color: #1a1a2e; li
   <div class="section-title">🐴 מתאים לסוסים <span class="section-count">5 נכסים</span></div>
 
   <!-- ID 11 - Yesodot - ₪10,000 -->
-  <div class="card horse-card" data-area="other" data-horses>
+  <div class="card horse-card" data-prop="11" data-area="other" data-horses>
     <div class="card-gallery"><span class="gallery-icon">📷</span><a href="http://homee.co.il/יסודות/נכסים/?es=59927" target="_blank" class="gallery-btn">📸 צפה בתמונות</a></div>
     <div class="card-header">
       <div><span class="card-num">#1</span> <span class="horse-badge">🐴 מתאים לסוסים</span></div>
@@ -216,7 +306,7 @@ body { font-family: 'Heebo', sans-serif; background: #f8f9fa; color: #1a1a2e; li
   </div>
 
   <!-- ID 19 - Nir Eliyahu -->
-  <div class="card horse-card" data-area="other" data-horses>
+  <div class="card horse-card" data-prop="19" data-area="other" data-horses>
     <div class="card-gallery"><span class="gallery-icon">📷</span><a href="https://www.instagram.com/p/DMm97yWVmS9/" target="_blank" class="gallery-btn">📸 צפה בתמונות · Instagram</a></div>
     <div class="card-header">
       <div><span class="card-num">#2</span> <span class="horse-badge">🐴 מתאים לסוסים</span></div>
@@ -238,7 +328,7 @@ body { font-family: 'Heebo', sans-serif; background: #f8f9fa; color: #1a1a2e; li
   </div>
 
   <!-- ID 1 - Tzur Moshe -->
-  <div class="card horse-card" data-area="emek-hefer" data-horses>
+  <div class="card horse-card" data-prop="1" data-area="emek-hefer" data-horses>
     <div class="card-gallery"><span class="gallery-icon">📷</span><a href="https://www.instagram.com/p/DSSHhoAjLUW/" target="_blank" class="gallery-btn">📸 צפה בתמונות · Instagram</a></div>
     <div class="card-header">
       <div><span class="card-num">#3</span> <span class="horse-badge">🐴 מתאים לסוסים</span></div>
@@ -270,7 +360,7 @@ body { font-family: 'Heebo', sans-serif; background: #f8f9fa; color: #1a1a2e; li
   </div>
 
   <!-- ID 2 - Kfar Neter -->
-  <div class="card horse-card" data-area="sharon" data-horses>
+  <div class="card horse-card" data-prop="2" data-area="sharon" data-horses>
     <div class="card-gallery"><span class="gallery-icon">📷</span><a href="https://www.instagram.com/p/DWgMssfDWx5/" target="_blank" class="gallery-btn">📸 צפה בתמונות · Instagram</a></div>
     <div class="card-header">
       <div><span class="card-num">#4</span> <span class="horse-badge">🐴 מתאים לסוסים</span></div>
@@ -299,7 +389,7 @@ body { font-family: 'Heebo', sans-serif; background: #f8f9fa; color: #1a1a2e; li
   </div>
 
   <!-- ID 12 - Nitzanei Oz -->
-  <div class="card horse-card" data-area="sharon" data-horses>
+  <div class="card horse-card" data-prop="12" data-area="sharon" data-horses>
     <div class="card-gallery"><span class="gallery-icon">📷</span><a href="https://monopoli.co.il/detail/15341" target="_blank" class="gallery-btn">📸 צפה בתמונות</a></div>
     <div class="card-header">
       <div><span class="card-num">#5</span> <span class="horse-badge">🐴 מתאים לסוסים</span></div>
@@ -329,7 +419,7 @@ body { font-family: 'Heebo', sans-serif; background: #f8f9fa; color: #1a1a2e; li
   <div class="section-title">🌾 עמק חפר <span class="section-count">8 נכסים</span></div>
 
   <!-- ID 15 - Kfar Monash - ₪12,500 -->
-  <div class="card" data-area="emek-hefer">
+  <div class="card" data-prop="15" data-area="emek-hefer">
     <div class="card-gallery"><span class="gallery-icon">📷</span><a href="http://www.homee.co.il/כפר-מונש/נכסים/?es=46372" target="_blank" class="gallery-btn">📸 צפה בתמונות</a></div>
     <div class="card-header"><span class="card-num">#6</span></div>
     <div class="card-title">כפר מונש — בית פרטי</div>
@@ -350,7 +440,7 @@ body { font-family: 'Heebo', sans-serif; background: #f8f9fa; color: #1a1a2e; li
   </div>
 
   <!-- ID 5 - Herev La'et - ₪13,500 -->
-  <div class="card" data-area="emek-hefer">
+  <div class="card" data-prop="5" data-area="emek-hefer">
     <div class="card-gallery"><span class="gallery-icon">📷</span><a href="https://www.madlan.co.il/listings/9YCbfwVl1gN" target="_blank" class="gallery-btn">📸 צפה בתמונות · Madlan</a></div>
     <div class="card-header"><span class="card-num">#7</span></div>
     <div class="card-title">חרב לאת — בית פרטי מואר</div>
@@ -377,7 +467,7 @@ body { font-family: 'Heebo', sans-serif; background: #f8f9fa; color: #1a1a2e; li
   </div>
 
   <!-- ID 3 - Hibat Zion - ₪14,000 -->
-  <div class="card" data-area="emek-hefer">
+  <div class="card" data-prop="3" data-area="emek-hefer">
     <div class="card-gallery"><span class="gallery-icon">📷</span><a href="https://www.madlan.co.il/listings/qcaVCN5251v" target="_blank" class="gallery-btn">📸 צפה בתמונות · Madlan</a></div>
     <div class="card-header"><span class="card-num">#8</span></div>
     <div class="card-title">חיבת ציון — וילה חדשה 2026</div>
@@ -404,7 +494,7 @@ body { font-family: 'Heebo', sans-serif; background: #f8f9fa; color: #1a1a2e; li
   </div>
 
   <!-- ID 4 - Hibat Zion - ₪18,000 -->
-  <div class="card" data-area="emek-hefer">
+  <div class="card" data-prop="4" data-area="emek-hefer">
     <div class="card-gallery"><span class="gallery-icon">📷</span><a href="https://www.madlan.co.il/listings/aWj2wQKlRAJ" target="_blank" class="gallery-btn">📸 צפה בתמונות · Madlan</a></div>
     <div class="card-header"><span class="card-num">#9</span></div>
     <div class="card-title">חיבת ציון — וילה מושקעת 280 מ"ר</div>
@@ -429,7 +519,7 @@ body { font-family: 'Heebo', sans-serif; background: #f8f9fa; color: #1a1a2e; li
   </div>
 
   <!-- ID 7 - Hibat Zion - ₪20,000 -->
-  <div class="card" data-area="emek-hefer">
+  <div class="card" data-prop="7" data-area="emek-hefer">
     <div class="card-gallery"><span class="gallery-icon">📷</span><a href="http://www.homee.co.il/חיבת-ציון/נכסים/?es=45636" target="_blank" class="gallery-btn">📸 צפה בתמונות</a></div>
     <div class="card-header"><span class="card-num">#10</span></div>
     <div class="card-title">חיבת ציון — בית פרטי 8.5 חדרים</div>
@@ -451,7 +541,7 @@ body { font-family: 'Heebo', sans-serif; background: #f8f9fa; color: #1a1a2e; li
   </div>
 
   <!-- ID 8 - Herev La'et - ₪20,000 -->
-  <div class="card" data-area="emek-hefer">
+  <div class="card" data-prop="8" data-area="emek-hefer">
     <div class="card-gallery"><span class="gallery-icon">📷</span><a href="http://www.homee.co.il/חרב-לאת/נכסים/?es=45646" target="_blank" class="gallery-btn">📸 צפה בתמונות</a></div>
     <div class="card-header"><span class="card-num">#11</span></div>
     <div class="card-title">חרב לאת — בית פרטי 8.5 חדרים</div>
@@ -473,7 +563,7 @@ body { font-family: 'Heebo', sans-serif; background: #f8f9fa; color: #1a1a2e; li
   </div>
 
   <!-- ID 6 - Havatzelet HaSharon - ₪24,000 -->
-  <div class="card" data-area="emek-hefer">
+  <div class="card" data-prop="6" data-area="emek-hefer">
     <div class="card-gallery"><span class="gallery-icon">📷</span><a href="http://www.homee.co.il/חבצלת-השרון/נכסים/?es=46549" target="_blank" class="gallery-btn">📸 צפה בתמונות</a></div>
     <div class="card-header"><span class="card-num">#12</span></div>
     <div class="card-title">חבצלת השרון — בית פרטי 8 חדרים</div>
@@ -503,7 +593,7 @@ body { font-family: 'Heebo', sans-serif; background: #f8f9fa; color: #1a1a2e; li
   <div class="section-title">🌿 השרון <span class="section-count">5 נכסים</span></div>
 
   <!-- ID 9 - Harutzim - ₪9,900 -->
-  <div class="card" data-area="sharon">
+  <div class="card" data-prop="9" data-area="sharon">
     <div class="card-gallery"><span class="gallery-icon">📷</span><a href="http://www.homee.co.il/חרוצים/נכסים/?es=58413" target="_blank" class="gallery-btn">📸 צפה בתמונות</a></div>
     <div class="card-header"><span class="card-num">#13</span></div>
     <div class="card-title">חרוצים — בית פרטי</div>
@@ -525,7 +615,7 @@ body { font-family: 'Heebo', sans-serif; background: #f8f9fa; color: #1a1a2e; li
   </div>
 
   <!-- ID 10 - Adanim - ₪14,000 -->
-  <div class="card" data-area="sharon">
+  <div class="card" data-prop="10" data-area="sharon">
     <div class="card-gallery"><span class="gallery-icon">📷</span><a href="http://www.homee.co.il/עדנים/נכסים/?es=57760" target="_blank" class="gallery-btn">📸 צפה בתמונות</a></div>
     <div class="card-header"><span class="card-num">#14</span></div>
     <div class="card-title">עדנים — בית פרטי</div>
@@ -547,7 +637,7 @@ body { font-family: 'Heebo', sans-serif; background: #f8f9fa; color: #1a1a2e; li
   </div>
 
   <!-- ID 13 - Batzra - ₪35,000 -->
-  <div class="card" data-area="sharon">
+  <div class="card" data-prop="13" data-area="sharon">
     <div class="card-gallery"><span class="gallery-icon">📷</span><a href="https://www.madlan.co.il/listings/d40ZQM7p3UW" target="_blank" class="gallery-btn">📸 צפה בתמונות · Madlan</a></div>
     <div class="card-header"><span class="card-num">#15</span></div>
     <div class="card-title">בצרה — וילת יוקרה עם בריכה</div>
@@ -582,7 +672,7 @@ body { font-family: 'Heebo', sans-serif; background: #f8f9fa; color: #1a1a2e; li
   <div class="section-title">🏘️ השפלה <span class="section-count">3 נכסים</span></div>
 
   <!-- ID 18 - Givat Koach - ₪12,000 -->
-  <div class="card" data-area="shfela">
+  <div class="card" data-prop="18" data-area="shfela">
     <div class="card-gallery"><span class="gallery-icon">📷</span><a href="http://homee.co.il/גבעת-כח/נכסים/?es=46194" target="_blank" class="gallery-btn">📸 צפה בתמונות</a></div>
     <div class="card-header"><span class="card-num">#16</span></div>
     <div class="card-title">גבעת כ"ח — בית פרטי 7 חדרים</div>
@@ -605,7 +695,7 @@ body { font-family: 'Heebo', sans-serif; background: #f8f9fa; color: #1a1a2e; li
   </div>
 
   <!-- ID 16 - Ginaton - ₪14,500 -->
-  <div class="card" data-area="shfela">
+  <div class="card" data-prop="16" data-area="shfela">
     <div class="card-gallery"><span class="gallery-icon">📷</span><a href="http://homee.co.il/גינתון/נכסים/?es=57715" target="_blank" class="gallery-btn">📸 צפה בתמונות</a></div>
     <div class="card-header"><span class="card-num">#17</span></div>
     <div class="card-title">גינתון — בית פרטי</div>
@@ -627,7 +717,7 @@ body { font-family: 'Heebo', sans-serif; background: #f8f9fa; color: #1a1a2e; li
   </div>
 
   <!-- ID 17 - Yesharesh - ₪14,500 -->
-  <div class="card" data-area="shfela">
+  <div class="card" data-prop="17" data-area="shfela">
     <div class="card-gallery"><span class="gallery-icon">📷</span><a href="http://homee.co.il/ישרש/נכסים/?es=46231" target="_blank" class="gallery-btn">📸 צפה בתמונות</a></div>
     <div class="card-header"><span class="card-num">#18</span></div>
     <div class="card-title">ישרש — בית פרטי 6 חדרים</div>
@@ -654,7 +744,7 @@ body { font-family: 'Heebo', sans-serif; background: #f8f9fa; color: #1a1a2e; li
   <div class="section-title">🏙️ גוש דן <span class="section-count">1 נכס</span></div>
 
   <!-- ID 20 - Zeitan - ₪12,000 -->
-  <div class="card" data-area="gush-dan">
+  <div class="card" data-prop="20" data-area="gush-dan">
     <div class="card-gallery"><span class="gallery-icon">📷</span><a href="http://homee.co.il/זיתן/נכסים/?es=46275" target="_blank" class="gallery-btn">📸 צפה בתמונות</a></div>
     <div class="card-header"><span class="card-num">#19</span></div>
     <div class="card-title">זיתן — בית פרטי 6 חדרים</div>
@@ -681,7 +771,7 @@ body { font-family: 'Heebo', sans-serif; background: #f8f9fa; color: #1a1a2e; li
   <div class="section-title">📍 אחר <span class="section-count">3 נכסים</span></div>
 
   <!-- ID 14 - Arsuf - ₪54,000 -->
-  <div class="card" data-area="other">
+  <div class="card" data-prop="14" data-area="other">
     <div class="card-gallery"><span class="gallery-icon">📷</span><a href="https://www.madlan.co.il/listings/4zjuct9zryM" target="_blank" class="gallery-btn">📸 צפה בתמונות · Madlan</a></div>
     <div class="card-header"><span class="card-num">#20</span></div>
     <div class="card-title">ארסוף — וילה אדריכלית 100 מ׳ מהחוף</div>
@@ -784,6 +874,138 @@ document.querySelectorAll('.filter-btn').forEach(btn => {
     }, 10);
   });
 });
+
+
+// Image data
+const propertyImages = {"1":[1],"2":[1],"6":[1,2],"8":[1,2],"9":[1,2],"11":[1,2],"12":[1,2,3,4],"15":[1,2],"16":[1,2],"19":[1]};
+const imgPrefix = '/images/rentals/';
+
+// Build carousels on load
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('[data-prop]').forEach(card => {
+    const propId = card.dataset.prop;
+    const imgs = propertyImages[propId];
+    const gallery = card.querySelector('.card-gallery');
+    if (!gallery) return;
+
+    if (!imgs || !imgs.length) {
+      // Keep existing gallery link but style nicer
+      return;
+    }
+
+    // Build carousel HTML
+    const carousel = document.createElement('div');
+    carousel.className = 'card-carousel';
+    carousel.onclick = function(e) {
+      if (e.target.closest('.carousel-nav') || e.target.closest('.carousel-dot')) return;
+      openLightbox(propId);
+    };
+
+    let html = '<div class="carousel-slide">';
+    imgs.forEach((n, i) => {
+      html += '<img src="' + imgPrefix + propId + '/' + n + '.jpg" alt="תמונת נכס" loading="lazy" class="' + (i === 0 ? 'active' : '') + '" data-idx="' + i + '">';
+    });
+    html += '</div>';
+
+    if (imgs.length > 1) {
+      html += '<button class="carousel-nav carousel-prev" onclick="carouselNav(this, 1)">›</button>';
+      html += '<button class="carousel-nav carousel-next" onclick="carouselNav(this, -1)">‹</button>';
+      html += '<div class="carousel-dots">';
+      imgs.forEach((_, i) => {
+        html += '<button class="carousel-dot' + (i === 0 ? ' active' : '') + '" onclick="carouselGo(this, ' + i + ')"></button>';
+      });
+      html += '</div>';
+    }
+
+    html += '<div class="img-count">📷 ' + imgs.length + ' תמונות</div>';
+    carousel.innerHTML = html;
+    gallery.replaceWith(carousel);
+  });
+});
+
+// Carousel navigation
+function carouselNav(btn, dir) {
+  const carousel = btn.closest('.card-carousel');
+  const imgs = carousel.querySelectorAll('.carousel-slide img');
+  const dots = carousel.querySelectorAll('.carousel-dot');
+  let current = 0;
+  imgs.forEach((img, i) => { if (img.classList.contains('active')) current = i; });
+  imgs[current].classList.remove('active');
+  if (dots[current]) dots[current].classList.remove('active');
+  current = (current + dir + imgs.length) % imgs.length;
+  imgs[current].classList.add('active');
+  if (dots[current]) dots[current].classList.add('active');
+}
+
+function carouselGo(dot, idx) {
+  const carousel = dot.closest('.card-carousel');
+  const imgs = carousel.querySelectorAll('.carousel-slide img');
+  const dots = carousel.querySelectorAll('.carousel-dot');
+  imgs.forEach(img => img.classList.remove('active'));
+  dots.forEach(d => d.classList.remove('active'));
+  imgs[idx].classList.add('active');
+  dots[idx].classList.add('active');
+}
+
+// Lightbox
+let lbImages = [], lbIdx = 0;
+
+function openLightbox(propId) {
+  const imgs = propertyImages[propId];
+  if (!imgs || !imgs.length) return;
+  lbImages = imgs.map(n => imgPrefix + propId + '/' + n + '.jpg');
+  lbIdx = 0;
+  // Find current active image in the carousel
+  const card = document.querySelector('[data-prop="' + propId + '"]');
+  if (card) {
+    const activeImg = card.querySelector('.carousel-slide img.active');
+    if (activeImg) lbIdx = parseInt(activeImg.dataset.idx) || 0;
+  }
+  showLbImage();
+  document.getElementById('lightbox').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+function navLightbox(dir) {
+  lbIdx = (lbIdx + dir + lbImages.length) % lbImages.length;
+  showLbImage();
+}
+
+function showLbImage() {
+  document.getElementById('lightbox-img').src = lbImages[lbIdx];
+  document.getElementById('lightbox-counter').textContent = (lbIdx + 1) + ' / ' + lbImages.length;
+}
+
+// Keyboard & touch for lightbox
+document.addEventListener('keydown', e => {
+  if (!document.getElementById('lightbox').classList.contains('active')) return;
+  if (e.key === 'Escape') closeLightbox();
+  if (e.key === 'ArrowLeft') navLightbox(1);
+  if (e.key === 'ArrowRight') navLightbox(-1);
+});
+let tsX = 0;
+document.getElementById('lightbox').addEventListener('touchstart', e => { tsX = e.changedTouches[0].screenX; });
+document.getElementById('lightbox').addEventListener('touchend', e => {
+  const d = e.changedTouches[0].screenX - tsX;
+  if (Math.abs(d) > 50) navLightbox(d > 0 ? 1 : -1);
+});
+
 </script>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+  <button class="lightbox-nav lightbox-next" onclick="navLightbox(-1)">‹</button>
+  <div class="lightbox-img-wrap">
+    <img id="lightbox-img" src="" alt="">
+  </div>
+  <button class="lightbox-nav lightbox-prev" onclick="navLightbox(1)">›</button>
+  <div class="lightbox-counter" id="lightbox-counter"></div>
+</div>
 </body>
 </html>
