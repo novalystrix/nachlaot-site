@@ -102,6 +102,32 @@ body { font-family: 'Heebo', sans-serif; background: #f8f9fa; color: #1a1a2e; li
 .ratings { display: flex; gap: 1rem; margin-bottom: 0.5rem; font-size: 0.85rem; }
 .rating-item { display: flex; align-items: center; gap: 0.25rem; }
 
+/* Card Gallery */
+.card-gallery {
+  margin: -1.25rem -1.25rem 1rem -1.25rem;
+  border-radius: 14px 14px 0 0;
+  overflow: hidden;
+  background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  position: relative;
+}
+.card-gallery .gallery-icon {
+  font-size: 2rem;
+  opacity: 0.4;
+}
+.card-gallery .gallery-btn {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  padding: 0.5rem 1.2rem; border-radius: 8px;
+  background: rgba(45,106,79,0.85); color: white;
+  text-decoration: none; font-family: 'Heebo'; font-size: 0.85rem;
+  font-weight: 500; transition: all 0.2s; backdrop-filter: blur(4px);
+}
+.card-gallery .gallery-btn:hover { background: rgba(26,71,42,0.95); }
+
 /* Footer */
 .footer { background: #1a472a; color: rgba(255,255,255,0.7); text-align: center; padding: 1.5rem; font-size: 0.85rem; }
 
@@ -124,7 +150,8 @@ body { font-family: 'Heebo', sans-serif; background: #f8f9fa; color: #1a1a2e; li
 
 <nav class="top-nav">
   <a href="index.html">🏡 למכירה</a>
-  <a href="rentals.html" class="active">🔑 להשכרה</a>
+  <a href="rentals.html" class="active">🔑 נחלות להשכרה</a>
+  <a href="villas.html">🏠 וילות להשכרה</a>
 </nav>
 
 <div class="hero">
@@ -165,6 +192,7 @@ body { font-family: 'Heebo', sans-serif; background: #f8f9fa; color: #1a1a2e; li
 
   <!-- ID 11 - Yesodot - ₪10,000 -->
   <div class="card horse-card" data-area="other" data-horses>
+    <div class="card-gallery"><span class="gallery-icon">📷</span><a href="http://homee.co.il/יסודות/נכסים/?es=59927" target="_blank" class="gallery-btn">📸 צפה בתמונות</a></div>
     <div class="card-header">
       <div><span class="card-num">#1</span> <span class="horse-badge">🐴 מתאים לסוסים</span></div>
     </div>
@@ -189,6 +217,7 @@ body { font-family: 'Heebo', sans-serif; background: #f8f9fa; color: #1a1a2e; li
 
   <!-- ID 19 - Nir Eliyahu -->
   <div class="card horse-card" data-area="other" data-horses>
+    <div class="card-gallery"><span class="gallery-icon">📷</span><a href="https://www.instagram.com/p/DMm97yWVmS9/" target="_blank" class="gallery-btn">📸 צפה בתמונות · Instagram</a></div>
     <div class="card-header">
       <div><span class="card-num">#2</span> <span class="horse-badge">🐴 מתאים לסוסים</span></div>
     </div>
@@ -210,6 +239,7 @@ body { font-family: 'Heebo', sans-serif; background: #f8f9fa; color: #1a1a2e; li
 
   <!-- ID 1 - Tzur Moshe -->
   <div class="card horse-card" data-area="emek-hefer" data-horses>
+    <div class="card-gallery"><span class="gallery-icon">📷</span><a href="https://www.instagram.com/p/DSSHhoAjLUW/" target="_blank" class="gallery-btn">📸 צפה בתמונות · Instagram</a></div>
     <div class="card-header">
       <div><span class="card-num">#3</span> <span class="horse-badge">🐴 מתאים לסוסים</span></div>
     </div>
@@ -241,6 +271,7 @@ body { font-family: 'Heebo', sans-serif; background: #f8f9fa; color: #1a1a2e; li
 
   <!-- ID 2 - Kfar Neter -->
   <div class="card horse-card" data-area="sharon" data-horses>
+    <div class="card-gallery"><span class="gallery-icon">📷</span><a href="https://www.instagram.com/p/DWgMssfDWx5/" target="_blank" class="gallery-btn">📸 צפה בתמונות · Instagram</a></div>
     <div class="card-header">
       <div><span class="card-num">#4</span> <span class="horse-badge">🐴 מתאים לסוסים</span></div>
     </div>
@@ -269,6 +300,7 @@ body { font-family: 'Heebo', sans-serif; background: #f8f9fa; color: #1a1a2e; li
 
   <!-- ID 12 - Nitzanei Oz -->
   <div class="card horse-card" data-area="sharon" data-horses>
+    <div class="card-gallery"><span class="gallery-icon">📷</span><a href="https://monopoli.co.il/detail/15341" target="_blank" class="gallery-btn">📸 צפה בתמונות</a></div>
     <div class="card-header">
       <div><span class="card-num">#5</span> <span class="horse-badge">🐴 מתאים לסוסים</span></div>
     </div>
@@ -298,6 +330,7 @@ body { font-family: 'Heebo', sans-serif; background: #f8f9fa; color: #1a1a2e; li
 
   <!-- ID 15 - Kfar Monash - ₪12,500 -->
   <div class="card" data-area="emek-hefer">
+    <div class="card-gallery"><span class="gallery-icon">📷</span><a href="http://www.homee.co.il/כפר-מונש/נכסים/?es=46372" target="_blank" class="gallery-btn">📸 צפה בתמונות</a></div>
     <div class="card-header"><span class="card-num">#6</span></div>
     <div class="card-title">כפר מונש — בית פרטי</div>
     <div class="card-details">
@@ -318,6 +351,7 @@ body { font-family: 'Heebo', sans-serif; background: #f8f9fa; color: #1a1a2e; li
 
   <!-- ID 5 - Herev La'et - ₪13,500 -->
   <div class="card" data-area="emek-hefer">
+    <div class="card-gallery"><span class="gallery-icon">📷</span><a href="https://www.madlan.co.il/listings/9YCbfwVl1gN" target="_blank" class="gallery-btn">📸 צפה בתמונות · Madlan</a></div>
     <div class="card-header"><span class="card-num">#7</span></div>
     <div class="card-title">חרב לאת — בית פרטי מואר</div>
     <div class="card-details">
@@ -344,6 +378,7 @@ body { font-family: 'Heebo', sans-serif; background: #f8f9fa; color: #1a1a2e; li
 
   <!-- ID 3 - Hibat Zion - ₪14,000 -->
   <div class="card" data-area="emek-hefer">
+    <div class="card-gallery"><span class="gallery-icon">📷</span><a href="https://www.madlan.co.il/listings/qcaVCN5251v" target="_blank" class="gallery-btn">📸 צפה בתמונות · Madlan</a></div>
     <div class="card-header"><span class="card-num">#8</span></div>
     <div class="card-title">חיבת ציון — וילה חדשה 2026</div>
     <div class="card-details">
@@ -370,6 +405,7 @@ body { font-family: 'Heebo', sans-serif; background: #f8f9fa; color: #1a1a2e; li
 
   <!-- ID 4 - Hibat Zion - ₪18,000 -->
   <div class="card" data-area="emek-hefer">
+    <div class="card-gallery"><span class="gallery-icon">📷</span><a href="https://www.madlan.co.il/listings/aWj2wQKlRAJ" target="_blank" class="gallery-btn">📸 צפה בתמונות · Madlan</a></div>
     <div class="card-header"><span class="card-num">#9</span></div>
     <div class="card-title">חיבת ציון — וילה מושקעת 280 מ"ר</div>
     <div class="card-details">
@@ -394,6 +430,7 @@ body { font-family: 'Heebo', sans-serif; background: #f8f9fa; color: #1a1a2e; li
 
   <!-- ID 7 - Hibat Zion - ₪20,000 -->
   <div class="card" data-area="emek-hefer">
+    <div class="card-gallery"><span class="gallery-icon">📷</span><a href="http://www.homee.co.il/חיבת-ציון/נכסים/?es=45636" target="_blank" class="gallery-btn">📸 צפה בתמונות</a></div>
     <div class="card-header"><span class="card-num">#10</span></div>
     <div class="card-title">חיבת ציון — בית פרטי 8.5 חדרים</div>
     <div class="card-details">
@@ -415,6 +452,7 @@ body { font-family: 'Heebo', sans-serif; background: #f8f9fa; color: #1a1a2e; li
 
   <!-- ID 8 - Herev La'et - ₪20,000 -->
   <div class="card" data-area="emek-hefer">
+    <div class="card-gallery"><span class="gallery-icon">📷</span><a href="http://www.homee.co.il/חרב-לאת/נכסים/?es=45646" target="_blank" class="gallery-btn">📸 צפה בתמונות</a></div>
     <div class="card-header"><span class="card-num">#11</span></div>
     <div class="card-title">חרב לאת — בית פרטי 8.5 חדרים</div>
     <div class="card-details">
@@ -436,6 +474,7 @@ body { font-family: 'Heebo', sans-serif; background: #f8f9fa; color: #1a1a2e; li
 
   <!-- ID 6 - Havatzelet HaSharon - ₪24,000 -->
   <div class="card" data-area="emek-hefer">
+    <div class="card-gallery"><span class="gallery-icon">📷</span><a href="http://www.homee.co.il/חבצלת-השרון/נכסים/?es=46549" target="_blank" class="gallery-btn">📸 צפה בתמונות</a></div>
     <div class="card-header"><span class="card-num">#12</span></div>
     <div class="card-title">חבצלת השרון — בית פרטי 8 חדרים</div>
     <div class="card-details">
@@ -465,6 +504,7 @@ body { font-family: 'Heebo', sans-serif; background: #f8f9fa; color: #1a1a2e; li
 
   <!-- ID 9 - Harutzim - ₪9,900 -->
   <div class="card" data-area="sharon">
+    <div class="card-gallery"><span class="gallery-icon">📷</span><a href="http://www.homee.co.il/חרוצים/נכסים/?es=58413" target="_blank" class="gallery-btn">📸 צפה בתמונות</a></div>
     <div class="card-header"><span class="card-num">#13</span></div>
     <div class="card-title">חרוצים — בית פרטי</div>
     <div class="card-details">
@@ -486,6 +526,7 @@ body { font-family: 'Heebo', sans-serif; background: #f8f9fa; color: #1a1a2e; li
 
   <!-- ID 10 - Adanim - ₪14,000 -->
   <div class="card" data-area="sharon">
+    <div class="card-gallery"><span class="gallery-icon">📷</span><a href="http://www.homee.co.il/עדנים/נכסים/?es=57760" target="_blank" class="gallery-btn">📸 צפה בתמונות</a></div>
     <div class="card-header"><span class="card-num">#14</span></div>
     <div class="card-title">עדנים — בית פרטי</div>
     <div class="card-details">
@@ -507,6 +548,7 @@ body { font-family: 'Heebo', sans-serif; background: #f8f9fa; color: #1a1a2e; li
 
   <!-- ID 13 - Batzra - ₪35,000 -->
   <div class="card" data-area="sharon">
+    <div class="card-gallery"><span class="gallery-icon">📷</span><a href="https://www.madlan.co.il/listings/d40ZQM7p3UW" target="_blank" class="gallery-btn">📸 צפה בתמונות · Madlan</a></div>
     <div class="card-header"><span class="card-num">#15</span></div>
     <div class="card-title">בצרה — וילת יוקרה עם בריכה</div>
     <div class="card-details">
@@ -541,6 +583,7 @@ body { font-family: 'Heebo', sans-serif; background: #f8f9fa; color: #1a1a2e; li
 
   <!-- ID 18 - Givat Koach - ₪12,000 -->
   <div class="card" data-area="shfela">
+    <div class="card-gallery"><span class="gallery-icon">📷</span><a href="http://homee.co.il/גבעת-כח/נכסים/?es=46194" target="_blank" class="gallery-btn">📸 צפה בתמונות</a></div>
     <div class="card-header"><span class="card-num">#16</span></div>
     <div class="card-title">גבעת כ"ח — בית פרטי 7 חדרים</div>
     <div class="card-details">
@@ -563,6 +606,7 @@ body { font-family: 'Heebo', sans-serif; background: #f8f9fa; color: #1a1a2e; li
 
   <!-- ID 16 - Ginaton - ₪14,500 -->
   <div class="card" data-area="shfela">
+    <div class="card-gallery"><span class="gallery-icon">📷</span><a href="http://homee.co.il/גינתון/נכסים/?es=57715" target="_blank" class="gallery-btn">📸 צפה בתמונות</a></div>
     <div class="card-header"><span class="card-num">#17</span></div>
     <div class="card-title">גינתון — בית פרטי</div>
     <div class="card-details">
@@ -584,6 +628,7 @@ body { font-family: 'Heebo', sans-serif; background: #f8f9fa; color: #1a1a2e; li
 
   <!-- ID 17 - Yesharesh - ₪14,500 -->
   <div class="card" data-area="shfela">
+    <div class="card-gallery"><span class="gallery-icon">📷</span><a href="http://homee.co.il/ישרש/נכסים/?es=46231" target="_blank" class="gallery-btn">📸 צפה בתמונות</a></div>
     <div class="card-header"><span class="card-num">#18</span></div>
     <div class="card-title">ישרש — בית פרטי 6 חדרים</div>
     <div class="card-details">
@@ -610,6 +655,7 @@ body { font-family: 'Heebo', sans-serif; background: #f8f9fa; color: #1a1a2e; li
 
   <!-- ID 20 - Zeitan - ₪12,000 -->
   <div class="card" data-area="gush-dan">
+    <div class="card-gallery"><span class="gallery-icon">📷</span><a href="http://homee.co.il/זיתן/נכסים/?es=46275" target="_blank" class="gallery-btn">📸 צפה בתמונות</a></div>
     <div class="card-header"><span class="card-num">#19</span></div>
     <div class="card-title">זיתן — בית פרטי 6 חדרים</div>
     <div class="card-details">
@@ -636,6 +682,7 @@ body { font-family: 'Heebo', sans-serif; background: #f8f9fa; color: #1a1a2e; li
 
   <!-- ID 14 - Arsuf - ₪54,000 -->
   <div class="card" data-area="other">
+    <div class="card-gallery"><span class="gallery-icon">📷</span><a href="https://www.madlan.co.il/listings/4zjuct9zryM" target="_blank" class="gallery-btn">📸 צפה בתמונות · Madlan</a></div>
     <div class="card-header"><span class="card-num">#20</span></div>
     <div class="card-title">ארסוף — וילה אדריכלית 100 מ׳ מהחוף</div>
     <div class="card-details">

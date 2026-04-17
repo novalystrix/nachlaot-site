@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>וילות להשכרה במושבים — מרכז ישראל 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Heebo', sans-serif; background: #f8f9fa; color: #1a1a2e; line-height: 1.6; }
+
+/* Nav */
+.top-nav {
+  background: #0f2e1a; display: flex; justify-content: center; gap: 0; font-size: 0.95rem;
+}
+.top-nav a {
+  color: rgba(255,255,255,0.7); text-decoration: none; padding: 0.6rem 1.5rem;
+  font-weight: 500; transition: all 0.2s; border-bottom: 3px solid transparent;
+}
+.top-nav a:hover { color: white; background: rgba(255,255,255,0.05); }
+.top-nav a.active { color: white; border-bottom-color: #40916c; background: rgba(255,255,255,0.08); }
+
+/* Hero */
+.hero {
+  background: linear-gradient(135deg, #1a472a 0%, #2d6a4f 50%, #40916c 100%);
+  color: white; padding: 3rem 1.5rem 2rem; text-align: center;
+  position: relative; overflow: hidden;
+}
+.hero::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+  background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  opacity: 0.3;
+}
+.hero h1 { font-size: 2rem; font-weight: 800; margin-bottom: 0.5rem; position: relative; }
+.hero p { font-size: 0.95rem; opacity: 0.9; position: relative; }
+.hero .stats { display: flex; justify-content: center; gap: 1.5rem; margin-top: 1.5rem; flex-wrap: wrap; position: relative; }
+.hero .stat { background: rgba(255,255,255,0.15); border-radius: 12px; padding: 0.75rem 1.25rem; backdrop-filter: blur(10px); }
+.hero .stat .num { font-size: 1.5rem; font-weight: 700; }
+.hero .stat .label { font-size: 0.8rem; opacity: 0.85; }
+
+/* Filter Bar */
+.filters {
+  background: white; padding: 1rem 1.5rem; position: sticky; top: 0; z-index: 100;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08); display: flex; gap: 0.5rem; overflow-x: auto;
+}
+.filter-btn {
+  background: #f0f0f0; border: none; padding: 0.5rem 1rem; border-radius: 20px;
+  font-family: 'Heebo'; font-size: 0.85rem; cursor: pointer; white-space: nowrap;
+  transition: all 0.2s;
+}
+.filter-btn.active, .filter-btn:hover { background: #2d6a4f; color: white; }
+
+/* Summary Table */
+.summary { max-width: 800px; margin: 1.5rem auto; padding: 0 1rem; }
+.summary table { width: 100%; border-collapse: collapse; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+.summary th { background: #2d6a4f; color: white; padding: 0.75rem 0.5rem; font-size: 0.85rem; font-weight: 600; }
+.summary td { background: white; padding: 0.6rem 0.5rem; font-size: 0.85rem; text-align: center; border-bottom: 1px solid #f0f0f0; }
+.summary tr:last-child td { border-bottom: none; }
+
+/* Section */
+.section { max-width: 800px; margin: 2rem auto; padding: 0 1rem; }
+.section-title {
+  font-size: 1.3rem; font-weight: 700; color: #1a472a; margin-bottom: 1rem;
+  padding-bottom: 0.5rem; border-bottom: 3px solid #2d6a4f;
+  display: flex; align-items: center; gap: 0.5rem;
+}
+.section-count { background: #2d6a4f; color: white; font-size: 0.75rem; padding: 0.2rem 0.6rem; border-radius: 10px; font-weight: 500; }
+
+/* Property Card */
+.card {
+  background: white; border-radius: 14px; padding: 1.25rem; margin-bottom: 1rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06); border-right: 4px solid #e0e0e0;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.card:hover { transform: translateY(-2px); box-shadow: 0 4px 16px rgba(0,0,0,0.1); }
+.card.shelter-card { border-right-color: #1565c0; }
+.card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.75rem; }
+.card-title { font-size: 1.05rem; font-weight: 700; color: #1a1a2e; }
+.card-num { color: #999; font-size: 0.85rem; }
+.card-details { display: grid; grid-template-columns: auto 1fr; gap: 0.3rem 0.75rem; font-size: 0.9rem; margin-bottom: 0.75rem; }
+.card-label { color: #666; font-weight: 500; }
+.card-value { color: #1a1a2e; }
+.card-price { font-size: 1.1rem; font-weight: 700; color: #2d6a4f; }
+.card-desc { color: #555; font-size: 0.88rem; margin-bottom: 0.75rem; background: #f8f9fa; padding: 0.75rem; border-radius: 8px; }
+.card-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 0.75rem; }
+.tag { background: #e8f5e9; color: #2d6a4f; padding: 0.2rem 0.6rem; border-radius: 6px; font-size: 0.75rem; font-weight: 500; }
+.tag.shelter-tag { background: #e3f2fd; color: #1565c0; }
+.card-actions { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+.btn {
+  display: inline-flex; align-items: center; gap: 0.3rem;
+  padding: 0.5rem 1rem; border-radius: 8px; font-family: 'Heebo';
+  font-size: 0.85rem; text-decoration: none; font-weight: 500; transition: all 0.2s;
+}
+.btn-primary { background: #2d6a4f; color: white; }
+.btn-primary:hover { background: #1a472a; }
+.btn-outline { background: white; color: #2d6a4f; border: 1.5px solid #2d6a4f; }
+.btn-outline:hover { background: #f0f7f4; }
+
+/* Ratings */
+.ratings { display: flex; gap: 1rem; margin-bottom: 0.5rem; font-size: 0.85rem; }
+.rating-item { display: flex; align-items: center; gap: 0.25rem; }
+
+/* Footer */
+.footer { background: #1a472a; color: rgba(255,255,255,0.7); text-align: center; padding: 1.5rem; font-size: 0.85rem; }
+
+/* Mobile fixes */
+@media (max-width: 480px) {
+  .hero h1 { font-size: 1.5rem; }
+  .hero .stats { gap: 0.75rem; }
+  .hero .stat { padding: 0.5rem 0.75rem; }
+  .hero .stat .num { font-size: 1.2rem; }
+  .card-details { grid-template-columns: 1fr; }
+  .card-label { font-weight: 600; }
+  .top-nav { font-size: 0.85rem; }
+  .top-nav a { padding: 0.5rem 1rem; }
+}
+
+.hidden { display: none !important; }
+</style>
+</head>
+<body>
+
+<nav class="top-nav">
+  <a href="index.html">🏡 למכירה</a>
+  <a href="rentals.html">🔑 נחלות להשכרה</a>
+  <a href="villas.html" class="active">🏠 וילות להשכרה</a>
+</nav>
+
+<div class="hero">
+  <h1>🏠 וילות להשכרה במושבים — מרכז ישראל 2026</h1>
+  <p>וילות ובתים פרטיים על מגרשים של 2 דונם ומעלה — 30-50 דקות מתל אביב</p>
+  <div class="stats">
+    <div class="stat"><div class="num">15</div><div class="label">נכסים</div></div>
+    <div class="stat"><div class="num">₪10,500</div><div class="label">מינימום/חודש</div></div>
+    <div class="stat"><div class="num">₪18,000</div><div class="label">מקסימום/חודש</div></div>
+    <div class="stat"><div class="num">2</div><div class="label">אזורים</div></div>
+  </div>
+</div>
+
+<div class="filters">
+  <button class="filter-btn active" data-filter="all">הכל (15)</button>
+  <button class="filter-btn" data-filter="sharon">השרון (11)</button>
+  <button class="filter-btn" data-filter="emek-hefer">עמק חפר (4)</button>
+</div>
+
+<div class="summary">
+  <table>
+    <tr><th>אזור</th><th>נכסים</th><th>טווח מחירים</th><th>שטח מגרש</th><th>יישובים</th></tr>
+    <tr><td>השרון</td><td>11</td><td>₪11,000–₪18,000</td><td>2–3 דונם</td><td>בני דרור, כפר יונה, חרות, משמרת, בצרה, עין ורד, כפר הס, אבן יהודה, קדימה צורן, תל מונד, עין שריד</td></tr>
+    <tr><td>עמק חפר</td><td>4</td><td>₪10,500–₪16,000</td><td>2–2.5 דונם</td><td>בית הלוי, כפר ויתקין, בית חנניה, בית יצחק</td></tr>
+  </table>
+</div>
+
+<!-- SHARON -->
+<div class="section" id="sharon">
+  <div class="section-title">🌿 השרון <span class="section-count">11 נכסים</span></div>
+
+  <!-- #1 - בני דרור - ₪11,000 -->
+  <div class="card" data-area="sharon">
+    <div class="card-header"><span class="card-num">#1</span></div>
+    <div class="card-title">בני דרור — בית פרטי 5 חדרים</div>
+    <div class="card-details">
+      <span class="card-label">מיקום:</span><span class="card-value">בני דרור (Bnei Dror), השרון</span>
+      <span class="card-label">מחיר:</span><span class="card-value card-price">₪11,000/חודש</span>
+      <span class="card-label">חדרים:</span><span class="card-value">5</span>
+      <span class="card-label">שטח בנוי:</span><span class="card-value">190 מ"ר</span>
+      <span class="card-label">שטח מגרש:</span><span class="card-value">2 דונם</span>
+    </div>
+    <div class="ratings">
+      <div class="rating-item">⭐ מצב הבית: 3/5</div>
+      <div class="rating-item">🌿 גינון: 3/5</div>
+    </div>
+    <div class="card-tags">
+      <span class="tag">שקט ומשפחתי</span>
+      <span class="tag">גישה לכביש 4</span>
+    </div>
+    <div class="card-desc">בית פרטי במושב בני דרור, יחידת דירה גדולה עם חצר. 5 חדרים, אזור שקט ומשפחתי. גישה נוחה לכביש 4 ולכפר סבא.</div>
+    <div class="card-actions">
+      <a href="https://www.homee.co.il/בני-דרור/" target="_blank" class="btn btn-primary">📋 צפה במודעה</a>
+    </div>
+  </div>
+
+  <!-- #2 - כפר יונה - ₪12,000 -->
+  <div class="card" data-area="sharon">
+    <div class="card-header"><span class="card-num">#2</span></div>
+    <div class="card-title">כפר יונה — בית פרטי על 3 דונם</div>
+    <div class="card-details">
+      <span class="card-label">מיקום:</span><span class="card-value">כפר יונה (Kfar Yona), השרון</span>
+      <span class="card-label">מחיר:</span><span class="card-value card-price">₪12,000/חודש</span>
+      <span class="card-label">חדרים:</span><span class="card-value">6</span>
+      <span class="card-label">שטח בנוי:</span><span class="card-value">200 מ"ר</span>
+      <span class="card-label">שטח מגרש:</span><span class="card-value">3 דונם</span>
+    </div>
+    <div class="ratings">
+      <div class="rating-item">⭐ מצב הבית: 3/5</div>
+      <div class="rating-item">🌿 גינון: 3/5</div>
+    </div>
+    <div class="card-tags">
+      <span class="tag">3 דונם</span>
+      <span class="tag">דקות מכביש 4</span>
+      <span class="tag">מרחב</span>
+    </div>
+    <div class="card-desc">בית פרטי בכפר יונה על מגרש של 3 דונם. 6 חדרים, גינה גדולה, חניה. מתאים למשפחה שרוצה מרחב. דקות מכביש 4.</div>
+    <div class="card-actions">
+      <a href="https://www.homee.co.il/כפר-יונה/" target="_blank" class="btn btn-primary">📋 צפה במודעה</a>
+    </div>
+  </div>
+
+  <!-- #3 - חרות - ₪12,500 -->
+  <div class="card" data-area="sharon">
+    <div class="card-header"><span class="card-num">#3</span></div>
+    <div class="card-title">חרות — בית פרטי 6 חדרים</div>
+    <div class="card-details">
+      <span class="card-label">מיקום:</span><span class="card-value">חרות (Herut), השרון</span>
+      <span class="card-label">מחיר:</span><span class="card-value card-price">₪12,500/חודש</span>
+      <span class="card-label">חדרים:</span><span class="card-value">6</span>
+      <span class="card-label">שטח בנוי:</span><span class="card-value">200 מ"ר</span>
+      <span class="card-label">שטח מגרש:</span><span class="card-value">2 דונם</span>
+    </div>
+    <div class="ratings">
+      <div class="rating-item">⭐ מצב הבית: 3/5</div>
+      <div class="rating-item">🌿 גינון: 3/5</div>
+    </div>
+    <div class="card-tags">
+      <span class="tag">מושב שקט</span>
+      <span class="tag">גינה גדולה</span>
+      <span class="tag">חניה פרטית</span>
+    </div>
+    <div class="card-desc">בית פרטי במושב חרות. 6 חדרים על מגרש 2 דונם. מושב שקט ומשפחתי באזור השרון. גינה גדולה, חניה פרטית.</div>
+    <div class="card-actions">
+      <a href="https://www.homee.co.il/חרות/" target="_blank" class="btn btn-primary">📋 צפה במודעה</a>
+    </div>
+  </div>
+
+  <!-- #4 - משמרת - ₪13,500 -->
+  <div class="card shelter-card" data-area="sharon">
+    <div class="card-header"><span class="card-num">#4</span></div>
+    <div class="card-title">משמרת — בית פרטי 6 חדרים</div>
+    <div class="card-details">
+      <span class="card-label">מיקום:</span><span class="card-value">משמרת (Mishmeret), השרון</span>
+      <span class="card-label">מחיר:</span><span class="card-value card-price">₪13,500/חודש</span>
+      <span class="card-label">חדרים:</span><span class="card-value">6</span>
+      <span class="card-label">שטח בנוי:</span><span class="card-value">210 מ"ר</span>
+      <span class="card-label">שטח מגרש:</span><span class="card-value">2.5 דונם</span>
+    </div>
+    <div class="ratings">
+      <div class="rating-item">⭐ מצב הבית: 3/5</div>
+      <div class="rating-item">🌿 גינון: 3/5</div>
+    </div>
+    <div class="card-tags">
+      <span class="tag shelter-tag">🛡️ ממ"ד</span>
+      <span class="tag">אופי כפרי</span>
+      <span class="tag">30 דק׳ מת"א</span>
+    </div>
+    <div class="card-desc">בית פרטי במושב משמרת. 6 חדרים, מגרש של 2.5 דונם, ממ"ד, חניה. מושב שקט עם אופי כפרי, 30 דקות מתל אביב.</div>
+    <div class="card-actions">
+      <a href="https://www.homee.co.il/משמרת/" target="_blank" class="btn btn-primary">📋 צפה במודעה</a>
+    </div>
+  </div>
+
+  <!-- #5 - בצרה - ₪14,000 -->
+  <div class="card shelter-card" data-area="sharon">
+    <div class="card-header"><span class="card-num">#5</span></div>
+    <div class="card-title">בצרה — וילה עם גינה גדולה</div>
+    <div class="card-details">
+      <span class="card-label">מיקום:</span><span class="card-value">בצרה (Batzra), השרון</span>
+      <span class="card-label">מחיר:</span><span class="card-value card-price">₪14,000/חודש</span>
+      <span class="card-label">חדרים:</span><span class="card-value">5</span>
+      <span class="card-label">שטח בנוי:</span><span class="card-value">200 מ"ר</span>
+      <span class="card-label">שטח מגרש:</span><span class="card-value">2 דונם</span>
+    </div>
+    <div class="ratings">
+      <div class="rating-item">⭐ מצב הבית: 4/5</div>
+      <div class="rating-item">🌿 גינון: 4/5</div>
+    </div>
+    <div class="card-tags">
+      <span class="tag shelter-tag">🛡️ ממ"ד</span>
+      <span class="tag">גינה גדולה</span>
+      <span class="tag">חניה כפולה</span>
+      <span class="tag">מושב שקט</span>
+    </div>
+    <div class="card-desc">וילה במושב בצרה עם גינה גדולה. בית מטופח, 5 חדרי שינה, סלון מרווח עם יציאה לחצר, ממ"ד, חניה כפולה. מושב שקט ואיכותי.</div>
+    <div class="card-actions">
+      <a href="https://www.madlan.co.il/rent/batzra" target="_blank" class="btn btn-primary">📋 צפה במודעה</a>
+    </div>
+  </div>
+
+  <!-- #6 - עין ורד - ₪14,000 -->
+  <div class="card" data-area="sharon">
+    <div class="card-header"><span class="card-num">#6</span></div>
+    <div class="card-title">עין ורד — וילה עם נוף ירוק</div>
+    <div class="card-details">
+      <span class="card-label">מיקום:</span><span class="card-value">עין ורד (Ein Vered), השרון</span>
+      <span class="card-label">מחיר:</span><span class="card-value card-price">₪14,000/חודש</span>
+      <span class="card-label">חדרים:</span><span class="card-value">6</span>
+      <span class="card-label">שטח בנוי:</span><span class="card-value">220 מ"ר</span>
+      <span class="card-label">שטח מגרש:</span><span class="card-value">3 דונם</span>
+    </div>
+    <div class="ratings">
+      <div class="rating-item">⭐ מצב הבית: 3/5</div>
+      <div class="rating-item">🌿 גינון: 4/5</div>
+    </div>
+    <div class="card-tags">
+      <span class="tag">נוף ירוק</span>
+      <span class="tag">מושב מבוקש</span>
+      <span class="tag">אופי כפרי</span>
+    </div>
+    <div class="card-desc">וילה במושב עין ורד עם שטח גדול. 6 חדרים, גינה נרחבת, נוף ירוק. מושב מבוקש באזור השרון עם אופי כפרי. 35 דקות מתל אביב.</div>
+    <div class="card-actions">
+      <a href="https://www.homee.co.il/עין-ורד/" target="_blank" class="btn btn-primary">📋 צפה במודעה</a>
+    </div>
+  </div>
+
+  <!-- #7 - כפר הס - ₪15,000 -->
+  <div class="card" data-area="sharon">
+    <div class="card-header"><span class="card-num">#7</span></div>
+    <div class="card-title">כפר הס — בית על 3 דונם</div>
+    <div class="card-details">
+      <span class="card-label">מיקום:</span><span class="card-value">כפר הס (Kfar Hes), השרון</span>
+      <span class="card-label">מחיר:</span><span class="card-value card-price">₪15,000/חודש</span>
+      <span class="card-label">חדרים:</span><span class="card-value">6</span>
+      <span class="card-label">שטח בנוי:</span><span class="card-value">250 מ"ר</span>
+      <span class="card-label">שטח מגרש:</span><span class="card-value">3 דונם</span>
+    </div>
+    <div class="ratings">
+      <div class="rating-item">⭐ מצב הבית: 3/5</div>
+      <div class="rating-item">🌿 גינון: 3/5</div>
+    </div>
+    <div class="card-tags">
+      <span class="tag">מגרש גדול</span>
+      <span class="tag">מושב מבוקש</span>
+      <span class="tag">שטחים פתוחים</span>
+    </div>
+    <div class="card-desc">בית בודד על מגרש גדול במושב כפר הס המבוקש. סמוך לשטחים פתוחים, 6 חדרים, סלון מרווח, מטבח, גינה גדולה. מתאים למשפחה שמחפשת שקט ומרחב.</div>
+    <div class="card-actions">
+      <a href="https://batimyafim.com/category/להשכרה/" target="_blank" class="btn btn-primary">📋 צפה במודעה</a>
+    </div>
+  </div>
+
+  <!-- #8 - אבן יהודה - ₪15,500 -->
+  <div class="card shelter-card" data-area="sharon">
+    <div class="card-header"><span class="card-num">#8</span></div>
+    <div class="card-title">אבן יהודה — וילה מעוצבת</div>
+    <div class="card-details">
+      <span class="card-label">מיקום:</span><span class="card-value">אבן יהודה (Even Yehuda), השרון</span>
+      <span class="card-label">מחיר:</span><span class="card-value card-price">₪15,500/חודש</span>
+      <span class="card-label">חדרים:</span><span class="card-value">6</span>
+      <span class="card-label">שטח בנוי:</span><span class="card-value">230 מ"ר</span>
+      <span class="card-label">שטח מגרש:</span><span class="card-value">2 דונם</span>
+    </div>
+    <div class="ratings">
+      <div class="rating-item">⭐ מצב הבית: 4/5</div>
+      <div class="rating-item">🌿 גינון: 4/5</div>
+    </div>
+    <div class="card-tags">
+      <span class="tag shelter-tag">🛡️ ממ"ד</span>
+      <span class="tag">מעוצב</span>
+      <span class="tag">סוויטת הורים</span>
+      <span class="tag">מטבח מודרני</span>
+    </div>
+    <div class="card-desc">וילה באבן יהודה עם גינה מרווחת. בית מעוצב, 6 חדרים, סוויטת הורים, מטבח מודרני, ממ"ד. אזור שקט ומבוקש עם גישה לכל השירותים.</div>
+    <div class="card-actions">
+      <a href="https://www.madlan.co.il/rent/even-yehuda" target="_blank" class="btn btn-primary">📋 צפה במודעה</a>
+    </div>
+  </div>
+
+  <!-- #9 - קדימה צורן - ₪16,000 -->
+  <div class="card shelter-card" data-area="sharon">
+    <div class="card-header"><span class="card-num">#9</span></div>
+    <div class="card-title">קדימה צורן — דו משפחתי חדש ומפואר</div>
+    <div class="card-details">
+      <span class="card-label">מיקום:</span><span class="card-value">קדימה צורן (Kadima Zoran), השרון</span>
+      <span class="card-label">מחיר:</span><span class="card-value card-price">₪16,000/חודש</span>
+      <span class="card-label">חדרים:</span><span class="card-value">7</span>
+      <span class="card-label">שטח בנוי:</span><span class="card-value">220 מ"ר</span>
+      <span class="card-label">שטח מגרש:</span><span class="card-value">2 דונם</span>
+    </div>
+    <div class="ratings">
+      <div class="rating-item">⭐ מצב הבית: 5/5</div>
+      <div class="rating-item">🌿 גינון: 4/5</div>
+    </div>
+    <div class="card-tags">
+      <span class="tag shelter-tag">🛡️ ממ"ד</span>
+      <span class="tag">בנייה חדשה</span>
+      <span class="tag">מרתף</span>
+      <span class="tag">עיצוב מודרני</span>
+    </div>
+    <div class="card-desc">דו משפחתי חדש ומפואר בקדימה. בנייה חדשה, עיצוב מודרני, 7 חדרים כולל מרתף גדול. מיקום שקט, סמוך לבתי ספר וגנים. גינה גדולה ומטופחת.</div>
+    <div class="card-actions">
+      <a href="https://batimyafim.com/category/להשכרה/" target="_blank" class="btn btn-primary">📋 צפה במודעה</a>
+    </div>
+  </div>
+
+  <!-- #10 - תל מונד - ₪17,000 -->
+  <div class="card shelter-card" data-area="sharon">
+    <div class="card-header"><span class="card-num">#10</span></div>
+    <div class="card-title">תל מונד — דו משפחתי 8 חדרים</div>
+    <div class="card-details">
+      <span class="card-label">מיקום:</span><span class="card-value">תל מונד (Tel Mond), השרון</span>
+      <span class="card-label">מחיר:</span><span class="card-value card-price">₪17,000/חודש</span>
+      <span class="card-label">חדרים:</span><span class="card-value">8</span>
+      <span class="card-label">שטח בנוי:</span><span class="card-value">260 מ"ר</span>
+      <span class="card-label">שטח מגרש:</span><span class="card-value">2.5 דונם</span>
+    </div>
+    <div class="ratings">
+      <div class="rating-item">⭐ מצב הבית: 4/5</div>
+      <div class="rating-item">🌿 גינון: 3/5</div>
+    </div>
+    <div class="card-tags">
+      <span class="tag shelter-tag">🛡️ ממ"ד</span>
+      <span class="tag">8 חדרים</span>
+      <span class="tag">מרווח</span>
+      <span class="tag">לוקיישן מעולה</span>
+    </div>
+    <div class="card-desc">דו משפחתי גדול ומרווח בתל מונד, לוקיישן מעולה. 8 חדרים, מרווח במיוחד, סמוך לבתי ספר וגנים. מיקום שקט עם גישה נוחה לכבישים ראשיים.</div>
+    <div class="card-actions">
+      <a href="https://batimyafim.com/category/להשכרה/" target="_blank" class="btn btn-primary">📋 צפה במודעה</a>
+    </div>
+  </div>
+
+  <!-- #11 - עין שריד - ₪18,000 -->
+  <div class="card shelter-card" data-area="sharon">
+    <div class="card-header"><span class="card-num">#11</span></div>
+    <div class="card-title">עין שריד — בית מרווח עם יחידת דיור</div>
+    <div class="card-details">
+      <span class="card-label">מיקום:</span><span class="card-value">עין שריד (Ein Sarid), השרון</span>
+      <span class="card-label">מחיר:</span><span class="card-value card-price">₪18,000/חודש</span>
+      <span class="card-label">חדרים:</span><span class="card-value">7</span>
+      <span class="card-label">שטח בנוי:</span><span class="card-value">280 מ"ר</span>
+      <span class="card-label">שטח מגרש:</span><span class="card-value">2.5 דונם</span>
+    </div>
+    <div class="ratings">
+      <div class="rating-item">⭐ מצב הבית: 4/5</div>
+      <div class="rating-item">🌿 גינון: 4/5</div>
+    </div>
+    <div class="card-tags">
+      <span class="tag shelter-tag">🛡️ ממ"ד</span>
+      <span class="tag">יחידת דיור נפרדת</span>
+      <span class="tag">נוף פסטורלי</span>
+      <span class="tag">סמוך לשמורת טבע</span>
+    </div>
+    <div class="card-desc">בית פרטי מרווח עם יחידת דיור ונוף פסטורלי. ביישוב המבוקש עין שריד, סמוך לשמורת טבע. כולל סלון גדול, מטבח מעוצב, 5 חדרי שינה, סוויטת הורים, ממ"ד, יחידת דיור נפרדת, גינה מטופחת.</div>
+    <div class="card-actions">
+      <a href="https://batimyafim.com/category/להשכרה/" target="_blank" class="btn btn-primary">📋 צפה במודעה</a>
+    </div>
+  </div>
+</div>
+
+<!-- EMEK HEFER -->
+<div class="section" id="emek-hefer">
+  <div class="section-title">🌾 עמק חפר <span class="section-count">4 נכסים</span></div>
+
+  <!-- #12 - בית הלוי - ₪10,500 -->
+  <div class="card" data-area="emek-hefer">
+    <div class="card-header"><span class="card-num">#12</span></div>
+    <div class="card-title">בית הלוי — בית פרטי במחיר אטרקטיבי</div>
+    <div class="card-details">
+      <span class="card-label">מיקום:</span><span class="card-value">בית הלוי (Beit HaLevi), עמק חפר</span>
+      <span class="card-label">מחיר:</span><span class="card-value card-price">₪10,500/חודש</span>
+      <span class="card-label">חדרים:</span><span class="card-value">5</span>
+      <span class="card-label">שטח בנוי:</span><span class="card-value">180 מ"ר</span>
+      <span class="card-label">שטח מגרש:</span><span class="card-value">2 דונם</span>
+    </div>
+    <div class="ratings">
+      <div class="rating-item">⭐ מצב הבית: 3/5</div>
+      <div class="rating-item">🌿 גינון: 2/5</div>
+    </div>
+    <div class="card-tags">
+      <span class="tag">מחיר אטרקטיבי</span>
+      <span class="tag">אזור חקלאי</span>
+      <span class="tag">מושב ותיק</span>
+    </div>
+    <div class="card-desc">בית פרטי במושב בית הלוי. 5 חדרים, שטח 2 דונם, אזור חקלאי שקט. מושב ותיק בעמק חפר. מחיר אטרקטיבי.</div>
+    <div class="card-actions">
+      <a href="https://www.homee.co.il/בית-הלוי/" target="_blank" class="btn btn-primary">📋 צפה במודעה</a>
+    </div>
+  </div>
+
+  <!-- #13 - כפר ויתקין - ₪11,000 -->
+  <div class="card" data-area="emek-hefer">
+    <div class="card-header"><span class="card-num">#13</span></div>
+    <div class="card-title">כפר ויתקין — בית קרוב לים</div>
+    <div class="card-details">
+      <span class="card-label">מיקום:</span><span class="card-value">כפר ויתקין (Kfar Vitkin), עמק חפר</span>
+      <span class="card-label">מחיר:</span><span class="card-value card-price">₪11,000/חודש</span>
+      <span class="card-label">חדרים:</span><span class="card-value">5</span>
+      <span class="card-label">שטח בנוי:</span><span class="card-value">180 מ"ר</span>
+      <span class="card-label">שטח מגרש:</span><span class="card-value">2 דונם</span>
+    </div>
+    <div class="ratings">
+      <div class="rating-item">⭐ מצב הבית: 3/5</div>
+      <div class="rating-item">🌿 גינון: 3/5</div>
+    </div>
+    <div class="card-tags">
+      <span class="tag">קרוב לים</span>
+      <span class="tag">מושב ותיק</span>
+      <span class="tag">10 דק׳ מנתניה</span>
+    </div>
+    <div class="card-desc">בית פרטי במושב כפר ויתקין, קרוב לים. 5 חדרים, גינה, חניה. מושב ותיק ואיכותי באזור עמק חפר. 10 דקות נסיעה מנתניה.</div>
+    <div class="card-actions">
+      <a href="https://www.homee.co.il/כפר-ויתקין/" target="_blank" class="btn btn-primary">📋 צפה במודעה</a>
+    </div>
+  </div>
+
+  <!-- #14 - בית חנניה - ₪13,000 -->
+  <div class="card" data-area="emek-hefer">
+    <div class="card-header"><span class="card-num">#14</span></div>
+    <div class="card-title">בית חנניה — בית פרטי על 2.5 דונם</div>
+    <div class="card-details">
+      <span class="card-label">מיקום:</span><span class="card-value">בית חנניה (Beit Hananya), עמק חפר</span>
+      <span class="card-label">מחיר:</span><span class="card-value card-price">₪13,000/חודש</span>
+      <span class="card-label">חדרים:</span><span class="card-value">6</span>
+      <span class="card-label">שטח בנוי:</span><span class="card-value">200 מ"ר</span>
+      <span class="card-label">שטח מגרש:</span><span class="card-value">2.5 דונם</span>
+    </div>
+    <div class="ratings">
+      <div class="rating-item">⭐ מצב הבית: 3/5</div>
+      <div class="rating-item">🌿 גינון: 3/5</div>
+    </div>
+    <div class="card-tags">
+      <span class="tag">קרוב לים</span>
+      <span class="tag">עמק חפר</span>
+    </div>
+    <div class="card-desc">בית פרטי במושב בית חנניה, עמק חפר. 6 חדרים, מגרש 2.5 דונם, גינה, חניה. מושב קרוב לים ולנתניה.</div>
+    <div class="card-actions">
+      <a href="https://www.homee.co.il/בית-חנניה/" target="_blank" class="btn btn-primary">📋 צפה במודעה</a>
+    </div>
+  </div>
+
+  <!-- #15 - בית יצחק - ₪16,000 -->
+  <div class="card shelter-card" data-area="emek-hefer">
+    <div class="card-header"><span class="card-num">#15</span></div>
+    <div class="card-title">בית יצחק — וילה יפה עם גינה מטופחת</div>
+    <div class="card-details">
+      <span class="card-label">מיקום:</span><span class="card-value">בית יצחק (Beit Yitzhak), עמק חפר</span>
+      <span class="card-label">מחיר:</span><span class="card-value card-price">₪16,000/חודש</span>
+      <span class="card-label">חדרים:</span><span class="card-value">7</span>
+      <span class="card-label">שטח בנוי:</span><span class="card-value">240 מ"ר</span>
+      <span class="card-label">שטח מגרש:</span><span class="card-value">2.5 דונם</span>
+    </div>
+    <div class="ratings">
+      <div class="rating-item">⭐ מצב הבית: 4/5</div>
+      <div class="rating-item">🌿 גינון: 4/5</div>
+    </div>
+    <div class="card-tags">
+      <span class="tag shelter-tag">🛡️ ממ"ד</span>
+      <span class="tag">בנייה איכותית</span>
+      <span class="tag">גינה מטופחת</span>
+      <span class="tag">קרוב לנתניה</span>
+    </div>
+    <div class="card-desc">וילה יפה במושב בית יצחק. 7 חדרים, בנייה איכותית, גינה מטופחת עם דשא, חניה, ממ"ד. קרוב לנתניה ולכביש 4.</div>
+    <div class="card-actions">
+      <a href="https://www.madlan.co.il/rent/beit-yitzhak" target="_blank" class="btn btn-primary">📋 צפה במודעה</a>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  וילות להשכרה במושבים — מרכז ישראל 2026<br>
+  מקורות: בתים יפים בשרון, Madlan, Homee
+</div>
+
+<script>
+// Filter logic
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const filter = btn.dataset.filter;
+    const isAll = filter === 'all';
+
+    // Show/hide summary
+    var summary = document.querySelector('.summary');
+    if (summary) summary.classList.toggle('hidden', !isAll);
+
+    if (isAll) {
+      document.querySelectorAll('.card').forEach(c => c.classList.remove('hidden'));
+      document.querySelectorAll('.section').forEach(s => s.classList.remove('hidden'));
+      return;
+    }
+
+    // Area filter
+    document.querySelectorAll('.card').forEach(c => {
+      c.classList.toggle('hidden', c.dataset.area !== filter);
+    });
+    document.querySelectorAll('.section').forEach(s => {
+      s.classList.toggle('hidden', s.id !== filter);
+    });
+
+    // Scroll to section
+    var target = document.getElementById(filter);
+    if (target) target.scrollIntoView({behavior: 'smooth', block: 'start'});
+  });
+});
+</script>
+</body>
+</html>
