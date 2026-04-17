@@ -8,1004 +8,675 @@
 <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: 'Heebo', sans-serif; background: #f8f9fa; color: #1a1a2e; line-height: 1.6; }
-
-/* Nav */
-.top-nav {
-  background: #0f2e1a; display: flex; justify-content: center; gap: 0; font-size: 0.95rem;
-}
-.top-nav a {
-  color: rgba(255,255,255,0.7); text-decoration: none; padding: 0.6rem 1.5rem;
-  font-weight: 500; transition: all 0.2s; border-bottom: 3px solid transparent;
-}
+body { font-family: 'Heebo', sans-serif; background: #f5f7f5; color: #1a1a2e; line-height: 1.6; }
+.top-nav { background: #0f2e1a; display: flex; justify-content: center; gap: 0; font-size: 0.95rem; }
+.top-nav a { color: rgba(255,255,255,0.7); text-decoration: none; padding: 0.6rem 1.5rem; font-weight: 500; transition: all 0.2s; border-bottom: 3px solid transparent; }
 .top-nav a:hover { color: white; background: rgba(255,255,255,0.05); }
 .top-nav a.active { color: white; border-bottom-color: #40916c; background: rgba(255,255,255,0.08); }
-
-/* Hero */
-.hero {
-  background: linear-gradient(135deg, #1a472a 0%, #2d6a4f 50%, #40916c 100%);
-  color: white; padding: 3rem 1.5rem 2rem; text-align: center;
-  position: relative; overflow: hidden;
-}
-.hero::before {
-  content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-  background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-  opacity: 0.3;
-}
-.hero h1 { font-size: 2rem; font-weight: 800; margin-bottom: 0.5rem; position: relative; }
-.hero p { font-size: 0.95rem; opacity: 0.9; position: relative; }
-.hero .stats { display: flex; justify-content: center; gap: 1.5rem; margin-top: 1.5rem; flex-wrap: wrap; position: relative; }
-.hero .stat { background: rgba(255,255,255,0.15); border-radius: 12px; padding: 0.75rem 1.25rem; backdrop-filter: blur(10px); }
-.hero .stat .num { font-size: 1.5rem; font-weight: 700; }
-.hero .stat .label { font-size: 0.8rem; opacity: 0.85; }
-
-/* Filter Bar */
-.filters {
-  background: white; padding: 1rem 1.5rem; position: sticky; top: 0; z-index: 100;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08); display: flex; gap: 0.5rem; overflow-x: auto;
-}
-.filter-btn {
-  background: #f0f0f0; border: none; padding: 0.5rem 1rem; border-radius: 20px;
-  font-family: 'Heebo'; font-size: 0.85rem; cursor: pointer; white-space: nowrap;
-  transition: all 0.2s;
-}
-.filter-btn.active, .filter-btn:hover { background: #2d6a4f; color: white; }
-
-/* Summary Table */
-.summary { max-width: 800px; margin: 1.5rem auto; padding: 0 1rem; }
-.summary table { width: 100%; border-collapse: collapse; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
-.summary th { background: #2d6a4f; color: white; padding: 0.75rem 0.5rem; font-size: 0.85rem; font-weight: 600; }
-.summary td { background: white; padding: 0.6rem 0.5rem; font-size: 0.85rem; text-align: center; border-bottom: 1px solid #f0f0f0; }
-.summary tr:last-child td { border-bottom: none; }
-
-/* Section */
-.section { max-width: 800px; margin: 2rem auto; padding: 0 1rem; }
-.section-title {
-  font-size: 1.3rem; font-weight: 700; color: #1a472a; margin-bottom: 1rem;
-  padding-bottom: 0.5rem; border-bottom: 3px solid #2d6a4f;
-  display: flex; align-items: center; gap: 0.5rem;
-}
-.section-count { background: #2d6a4f; color: white; font-size: 0.75rem; padding: 0.2rem 0.6rem; border-radius: 10px; font-weight: 500; }
-
-/* Property Card */
-.card {
-  background: white; border-radius: 14px; padding: 1.25rem; margin-bottom: 1rem;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.06); border-right: 4px solid #e0e0e0;
-  transition: transform 0.2s, box-shadow 0.2s;
-}
-.card:hover { transform: translateY(-2px); box-shadow: 0 4px 16px rgba(0,0,0,0.1); }
-.card.horse-card { border-right-color: #f0c040; }
-.card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.75rem; }
-.card-title { font-size: 1.05rem; font-weight: 700; color: #1a1a2e; }
-.card-num { color: #999; font-size: 0.85rem; }
-.horse-badge { background: #fff8e1; color: #b8860b; padding: 0.2rem 0.5rem; border-radius: 6px; font-size: 0.75rem; font-weight: 600; }
-.card-details { display: grid; grid-template-columns: auto 1fr; gap: 0.3rem 0.75rem; font-size: 0.9rem; margin-bottom: 0.75rem; }
-.card-label { color: #666; font-weight: 500; }
-.card-value { color: #1a1a2e; }
-.card-price { font-size: 1.1rem; font-weight: 700; color: #2d6a4f; }
-.card-desc { color: #555; font-size: 0.88rem; margin-bottom: 0.75rem; background: #f8f9fa; padding: 0.75rem; border-radius: 8px; }
-.card-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 0.75rem; }
-.tag { background: #e8f5e9; color: #2d6a4f; padding: 0.2rem 0.6rem; border-radius: 6px; font-size: 0.75rem; font-weight: 500; }
-.tag.shelter-tag { background: #e3f2fd; color: #1565c0; }
-.card-actions { display: flex; gap: 0.5rem; flex-wrap: wrap; }
-.btn {
-  display: inline-flex; align-items: center; gap: 0.3rem;
-  padding: 0.5rem 1rem; border-radius: 8px; font-family: 'Heebo';
-  font-size: 0.85rem; text-decoration: none; font-weight: 500; transition: all 0.2s;
-}
-.btn-primary { background: #2d6a4f; color: white; }
-.btn-primary:hover { background: #1a472a; }
-.btn-outline { background: white; color: #2d6a4f; border: 1.5px solid #2d6a4f; }
-.btn-outline:hover { background: #f0f7f4; }
-
-/* Ratings */
-.ratings { display: flex; gap: 1rem; margin-bottom: 0.5rem; font-size: 0.85rem; }
-.rating-item { display: flex; align-items: center; gap: 0.25rem; }
-
-/* Image Carousel */
-.card-carousel {
-  margin: -1.25rem -1.25rem 1rem -1.25rem;
-  border-radius: 14px 14px 0 0;
-  overflow: hidden;
-  position: relative;
-  height: 250px;
-  background: #e8e8e8;
-}
-.card-carousel .carousel-slide {
-  width: 100%; height: 100%; position: relative;
-}
-.card-carousel .carousel-slide img {
-  width: 100%; height: 250px; object-fit: cover; display: block;
-  position: absolute; top: 0; left: 0; opacity: 0; transition: opacity 0.3s;
-}
-.card-carousel .carousel-slide img.active { opacity: 1; }
-.card-carousel .carousel-nav {
-  position: absolute; top: 50%; transform: translateY(-50%);
-  background: rgba(0,0,0,0.4); color: white; border: none;
-  width: 36px; height: 36px; border-radius: 50%; font-size: 1.2rem;
-  cursor: pointer; display: flex; align-items: center; justify-content: center;
-  transition: background 0.2s; z-index: 2;
-}
-.card-carousel .carousel-nav:hover { background: rgba(0,0,0,0.6); }
-.card-carousel .carousel-prev { right: 12px; }
-.card-carousel .carousel-next { left: 12px; }
-.card-carousel .carousel-dots {
-  position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%);
-  display: flex; gap: 6px; z-index: 2;
-}
-.card-carousel .carousel-dot {
-  width: 8px; height: 8px; border-radius: 50%;
-  background: rgba(255,255,255,0.5); border: none; cursor: pointer;
-  transition: background 0.2s;
-}
-.card-carousel .carousel-dot.active { background: white; }
-.card-carousel .img-count {
-  position: absolute; top: 10px; left: 10px;
-  background: rgba(0,0,0,0.5); color: white; padding: 0.2rem 0.6rem;
-  border-radius: 6px; font-size: 0.75rem; font-weight: 500; z-index: 2;
-}
-
-/* Card Gallery Placeholder (no images) */
-.card-gallery-placeholder {
-  margin: -1.25rem -1.25rem 1rem -1.25rem;
-  border-radius: 14px 14px 0 0;
-  overflow: hidden;
-  background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
-  height: 180px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  gap: 0.5rem;
-  position: relative;
-}
-.card-gallery-placeholder .placeholder-icon {
-  font-size: 3rem;
-  opacity: 0.3;
-}
-.card-gallery-placeholder .gallery-btn {
-  display: inline-flex; align-items: center; gap: 0.4rem;
-  padding: 0.5rem 1.2rem; border-radius: 8px;
-  background: rgba(45,106,79,0.85); color: white;
-  text-decoration: none; font-family: 'Heebo'; font-size: 0.85rem;
-  font-weight: 500; transition: all 0.2s; backdrop-filter: blur(4px);
-}
-.card-gallery-placeholder .gallery-btn:hover { background: rgba(26,71,42,0.95); }
-
-/* Lightbox */
-.lightbox {
-  position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(0,0,0,0.95); z-index: 9999;
-  display: none; flex-direction: column; align-items: center; justify-content: center;
-}
-.lightbox.active { display: flex; }
-.lightbox-close {
-  position: absolute; top: 16px; right: 16px;
-  background: rgba(255,255,255,0.2); border: none; color: white;
-  width: 44px; height: 44px; border-radius: 50%; font-size: 1.5rem;
-  cursor: pointer; z-index: 10001; display: flex; align-items: center; justify-content: center;
-}
-.lightbox-close:hover { background: rgba(255,255,255,0.3); }
-.lightbox-img-wrap {
-  flex: 1; display: flex; align-items: center; justify-content: center;
-  width: 100%; overflow: hidden; padding: 60px 50px;
-}
-.lightbox-img-wrap img {
-  max-width: 100%; max-height: 100%; object-fit: contain; border-radius: 8px;
-}
-.lightbox-nav {
-  position: absolute; top: 50%; transform: translateY(-50%);
-  background: rgba(255,255,255,0.15); border: none; color: white;
-  width: 48px; height: 48px; border-radius: 50%; font-size: 1.5rem;
-  cursor: pointer; display: flex; align-items: center; justify-content: center;
-  transition: background 0.2s;
-}
-.lightbox-nav:hover { background: rgba(255,255,255,0.3); }
-.lightbox-prev { right: 12px; }
-.lightbox-next { left: 12px; }
-.lightbox-counter {
-  position: absolute; bottom: 16px;
-  color: rgba(255,255,255,0.7); font-size: 0.9rem;
-}
-
+.hero { background: linear-gradient(135deg, #1a472a 0%, #2d6a4f 50%, #40916c 100%); color: white; padding: 2.5rem 1.5rem 2rem; text-align: center; }
+.hero h1 { font-size: 1.8rem; font-weight: 800; margin-bottom: 0.5rem; }
+.hero p { font-size: 0.95rem; opacity: 0.9; }
+.controls { background: white; padding: 0.75rem 1rem; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+.filter-row, .sort-row { display: flex; gap: 0.4rem; flex-wrap: wrap; justify-content: center; }
+.sort-row { margin-top: 0.5rem; border-top: 1px solid #eee; padding-top: 0.5rem; }
+.filter-btn, .sort-btn { background: #f0f0f0; border: none; padding: 0.4rem 0.8rem; border-radius: 16px; font-family: 'Heebo'; font-size: 0.8rem; cursor: pointer; white-space: nowrap; transition: all 0.2s; }
+.filter-btn.active { background: #2d6a4f; color: white; }
+.sort-btn.active { background: #1a472a; color: white; }
+.filter-btn:hover, .sort-btn:hover { opacity: 0.85; }
+.sort-label { font-size: 0.8rem; color: #666; padding: 0.4rem 0; font-weight: 500; }
+#cards-container { max-width: 900px; margin: 1.5rem auto; padding: 0 1rem; display: grid; grid-template-columns: 1fr; gap: 1rem; }
+@media (min-width: 700px) { #cards-container { grid-template-columns: 1fr 1fr; } }
+.property-card { background: white; border-radius: 14px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.06); border-right: 4px solid #2d6a4f; transition: transform 0.2s, box-shadow 0.2s; }
+.property-card:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.12); }
+.card-image { position: relative; width: 100%; height: 200px; overflow: hidden; background: #e8f5e9; }
+.card-image img { width: 100%; height: 100%; object-fit: cover; display: none; }
+.card-image img.active { display: block; }
+.card-image.no-image { display: flex; align-items: center; justify-content: center; }
+.no-img-text { font-size: 3rem; opacity: 0.3; }
+.img-prev, .img-next { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.5); color: white; border: none; padding: 6px 10px; cursor: pointer; font-size: 16px; border-radius: 50%; z-index: 2; }
+.img-prev { left: 6px; }
+.img-next { right: 6px; }
+.img-count { position: absolute; bottom: 6px; right: 6px; background: rgba(0,0,0,0.6); color: white; padding: 2px 8px; border-radius: 10px; font-size: 11px; }
+.card-body { padding: 1rem; }
+.card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.5rem; }
+.card-title { font-size: 1rem; font-weight: 700; color: #1a472a; }
+.card-price { font-size: 1rem; font-weight: 700; color: #2d6a4f; white-space: nowrap; }
+.card-meta { display: flex; flex-wrap: wrap; gap: 0.5rem; font-size: 0.8rem; color: #555; margin-bottom: 0.5rem; }
+.card-meta span { background: #f5f5f5; padding: 0.2rem 0.5rem; border-radius: 6px; }
+.drive-badge { background: #fff3e0 !important; color: #e65100 !important; font-weight: 500; }
+.card-ratings { display: flex; gap: 1rem; font-size: 0.8rem; color: #666; margin-bottom: 0.5rem; }
+.card-tags { display: flex; flex-wrap: wrap; gap: 0.3rem; margin-bottom: 0.5rem; }
+.tag { background: #e8f5e9; color: #2d6a4f; padding: 0.15rem 0.5rem; border-radius: 6px; font-size: 0.72rem; font-weight: 500; }
+.shelter-tag { background: #e3f2fd; color: #1565c0; }
+.no-shelter-tag { background: #fce4ec; color: #c62828; }
+.unknown-shelter-tag { background: #f5f5f5; color: #999; }
+.horse-tag { background: #fff8e1; color: #f57f17; border: 1px solid #ffe082; }
+.card-desc { font-size: 0.82rem; color: #666; margin-bottom: 0.5rem; line-height: 1.5; }
+.btn-link { display: inline-block; background: #2d6a4f; color: white; padding: 0.4rem 1rem; border-radius: 8px; text-decoration: none; font-size: 0.82rem; font-weight: 500; transition: background 0.2s; }
+.btn-link:hover { background: #1a472a; }
+.footer { background: #1a472a; color: rgba(255,255,255,0.7); text-align: center; padding: 1.5rem; font-size: 0.85rem; margin-top: 2rem; }
 @media (max-width: 480px) {
-  .card-carousel { height: 200px; }
-  .card-carousel .carousel-slide img { height: 200px; }
-  .card-carousel .carousel-nav { width: 30px; height: 30px; font-size: 1rem; }
-  .lightbox-img-wrap { padding: 50px 8px; }
-  .lightbox-nav { width: 36px; height: 36px; font-size: 1.2rem; }
-  .lightbox-prev { right: 4px; }
-  .lightbox-next { left: 4px; }
+  .hero h1 { font-size: 1.4rem; }
+  .card-image { height: 160px; }
+  #cards-container { grid-template-columns: 1fr; }
 }
-
-/* Footer */
-.footer { background: #1a472a; color: rgba(255,255,255,0.7); text-align: center; padding: 1.5rem; font-size: 0.85rem; }
-
-/* Mobile fixes */
-@media (max-width: 480px) {
-  .hero h1 { font-size: 1.5rem; }
-  .hero .stats { gap: 0.75rem; }
-  .hero .stat { padding: 0.5rem 0.75rem; }
-  .hero .stat .num { font-size: 1.2rem; }
-  .card-details { grid-template-columns: 1fr; }
-  .card-label { font-weight: 600; }
-  .top-nav { font-size: 0.85rem; }
-  .top-nav a { padding: 0.5rem 1rem; }
-}
-
-.hidden { display: none !important; }
 </style>
 </head>
 <body>
-
 <nav class="top-nav">
   <a href="index.html">🏡 למכירה</a>
   <a href="rentals.html" class="active">🔑 נחלות להשכרה</a>
   <a href="villas.html">🏠 וילות להשכרה</a>
 </nav>
-
 <div class="hero">
   <h1>🔑 נחלות ובתים פרטיים להשכרה — מרכז ישראל 2026</h1>
-  <p>נחלות, וילות ובתים פרטיים עם שטח להשכרה — 40-50 דקות מתל אביב</p>
-  <div class="stats">
-    <div class="stat"><div class="num">20</div><div class="label">נכסים</div></div>
-    <div class="stat"><div class="num">₪9,900</div><div class="label">מינימום/חודש</div></div>
-    <div class="stat"><div class="num">₪54,000</div><div class="label">מקסימום/חודש</div></div>
-    <div class="stat"><div class="num">5</div><div class="label">אזורים</div></div>
+  <p>נחלות, וילות ובתים פרטיים עם שטח להשכרה — 25-55 דקות מתל אביב</p>
+</div>
+<div class="controls">
+  <div class="filter-row">
+    <button class="filter-btn active" onclick="filterCards('all')">הכל (20)</button>
+    <button class="filter-btn" onclick="filterCards('emek-hefer')">עמק חפר</button>
+    <button class="filter-btn" onclick="filterCards('sharon')">השרון</button>
+    <button class="filter-btn" onclick="filterCards('shfela')">השפלה</button>
+    <button class="filter-btn" onclick="filterCards('gush-dan')">גוש דן</button>
+    <button class="filter-btn" onclick="filterCards('other')">אחר</button>
+    <button class="filter-btn" onclick="filterCards('horse')">🐴 מתאים לסוסים</button>
+  </div>
+  <div class="sort-row">
+    <span class="sort-label">מיון:</span>
+    <button class="sort-btn active" onclick="sortCards('price',false,this)">מחיר ↓</button>
+    <button class="sort-btn" onclick="sortCards('price',true,this)">מחיר ↑</button>
+    <button class="sort-btn" onclick="sortCards('land',false,this)">שטח ↓</button>
+    <button class="sort-btn" onclick="sortCards('quality',false,this)">איכות ↓</button>
+    <button class="sort-btn" onclick="sortCards('distance',true,this)">מרחק ↑</button>
   </div>
 </div>
+<div id="cards-container">
 
-<div class="filters">
-  <button class="filter-btn active" data-filter="all">הכל (20)</button>
-  <button class="filter-btn" data-filter="emek-hefer">עמק חפר (8)</button>
-  <button class="filter-btn" data-filter="sharon">השרון (5)</button>
-  <button class="filter-btn" data-filter="shfela">השפלה (3)</button>
-  <button class="filter-btn" data-filter="gush-dan">גוש דן (1)</button>
-  <button class="filter-btn" data-filter="other">אחר (3)</button>
-  <button class="filter-btn" data-filter="horses">🐴 מתאים לסוסים</button>
+    <div class="property-card" data-area="other" data-price="10000" data-land="0" data-quality="3" data-distance="45" style="border-color: #d4a017;">
+      <div class="card-image" data-total="2" data-current="0"><img src="/images/rentals/11/1.jpg" alt="יסודות" loading="lazy" class="gallery-img active" data-idx="0"><img src="/images/rentals/11/2.jpg" alt="יסודות" loading="lazy" class="gallery-img" data-idx="1"><button class="img-prev" onclick="prevImg(this)">‹</button>
+            <button class="img-next" onclick="nextImg(this)">›</button>
+            <span class="img-count">1/2</span></div>
+      <div class="card-body">
+        <div class="card-header">
+          <h3 class="card-title">יסודות</h3>
+          <span class="card-price">₪10,000/חודש</span>
+        </div>
+        <div class="card-meta">
+          <span>🏠 1 חדרים</span>
+          
+          
+          <span class="drive-badge">🚗 45 דק׳ מרח׳ עמדן</span>
+        </div>
+        <div class="card-ratings">
+          <span>⭐ מצב: ★★★☆☆</span>
+          <span>🌿 גינון: ★★★☆☆</span>
+        </div>
+        <div class="card-tags">
+          <span class="tag unknown-shelter-tag">❓ ממ"ד לא ידוע</span>
+          <span class="tag horse-tag">🐴 מתאים לסוסים</span>
+          <span class="tag">משק חקלאי</span><span class="tag">אזור גדרות - קרוב לגדרה</span>
+        </div>
+        <p class="card-desc">משק חקלאי להשכרה במושב יסודות, אזור גדרות. נחלה חקלאית עם אפשרויות חקלאיות.</p>
+        <a href="http://homee.co.il/יסודות/נכסים/?es=59927" target="_blank" class="btn-link">🔗 למודעה המלאה</a>
+      </div>
+    </div>
+    <div class="property-card" data-area="emek-hefer" data-price="0" data-land="16" data-quality="5" data-distance="45" style="border-color: #d4a017;">
+      <div class="card-image" data-total="1" data-current="0"><img src="/images/rentals/1/1.jpg" alt="צור משה" loading="lazy" class="gallery-img active" data-idx="0"></div>
+      <div class="card-body">
+        <div class="card-header">
+          <h3 class="card-title">צור משה</h3>
+          <span class="card-price">צרו קשר</span>
+        </div>
+        <div class="card-meta">
+          <span>🏠 7 חדרים</span>
+          <span>📐 700 מ"ר בנוי</span>
+          <span>🌳 16 דונם</span>
+          <span class="drive-badge">🚗 45 דק׳ מרח׳ עמדן</span>
+        </div>
+        <div class="card-ratings">
+          <span>⭐ מצב: ★★★★★</span>
+          <span>🌿 גינון: ★★★★★</span>
+        </div>
+        <div class="card-tags">
+          <span class="tag unknown-shelter-tag">❓ ממ"ד לא ידוע</span>
+          <span class="tag horse-tag">🐴 מתאים לסוסים</span>
+          <span class="tag">בריכה</span><span class="tag">ספא</span><span class="tag">אולם כושר</span><span class="tag">אולם קולנוע ביתי</span><span class="tag">7 מבנים צמודים</span>
+        </div>
+        <p class="card-desc">נחלה להשכרה בצור משה. שטח של 16 דונם ברצף. 700 מ"ר בנוי ועוד 7 מבנים צמודים. בריכה + ספא, אולם כושר, אולם קולנוע ביתי. 7 חדרי שינה. אפשרות לאירועים משפחתיים גדולים. נכס יוקרתי ברמה הגבוהה ביותר.</p>
+        <a href="https://www.instagram.com/p/DSSHhoAjLUW/" target="_blank" class="btn-link">🔗 למודעה המלאה</a>
+      </div>
+    </div>
+    <div class="property-card" data-area="sharon" data-price="0" data-land="8" data-quality="3" data-distance="40" style="border-color: #d4a017;">
+      <div class="card-image" data-total="1" data-current="0"><img src="/images/rentals/2/1.jpg" alt="כפר נטר" loading="lazy" class="gallery-img active" data-idx="0"></div>
+      <div class="card-body">
+        <div class="card-header">
+          <h3 class="card-title">כפר נטר</h3>
+          <span class="card-price">צרו קשר</span>
+        </div>
+        <div class="card-meta">
+          <span>🏠 5 חדרים</span>
+          <span>📐 250 מ"ר בנוי</span>
+          <span>🌳 8 דונם</span>
+          <span class="drive-badge">🚗 40 דק׳ מרח׳ עמדן</span>
+        </div>
+        <div class="card-ratings">
+          <span>⭐ מצב: ★★★☆☆</span>
+          <span>🌿 גינון: ★★★☆☆</span>
+        </div>
+        <div class="card-tags">
+          <span class="tag unknown-shelter-tag">❓ ממ"ד לא ידוע</span>
+          <span class="tag horse-tag">🐴 מתאים לסוסים</span>
+          <span class="tag">חוות סוסים קיימת</span><span class="tag">8 דונם</span><span class="tag">סוויטת הורים</span><span class="tag">מתאים לסוסים</span>
+        </div>
+        <p class="card-desc">אחוזה להשכרה בכפר נטר עם חוות סוסים. שטח של כ-8 דונם + בית של כ-250 מ"ר. הבית כולל: סוויטת הורים + חדר ארונות + חדר שירותים, 2 חדרי ילדים. מתאים במיוחד לבעלי סוסים.</p>
+        <a href="https://www.instagram.com/p/DWgMssfDWx5/" target="_blank" class="btn-link">🔗 למודעה המלאה</a>
+      </div>
+    </div>
+    <div class="property-card" data-area="sharon" data-price="0" data-land="0" data-quality="3" data-distance="40" style="border-color: #d4a017;">
+      <div class="card-image" data-total="4" data-current="0"><img src="/images/rentals/12/1.jpg" alt="ניצני עוז" loading="lazy" class="gallery-img active" data-idx="0"><img src="/images/rentals/12/2.jpg" alt="ניצני עוז" loading="lazy" class="gallery-img" data-idx="1"><img src="/images/rentals/12/3.jpg" alt="ניצני עוז" loading="lazy" class="gallery-img" data-idx="2"><img src="/images/rentals/12/4.jpg" alt="ניצני עוז" loading="lazy" class="gallery-img" data-idx="3"><button class="img-prev" onclick="prevImg(this)">‹</button>
+            <button class="img-next" onclick="nextImg(this)">›</button>
+            <span class="img-count">1/4</span></div>
+      <div class="card-body">
+        <div class="card-header">
+          <h3 class="card-title">ניצני עוז</h3>
+          <span class="card-price">צרו קשר</span>
+        </div>
+        <div class="card-meta">
+          
+          <span>📐 500 מ"ר בנוי</span>
+          
+          <span class="drive-badge">🚗 40 דק׳ מרח׳ עמדן</span>
+        </div>
+        <div class="card-ratings">
+          <span>⭐ מצב: ★★★☆☆</span>
+          <span>🌿 גינון: ★★☆☆☆</span>
+        </div>
+        <div class="card-tags">
+          <span class="tag unknown-shelter-tag">❓ ממ"ד לא ידוע</span>
+          <span class="tag horse-tag">🐴 מתאים לסוסים</span>
+          <span class="tag">מבנה לחוות סוסים</span><span class="tag">500 מ"ר מקורה</span>
+        </div>
+        <p class="card-desc">מבנה מקורה לחוות סוסים, מרכז הארץ, מבנה גדול 500 מ"ר. מתאים לחוות סוסים. ניצני עוז ליד טולכרם.</p>
+        <a href="https://monopoli.co.il/detail/15341" target="_blank" class="btn-link">🔗 למודעה המלאה</a>
+      </div>
+    </div>
+    <div class="property-card" data-area="other" data-price="0" data-land="0" data-quality="0" data-distance="35" style="border-color: #d4a017;">
+      <div class="card-image" data-total="1" data-current="0"><img src="/images/rentals/19/1.jpg" alt="ניר אליהו / מרכז" loading="lazy" class="gallery-img active" data-idx="0"></div>
+      <div class="card-body">
+        <div class="card-header">
+          <h3 class="card-title">ניר אליהו / מרכז</h3>
+          <span class="card-price">צרו קשר</span>
+        </div>
+        <div class="card-meta">
+          
+          
+          
+          <span class="drive-badge">🚗 35 דק׳ מרח׳ עמדן</span>
+        </div>
+        <div class="card-ratings">
+          <span>⭐ מצב: ☆☆☆☆☆</span>
+          <span>🌿 גינון: ☆☆☆☆☆</span>
+        </div>
+        <div class="card-tags">
+          <span class="tag unknown-shelter-tag">❓ ממ"ד לא ידוע</span>
+          <span class="tag horse-tag">🐴 מתאים לסוסים</span>
+          <span class="tag">10 תאים לסוסים</span><span class="tag">מאנז'</span><span class="tag">יציאה לשטח</span><span class="tag">חדש בבנייה</span>
+        </div>
+        <p class="card-desc">להשכרה במושב במרכז חוות סוסים בהקמה. 10 תאים + מאנז' ויציאה לשטח. ללא פעילות מסחרית בשבת. חוות סוסים בלבד, ללא בית מגורים.</p>
+        <a href="https://www.instagram.com/p/DMm97yWVmS9/" target="_blank" class="btn-link">🔗 למודעה המלאה</a>
+      </div>
+    </div>
+    <div class="property-card" data-area="gush-dan" data-price="54000" data-land="0" data-quality="5" data-distance="25" style="">
+      <div class="card-image" data-total="1" data-current="0"><img src="/images/rentals/14/1.jpg" alt="ארסוף" loading="lazy" class="gallery-img active" data-idx="0"></div>
+      <div class="card-body">
+        <div class="card-header">
+          <h3 class="card-title">ארסוף</h3>
+          <span class="card-price">₪54,000/חודש</span>
+        </div>
+        <div class="card-meta">
+          <span>🏠 8 חדרים</span>
+          <span>📐 550 מ"ר בנוי</span>
+          
+          <span class="drive-badge">🚗 25 דק׳ מרח׳ עמדן</span>
+        </div>
+        <div class="card-ratings">
+          <span>⭐ מצב: ★★★★★</span>
+          <span>🌿 גינון: ★★★★★</span>
+        </div>
+        <div class="card-tags">
+          <span class="tag unknown-shelter-tag">❓ ממ"ד לא ידוע</span>
+          
+          <span class="tag">100 מ' מהחוף</span><span class="tag">5 סוויטות מאסטר</span><span class="tag">בריכה פרטית</span><span class="tag">קו ראשון לים</span><span class="tag">יישוב מאובטח</span>
+        </div>
+        <p class="card-desc">וילה אדריכלית בארסוף - 100 מ' מהחוף. וילה יוקרתית עוצרת נשימה בקו ראשון לים. 5 סוויטות מאסטר מפוארות, חללי אירוח רחבים ובריכת שחייה פרטית מול נוף כחול אינסופי. עיצוב מוקפד המשלב חומרי גלם טבעיים ופרטיות מוחלטת. סטנדרט מגורים בינלאומי.</p>
+        <a href="https://www.madlan.co.il/listings/4zjuct9zryM" target="_blank" class="btn-link">🔗 למודעה המלאה</a>
+      </div>
+    </div>
+    <div class="property-card" data-area="sharon" data-price="35000" data-land="0.5" data-quality="5" data-distance="30" style="">
+      <div class="card-image" data-total="1" data-current="0"><img src="/images/rentals/13/1.jpg" alt="בצרה" loading="lazy" class="gallery-img active" data-idx="0"></div>
+      <div class="card-body">
+        <div class="card-header">
+          <h3 class="card-title">בצרה</h3>
+          <span class="card-price">₪35,000/חודש</span>
+        </div>
+        <div class="card-meta">
+          <span>🏠 6 חדרים</span>
+          <span>📐 270 מ"ר בנוי</span>
+          <span>🌳 0.5 דונם</span>
+          <span class="drive-badge">🚗 30 דק׳ מרח׳ עמדן</span>
+        </div>
+        <div class="card-ratings">
+          <span>⭐ מצב: ★★★★★</span>
+          <span>🌿 גינון: ★★★★★</span>
+        </div>
+        <div class="card-tags">
+          <span class="tag shelter-tag">🛡️ ממ"ד</span>
+          
+          <span class="tag">בריכה 27 מ'</span><span class="tag">ג'קוזי</span><span class="tag">ממ"ד</span><span class="tag">סוויטת הורים</span><span class="tag">3 קומות</span>
+        </div>
+        <p class="card-desc">במושב בצרה בית פרטי על מגרש 500 מטר, בנוי 270 מטר. בריכה 27 מטר + ג'קוזי. קומת כניסה סלון + מטבח, יציאה לחצר היקפית. חצי קומה למטה: ממ"ד + חדר שירותים ומקלחת + פינת סלון. קומה אמצעית: 3 חדרי שינה, שירותים אמבטיה, חדר כביסה. קומה עליונה: סוויטת הורים גדולה.</p>
+        <a href="https://www.madlan.co.il/listings/d40ZQM7p3UW" target="_blank" class="btn-link">🔗 למודעה המלאה</a>
+      </div>
+    </div>
+    <div class="property-card" data-area="emek-hefer" data-price="24000" data-land="0" data-quality="4" data-distance="55" style="">
+      <div class="card-image" data-total="2" data-current="0"><img src="/images/rentals/6/1.jpg" alt="חבצלת השרון" loading="lazy" class="gallery-img active" data-idx="0"><img src="/images/rentals/6/2.jpg" alt="חבצלת השרון" loading="lazy" class="gallery-img" data-idx="1"><button class="img-prev" onclick="prevImg(this)">‹</button>
+            <button class="img-next" onclick="nextImg(this)">›</button>
+            <span class="img-count">1/2</span></div>
+      <div class="card-body">
+        <div class="card-header">
+          <h3 class="card-title">חבצלת השרון</h3>
+          <span class="card-price">₪24,000/חודש</span>
+        </div>
+        <div class="card-meta">
+          <span>🏠 8 חדרים</span>
+          
+          
+          <span class="drive-badge">🚗 55 דק׳ מרח׳ עמדן</span>
+        </div>
+        <div class="card-ratings">
+          <span>⭐ מצב: ★★★★☆</span>
+          <span>🌿 גינון: ★★★★☆</span>
+        </div>
+        <div class="card-tags">
+          <span class="tag unknown-shelter-tag">❓ ממ"ד לא ידוע</span>
+          
+          <span class="tag">8 חדרים</span><span class="tag">מושב מבוקש</span>
+        </div>
+        <p class="card-desc">בית פרטי במושב חבצלת השרון, 8 חדרים. מושב בעמק חפר. פרטים נוספים דרך תיווך.</p>
+        <a href="http://www.homee.co.il/חבצלת-השרון/נכסים/?es=46549" target="_blank" class="btn-link">🔗 למודעה המלאה</a>
+      </div>
+    </div>
+    <div class="property-card" data-area="emek-hefer" data-price="20000" data-land="0" data-quality="4" data-distance="50" style="">
+      <div class="card-image" data-total="1" data-current="0"><img src="/images/rentals/7/1.jpg" alt="חיבת ציון" loading="lazy" class="gallery-img active" data-idx="0"></div>
+      <div class="card-body">
+        <div class="card-header">
+          <h3 class="card-title">חיבת ציון</h3>
+          <span class="card-price">₪20,000/חודש</span>
+        </div>
+        <div class="card-meta">
+          <span>🏠 8.5 חדרים</span>
+          
+          
+          <span class="drive-badge">🚗 50 דק׳ מרח׳ עמדן</span>
+        </div>
+        <div class="card-ratings">
+          <span>⭐ מצב: ★★★★☆</span>
+          <span>🌿 גינון: ★★★★☆</span>
+        </div>
+        <div class="card-tags">
+          <span class="tag unknown-shelter-tag">❓ ממ"ד לא ידוע</span>
+          
+          <span class="tag">8.5 חדרים</span>
+        </div>
+        <p class="card-desc">בית פרטי במושב חיבת ציון, 8.5 חדרים. מושב באזור עמק חפר.</p>
+        <a href="http://www.homee.co.il/חיבת-ציון/נכסים/?es=45636" target="_blank" class="btn-link">🔗 למודעה המלאה</a>
+      </div>
+    </div>
+    <div class="property-card" data-area="emek-hefer" data-price="20000" data-land="0" data-quality="4" data-distance="45" style="">
+      <div class="card-image" data-total="2" data-current="0"><img src="/images/rentals/8/1.jpg" alt="חרב לאת" loading="lazy" class="gallery-img active" data-idx="0"><img src="/images/rentals/8/2.jpg" alt="חרב לאת" loading="lazy" class="gallery-img" data-idx="1"><button class="img-prev" onclick="prevImg(this)">‹</button>
+            <button class="img-next" onclick="nextImg(this)">›</button>
+            <span class="img-count">1/2</span></div>
+      <div class="card-body">
+        <div class="card-header">
+          <h3 class="card-title">חרב לאת</h3>
+          <span class="card-price">₪20,000/חודש</span>
+        </div>
+        <div class="card-meta">
+          <span>🏠 8.5 חדרים</span>
+          
+          
+          <span class="drive-badge">🚗 45 דק׳ מרח׳ עמדן</span>
+        </div>
+        <div class="card-ratings">
+          <span>⭐ מצב: ★★★★☆</span>
+          <span>🌿 גינון: ★★★★☆</span>
+        </div>
+        <div class="card-tags">
+          <span class="tag unknown-shelter-tag">❓ ממ"ד לא ידוע</span>
+          
+          <span class="tag">8.5 חדרים</span>
+        </div>
+        <p class="card-desc">בית פרטי במושב חרב לאת, 8.5 חדרים. מושב באזור עמק חפר.</p>
+        <a href="http://www.homee.co.il/חרב-לאת/נכסים/?es=45646" target="_blank" class="btn-link">🔗 למודעה המלאה</a>
+      </div>
+    </div>
+    <div class="property-card" data-area="emek-hefer" data-price="18000" data-land="0" data-quality="5" data-distance="50" style="">
+      <div class="card-image" data-total="1" data-current="0"><img src="/images/rentals/4/1.jpg" alt="חיבת ציון" loading="lazy" class="gallery-img active" data-idx="0"></div>
+      <div class="card-body">
+        <div class="card-header">
+          <h3 class="card-title">חיבת ציון</h3>
+          <span class="card-price">₪18,000/חודש</span>
+        </div>
+        <div class="card-meta">
+          <span>🏠 7 חדרים</span>
+          <span>📐 280 מ"ר בנוי</span>
+          
+          <span class="drive-badge">🚗 50 דק׳ מרח׳ עמדן</span>
+        </div>
+        <div class="card-ratings">
+          <span>⭐ מצב: ★★★★★</span>
+          <span>🌿 גינון: ★★★★☆</span>
+        </div>
+        <div class="card-tags">
+          <span class="tag unknown-shelter-tag">❓ ממ"ד לא ידוע</span>
+          
+          <span class="tag">סטנדרט בנייה גבוה</span><span class="tag">אופציה לקליניקה</span><span class="tag">גובלת בשטח ירוק</span>
+        </div>
+        <p class="card-desc">וילה חדישה ומושקעת מאוד, בנויה בסטנדרט בנייה גבוה, כ-280 מ"ר בנוי. כוללת אופציה לקליניקה נפרדת, גובלת בשטח ירוק. ממוקמת במועצה האזורית עמק חפר – יישוב קהילתי, איכותי, עם מערכת חינוך מצוינת.</p>
+        <a href="https://www.madlan.co.il/listings/aWj2wQKlRAJ" target="_blank" class="btn-link">🔗 למודעה המלאה</a>
+      </div>
+    </div>
+    <div class="property-card" data-area="shfela" data-price="14500" data-land="0" data-quality="4" data-distance="30" style="">
+      <div class="card-image" data-total="2" data-current="0"><img src="/images/rentals/16/1.jpg" alt="גינתון" loading="lazy" class="gallery-img active" data-idx="0"><img src="/images/rentals/16/2.jpg" alt="גינתון" loading="lazy" class="gallery-img" data-idx="1"><button class="img-prev" onclick="prevImg(this)">‹</button>
+            <button class="img-next" onclick="nextImg(this)">›</button>
+            <span class="img-count">1/2</span></div>
+      <div class="card-body">
+        <div class="card-header">
+          <h3 class="card-title">גינתון</h3>
+          <span class="card-price">₪14,500/חודש</span>
+        </div>
+        <div class="card-meta">
+          <span>🏠 4.5 חדרים</span>
+          
+          
+          <span class="drive-badge">🚗 30 דק׳ מרח׳ עמדן</span>
+        </div>
+        <div class="card-ratings">
+          <span>⭐ מצב: ★★★★☆</span>
+          <span>🌿 גינון: ★★★☆☆</span>
+        </div>
+        <div class="card-tags">
+          <span class="tag unknown-shelter-tag">❓ ממ"ד לא ידוע</span>
+          
+          <span class="tag">אזור שפלה - 30 דק' מת"א</span>
+        </div>
+        <p class="card-desc">בית פרטי במושב גינתון באזור השפלה, 4.5 חדרים.</p>
+        <a href="http://homee.co.il/גינתון/נכסים/?es=57715" target="_blank" class="btn-link">🔗 למודעה המלאה</a>
+      </div>
+    </div>
+    <div class="property-card" data-area="shfela" data-price="14500" data-land="0" data-quality="3" data-distance="30" style="">
+      <div class="card-image" data-total="1" data-current="0"><img src="/images/rentals/17/1.jpg" alt="ישרש" loading="lazy" class="gallery-img active" data-idx="0"></div>
+      <div class="card-body">
+        <div class="card-header">
+          <h3 class="card-title">ישרש</h3>
+          <span class="card-price">₪14,500/חודש</span>
+        </div>
+        <div class="card-meta">
+          <span>🏠 6 חדרים</span>
+          
+          
+          <span class="drive-badge">🚗 30 דק׳ מרח׳ עמדן</span>
+        </div>
+        <div class="card-ratings">
+          <span>⭐ מצב: ★★★☆☆</span>
+          <span>🌿 גינון: ★★★☆☆</span>
+        </div>
+        <div class="card-tags">
+          <span class="tag unknown-shelter-tag">❓ ממ"ד לא ידוע</span>
+          
+          <span class="tag">אזור שפלה</span>
+        </div>
+        <p class="card-desc">בית פרטי במושב ישרש באזור השפלה, 6 חדרים.</p>
+        <a href="http://homee.co.il/ישרש/נכסים/?es=46231" target="_blank" class="btn-link">🔗 למודעה המלאה</a>
+      </div>
+    </div>
+    <div class="property-card" data-area="emek-hefer" data-price="14000" data-land="0.25" data-quality="5" data-distance="50" style="">
+      <div class="card-image" data-total="3" data-current="0"><img src="/images/rentals/3/1.jpg" alt="חיבת ציון" loading="lazy" class="gallery-img active" data-idx="0"><img src="/images/rentals/3/2.jpg" alt="חיבת ציון" loading="lazy" class="gallery-img" data-idx="1"><img src="/images/rentals/3/3.jpg" alt="חיבת ציון" loading="lazy" class="gallery-img" data-idx="2"><button class="img-prev" onclick="prevImg(this)">‹</button>
+            <button class="img-next" onclick="nextImg(this)">›</button>
+            <span class="img-count">1/3</span></div>
+      <div class="card-body">
+        <div class="card-header">
+          <h3 class="card-title">חיבת ציון</h3>
+          <span class="card-price">₪14,000/חודש</span>
+        </div>
+        <div class="card-meta">
+          <span>🏠 7 חדרים</span>
+          <span>📐 190 מ"ר בנוי</span>
+          <span>🌳 0.25 דונם</span>
+          <span class="drive-badge">🚗 50 דק׳ מרח׳ עמדן</span>
+        </div>
+        <div class="card-ratings">
+          <span>⭐ מצב: ★★★★★</span>
+          <span>🌿 גינון: ★★★★☆</span>
+        </div>
+        <div class="card-tags">
+          <span class="tag shelter-tag">🛡️ ממ"ד</span>
+          
+          <span class="tag">חדש מקבלן 2026</span><span class="tag">ממ"ד</span><span class="tag">כניסה נפרדת</span><span class="tag">4 כיווני אוויר</span>
+        </div>
+        <p class="card-desc">וילה חדשה ומעוצבת ברמת גימור גבוהה. 7 חדרים, כ-190 מ"ר בנוי. אופציה לכניסה נפרדת. נוף פתוח וירוק. שנת בנייה 2026, חדש מקבלן. שטח גינה 250 מ"ר, מרפסת 25 מ"ר. ממ"ד, 4 כיווני אוויר.</p>
+        <a href="https://www.madlan.co.il/listings/qcaVCN5251v" target="_blank" class="btn-link">🔗 למודעה המלאה</a>
+      </div>
+    </div>
+    <div class="property-card" data-area="sharon" data-price="14000" data-land="0" data-quality="3" data-distance="30" style="">
+      <div class="card-image" data-total="1" data-current="0"><img src="/images/rentals/10/1.jpg" alt="עדנים" loading="lazy" class="gallery-img active" data-idx="0"></div>
+      <div class="card-body">
+        <div class="card-header">
+          <h3 class="card-title">עדנים</h3>
+          <span class="card-price">₪14,000/חודש</span>
+        </div>
+        <div class="card-meta">
+          <span>🏠 5 חדרים</span>
+          
+          
+          <span class="drive-badge">🚗 30 דק׳ מרח׳ עמדן</span>
+        </div>
+        <div class="card-ratings">
+          <span>⭐ מצב: ★★★☆☆</span>
+          <span>🌿 גינון: ★★★☆☆</span>
+        </div>
+        <div class="card-tags">
+          <span class="tag unknown-shelter-tag">❓ ממ"ד לא ידוע</span>
+          
+          <span class="tag">מושב בשרון</span>
+        </div>
+        <p class="card-desc">בית פרטי במושב עדנים באזור השרון, 5 חדרים.</p>
+        <a href="http://www.homee.co.il/עדנים/נכסים/?es=57760" target="_blank" class="btn-link">🔗 למודעה המלאה</a>
+      </div>
+    </div>
+    <div class="property-card" data-area="emek-hefer" data-price="13500" data-land="0" data-quality="4" data-distance="45" style="">
+      <div class="card-image" data-total="1" data-current="0"><img src="/images/rentals/5/1.jpg" alt="חרב לאת" loading="lazy" class="gallery-img active" data-idx="0"></div>
+      <div class="card-body">
+        <div class="card-header">
+          <h3 class="card-title">חרב לאת</h3>
+          <span class="card-price">₪13,500/חודש</span>
+        </div>
+        <div class="card-meta">
+          <span>🏠 7 חדרים</span>
+          <span>📐 220 מ"ר בנוי</span>
+          
+          <span class="drive-badge">🚗 45 דק׳ מרח׳ עמדן</span>
+        </div>
+        <div class="card-ratings">
+          <span>⭐ מצב: ★★★★☆</span>
+          <span>🌿 גינון: ★★★☆☆</span>
+        </div>
+        <div class="card-tags">
+          <span class="tag shelter-tag">🛡️ ממ"ד</span>
+          
+          <span class="tag">ממ"ד תקני</span><span class="tag">6 מזגנים</span><span class="tag">2 כניסות נוספות</span><span class="tag">מחסן</span><span class="tag">מתאים לעבודה מהבית</span>
+        </div>
+        <p class="card-desc">בית פרטי, במושב בעמק חפר, איכותי ומואר במיוחד, מתוכנן היטב, מתאים למשפחה גדולה או לעבודה מהבית. ממ"ד גדול תקני עם מזגן, חדר אורחים גדול ופינת אוכל, פינת משפחה, 2 פינות עבודה, מטבח, חדר כביסה, 2 חדרי רחצה, 6 מזגנים.</p>
+        <a href="https://www.madlan.co.il/listings/9YCbfwVl1gN" target="_blank" class="btn-link">🔗 למודעה המלאה</a>
+      </div>
+    </div>
+    <div class="property-card" data-area="emek-hefer" data-price="12500" data-land="0" data-quality="3" data-distance="50" style="">
+      <div class="card-image" data-total="2" data-current="0"><img src="/images/rentals/15/1.jpg" alt="כפר מונש" loading="lazy" class="gallery-img active" data-idx="0"><img src="/images/rentals/15/2.jpg" alt="כפר מונש" loading="lazy" class="gallery-img" data-idx="1"><button class="img-prev" onclick="prevImg(this)">‹</button>
+            <button class="img-next" onclick="nextImg(this)">›</button>
+            <span class="img-count">1/2</span></div>
+      <div class="card-body">
+        <div class="card-header">
+          <h3 class="card-title">כפר מונש</h3>
+          <span class="card-price">₪12,500/חודש</span>
+        </div>
+        <div class="card-meta">
+          
+          
+          
+          <span class="drive-badge">🚗 50 דק׳ מרח׳ עמדן</span>
+        </div>
+        <div class="card-ratings">
+          <span>⭐ מצב: ★★★☆☆</span>
+          <span>🌿 גינון: ★★★☆☆</span>
+        </div>
+        <div class="card-tags">
+          <span class="tag unknown-shelter-tag">❓ ממ"ד לא ידוע</span>
+          
+          <span class="tag">מושב בעמק חפר</span>
+        </div>
+        <p class="card-desc">בית פרטי במושב כפר מונש באזור עמק חפר. פרטים נוספים דרך תיווך.</p>
+        <a href="http://www.homee.co.il/כפר-מונש/נכסים/?es=46372" target="_blank" class="btn-link">🔗 למודעה המלאה</a>
+      </div>
+    </div>
+    <div class="property-card" data-area="shfela" data-price="12000" data-land="0" data-quality="3" data-distance="99" style="">
+      <div class="card-image" data-total="1" data-current="0"><img src="/images/rentals/18/1.jpg" alt="גבעת כ"ח" loading="lazy" class="gallery-img active" data-idx="0"></div>
+      <div class="card-body">
+        <div class="card-header">
+          <h3 class="card-title">גבעת כ"ח</h3>
+          <span class="card-price">₪12,000/חודש</span>
+        </div>
+        <div class="card-meta">
+          <span>🏠 7 חדרים</span>
+          
+          
+          
+        </div>
+        <div class="card-ratings">
+          <span>⭐ מצב: ★★★☆☆</span>
+          <span>🌿 גינון: ★★★☆☆</span>
+        </div>
+        <div class="card-tags">
+          <span class="tag unknown-shelter-tag">❓ ממ"ד לא ידוע</span>
+          
+          <span class="tag">7 חדרים</span><span class="tag">אזור השפלה</span>
+        </div>
+        <p class="card-desc">בית פרטי במושב גבעת כ"ח באזור השפלה, 7 חדרים. שתי מודעות דומות.</p>
+        <a href="http://homee.co.il/גבעת-כח/נכסים/?es=46194" target="_blank" class="btn-link">🔗 למודעה המלאה</a>
+      </div>
+    </div>
+    <div class="property-card" data-area="gush-dan" data-price="12000" data-land="0" data-quality="3" data-distance="25" style="">
+      <div class="card-image" data-total="1" data-current="0"><img src="/images/rentals/20/1.jpg" alt="זיתן" loading="lazy" class="gallery-img active" data-idx="0"></div>
+      <div class="card-body">
+        <div class="card-header">
+          <h3 class="card-title">זיתן</h3>
+          <span class="card-price">₪12,000/חודש</span>
+        </div>
+        <div class="card-meta">
+          <span>🏠 6 חדרים</span>
+          
+          
+          <span class="drive-badge">🚗 25 דק׳ מרח׳ עמדן</span>
+        </div>
+        <div class="card-ratings">
+          <span>⭐ מצב: ★★★☆☆</span>
+          <span>🌿 גינון: ★★★☆☆</span>
+        </div>
+        <div class="card-tags">
+          <span class="tag unknown-shelter-tag">❓ ממ"ד לא ידוע</span>
+          
+          <span class="tag">מושב קרוב לגוש דן</span>
+        </div>
+        <p class="card-desc">בית פרטי במושב זיתן באזור גוש דן, 6 חדרים.</p>
+        <a href="http://homee.co.il/זיתן/נכסים/?es=46275" target="_blank" class="btn-link">🔗 למודעה המלאה</a>
+      </div>
+    </div>
+    <div class="property-card" data-area="sharon" data-price="9900" data-land="0" data-quality="3" data-distance="35" style="">
+      <div class="card-image" data-total="2" data-current="0"><img src="/images/rentals/9/1.jpg" alt="חרוצים" loading="lazy" class="gallery-img active" data-idx="0"><img src="/images/rentals/9/2.jpg" alt="חרוצים" loading="lazy" class="gallery-img" data-idx="1"><button class="img-prev" onclick="prevImg(this)">‹</button>
+            <button class="img-next" onclick="nextImg(this)">›</button>
+            <span class="img-count">1/2</span></div>
+      <div class="card-body">
+        <div class="card-header">
+          <h3 class="card-title">חרוצים</h3>
+          <span class="card-price">₪9,900/חודש</span>
+        </div>
+        <div class="card-meta">
+          <span>🏠 5 חדרים</span>
+          
+          
+          <span class="drive-badge">🚗 35 דק׳ מרח׳ עמדן</span>
+        </div>
+        <div class="card-ratings">
+          <span>⭐ מצב: ★★★☆☆</span>
+          <span>🌿 גינון: ★★★☆☆</span>
+        </div>
+        <div class="card-tags">
+          <span class="tag unknown-shelter-tag">❓ ממ"ד לא ידוע</span>
+          
+          <span class="tag">מושב בשרון</span>
+        </div>
+        <p class="card-desc">בית פרטי במושב חרוצים באזור השרון, 5 חדרים.</p>
+        <a href="http://www.homee.co.il/חרוצים/נכסים/?es=58413" target="_blank" class="btn-link">🔗 למודעה המלאה</a>
+      </div>
+    </div>
 </div>
-
-<div class="summary">
-  <table>
-    <tr><th>אזור</th><th>נכסים</th><th>טווח מחירים</th><th>יישובים</th></tr>
-    <tr><td>עמק חפר</td><td>8</td><td>₪12,500–₪24,000</td><td>חיבת ציון, חרב לאת, חבצלת השרון, צור משה, כפר מונש</td></tr>
-    <tr><td>השרון</td><td>5</td><td>₪9,900–₪35,000</td><td>כפר נטר, חרוצים, עדנים, ניצני עוז, בצרה</td></tr>
-    <tr><td>השפלה</td><td>3</td><td>₪12,000–₪14,500</td><td>גינתון, ישרש, גבעת כ"ח</td></tr>
-    <tr><td>גוש דן</td><td>1</td><td>₪12,000</td><td>זיתן</td></tr>
-    <tr><td>אחר</td><td>3</td><td>₪10,000–₪54,000</td><td>יסודות, ארסוף, ניר אליהו</td></tr>
-  </table>
-</div>
-
-<!-- HORSES FIRST -->
-<div class="section" id="horses-section">
-  <div class="section-title">🐴 מתאים לסוסים <span class="section-count">5 נכסים</span></div>
-
-  <!-- ID 11 - Yesodot - ₪10,000 -->
-  <div class="card horse-card" data-prop="11" data-area="other" data-horses>
-    <div class="card-gallery"><span class="gallery-icon">📷</span><a href="http://homee.co.il/יסודות/נכסים/?es=59927" target="_blank" class="gallery-btn">📸 צפה בתמונות</a></div>
-    <div class="card-header">
-      <div><span class="card-num">#1</span> <span class="horse-badge">🐴 מתאים לסוסים</span></div>
-    </div>
-    <div class="card-title">יסודות — משק חקלאי להשכרה</div>
-    <div class="card-details">
-      <span class="card-label">מחיר:</span><span class="card-value card-price">₪10,000/חודש</span>
-      <span class="card-label">חדרים:</span><span class="card-value">1</span>
-    </div>
-    <div class="ratings">
-      <div class="rating-item">⭐ מצב הבית: 3/5</div>
-      <div class="rating-item">🌿 גינון: 3/5</div>
-    </div>
-    <div class="card-tags">
-      <span class="tag">משק חקלאי</span>
-      <span class="tag">אזור גדרות - קרוב לגדרה</span>
-    </div>
-    <div class="card-desc">משק חקלאי להשכרה במושב יסודות, אזור גדרות. נחלה חקלאית עם אפשרויות חקלאיות.</div>
-    <div class="card-actions">
-      <a href="http://homee.co.il/יסודות/נכסים/?es=59927" target="_blank" class="btn btn-primary">📋 צפה במודעה</a>
-    </div>
-  </div>
-
-  <!-- ID 19 - Nir Eliyahu -->
-  <div class="card horse-card" data-prop="19" data-area="other" data-horses>
-    <div class="card-gallery"><span class="gallery-icon">📷</span><a href="https://www.instagram.com/p/DMm97yWVmS9/" target="_blank" class="gallery-btn">📸 צפה בתמונות · Instagram</a></div>
-    <div class="card-header">
-      <div><span class="card-num">#2</span> <span class="horse-badge">🐴 מתאים לסוסים</span></div>
-    </div>
-    <div class="card-title">ניר אליהו — חוות סוסים בהקמה</div>
-    <div class="card-details">
-      <span class="card-label">מחיר:</span><span class="card-value card-price">צרו קשר</span>
-    </div>
-    <div class="card-tags">
-      <span class="tag">10 תאים לסוסים</span>
-      <span class="tag">מאנז׳</span>
-      <span class="tag">יציאה לשטח</span>
-      <span class="tag">חדש בבנייה</span>
-    </div>
-    <div class="card-desc">להשכרה במושב במרכז חוות סוסים בהקמה. 10 תאים + מאנז׳ ויציאה לשטח. ללא פעילות מסחרית בשבת. חוות סוסים בלבד, ללא בית מגורים.</div>
-    <div class="card-actions">
-      <a href="https://www.instagram.com/p/DMm97yWVmS9/" target="_blank" class="btn btn-primary">📋 צפה במודעה</a>
-    </div>
-  </div>
-
-  <!-- ID 1 - Tzur Moshe -->
-  <div class="card horse-card" data-prop="1" data-area="emek-hefer" data-horses>
-    <div class="card-gallery"><span class="gallery-icon">📷</span><a href="https://www.instagram.com/p/DSSHhoAjLUW/" target="_blank" class="gallery-btn">📸 צפה בתמונות · Instagram</a></div>
-    <div class="card-header">
-      <div><span class="card-num">#3</span> <span class="horse-badge">🐴 מתאים לסוסים</span></div>
-    </div>
-    <div class="card-title">צור משה — נחלה יוקרתית 16 דונם</div>
-    <div class="card-details">
-      <span class="card-label">מחיר:</span><span class="card-value card-price">צרו קשר</span>
-      <span class="card-label">חדרים:</span><span class="card-value">7</span>
-      <span class="card-label">שטח בנוי:</span><span class="card-value">700 מ"ר</span>
-      <span class="card-label">שטח מגרש:</span><span class="card-value">16 דונם</span>
-    </div>
-    <div class="ratings">
-      <div class="rating-item">⭐ מצב הבית: 5/5</div>
-      <div class="rating-item">🌿 גינון: 5/5</div>
-    </div>
-    <div class="card-tags">
-      <span class="tag">בריכה</span>
-      <span class="tag">ספא</span>
-      <span class="tag">אולם כושר</span>
-      <span class="tag">אולם קולנוע ביתי</span>
-      <span class="tag">7 מבנים צמודים</span>
-      <span class="tag">16 דונם ברצף</span>
-      <span class="tag">מתאים לאירועים</span>
-    </div>
-    <div class="card-desc">נחלה להשכרה בצור משה. שטח של 16 דונם ברצף. 700 מ"ר בנוי ועוד 7 מבנים צמודים. בריכה + ספא, אולם כושר, אולם קולנוע ביתי. 7 חדרי שינה. אפשרות לאירועים משפחתיים גדולים. נכס יוקרתי ברמה הגבוהה ביותר.</div>
-    <div class="card-actions">
-      <a href="https://www.instagram.com/p/DSSHhoAjLUW/" target="_blank" class="btn btn-primary">📋 צפה במודעה</a>
-    </div>
-  </div>
-
-  <!-- ID 2 - Kfar Neter -->
-  <div class="card horse-card" data-prop="2" data-area="sharon" data-horses>
-    <div class="card-gallery"><span class="gallery-icon">📷</span><a href="https://www.instagram.com/p/DWgMssfDWx5/" target="_blank" class="gallery-btn">📸 צפה בתמונות · Instagram</a></div>
-    <div class="card-header">
-      <div><span class="card-num">#4</span> <span class="horse-badge">🐴 מתאים לסוסים</span></div>
-    </div>
-    <div class="card-title">כפר נטר — אחוזה עם חוות סוסים</div>
-    <div class="card-details">
-      <span class="card-label">מחיר:</span><span class="card-value card-price">צרו קשר</span>
-      <span class="card-label">חדרים:</span><span class="card-value">5</span>
-      <span class="card-label">שטח בנוי:</span><span class="card-value">250 מ"ר</span>
-      <span class="card-label">שטח מגרש:</span><span class="card-value">8 דונם</span>
-    </div>
-    <div class="ratings">
-      <div class="rating-item">⭐ מצב הבית: 3/5</div>
-      <div class="rating-item">🌿 גינון: 3/5</div>
-    </div>
-    <div class="card-tags">
-      <span class="tag">חוות סוסים קיימת</span>
-      <span class="tag">8 דונם</span>
-      <span class="tag">סוויטת הורים</span>
-      <span class="tag">מתאים לסוסים</span>
-    </div>
-    <div class="card-desc">אחוזה להשכרה בכפר נטר עם חוות סוסים. שטח של כ-8 דונם + בית של כ-250 מ"ר. הבית כולל: סוויטת הורים + חדר ארונות + חדר שירותים, 2 חדרי ילדים. מתאים במיוחד לבעלי סוסים.</div>
-    <div class="card-actions">
-      <a href="https://www.instagram.com/p/DWgMssfDWx5/" target="_blank" class="btn btn-primary">📋 צפה במודעה</a>
-    </div>
-  </div>
-
-  <!-- ID 12 - Nitzanei Oz -->
-  <div class="card horse-card" data-prop="12" data-area="sharon" data-horses>
-    <div class="card-gallery"><span class="gallery-icon">📷</span><a href="https://monopoli.co.il/detail/15341" target="_blank" class="gallery-btn">📸 צפה בתמונות</a></div>
-    <div class="card-header">
-      <div><span class="card-num">#5</span> <span class="horse-badge">🐴 מתאים לסוסים</span></div>
-    </div>
-    <div class="card-title">ניצני עוז — מבנה לחוות סוסים</div>
-    <div class="card-details">
-      <span class="card-label">מחיר:</span><span class="card-value card-price">צרו קשר</span>
-      <span class="card-label">שטח בנוי:</span><span class="card-value">500 מ"ר</span>
-    </div>
-    <div class="ratings">
-      <div class="rating-item">⭐ מצב המבנה: 3/5</div>
-      <div class="rating-item">🌿 גינון: 2/5</div>
-    </div>
-    <div class="card-tags">
-      <span class="tag">מבנה לחוות סוסים</span>
-      <span class="tag">500 מ"ר מקורה</span>
-    </div>
-    <div class="card-desc">מבנה מקורה לחוות סוסים, מרכז הארץ, מבנה גדול 500 מ"ר. מתאים לחוות סוסים. ניצני עוז ליד טולכרם.</div>
-    <div class="card-actions">
-      <a href="https://monopoli.co.il/detail/15341" target="_blank" class="btn btn-primary">📋 צפה במודעה</a>
-    </div>
-  </div>
-</div>
-
-<!-- EMEK HEFER -->
-<div class="section" id="emek-hefer">
-  <div class="section-title">🌾 עמק חפר <span class="section-count">8 נכסים</span></div>
-
-  <!-- ID 15 - Kfar Monash - ₪12,500 -->
-  <div class="card" data-prop="15" data-area="emek-hefer">
-    <div class="card-gallery"><span class="gallery-icon">📷</span><a href="http://www.homee.co.il/כפר-מונש/נכסים/?es=46372" target="_blank" class="gallery-btn">📸 צפה בתמונות</a></div>
-    <div class="card-header"><span class="card-num">#6</span></div>
-    <div class="card-title">כפר מונש — בית פרטי</div>
-    <div class="card-details">
-      <span class="card-label">מחיר:</span><span class="card-value card-price">₪12,500/חודש</span>
-    </div>
-    <div class="ratings">
-      <div class="rating-item">⭐ מצב הבית: 3/5</div>
-      <div class="rating-item">🌿 גינון: 3/5</div>
-    </div>
-    <div class="card-tags">
-      <span class="tag">מושב בעמק חפר</span>
-    </div>
-    <div class="card-desc">בית פרטי במושב כפר מונש באזור עמק חפר. פרטים נוספים דרך תיווך.</div>
-    <div class="card-actions">
-      <a href="http://www.homee.co.il/כפר-מונש/נכסים/?es=46372" target="_blank" class="btn btn-primary">📋 צפה במודעה</a>
-    </div>
-  </div>
-
-  <!-- ID 5 - Herev La'et - ₪13,500 -->
-  <div class="card" data-prop="5" data-area="emek-hefer">
-    <div class="card-gallery"><span class="gallery-icon">📷</span><a href="https://www.madlan.co.il/listings/9YCbfwVl1gN" target="_blank" class="gallery-btn">📸 צפה בתמונות · Madlan</a></div>
-    <div class="card-header"><span class="card-num">#7</span></div>
-    <div class="card-title">חרב לאת — בית פרטי מואר</div>
-    <div class="card-details">
-      <span class="card-label">מחיר:</span><span class="card-value card-price">₪13,500/חודש</span>
-      <span class="card-label">חדרים:</span><span class="card-value">7</span>
-      <span class="card-label">שטח בנוי:</span><span class="card-value">220 מ"ר</span>
-    </div>
-    <div class="ratings">
-      <div class="rating-item">⭐ מצב הבית: 4/5</div>
-      <div class="rating-item">🌿 גינון: 3/5</div>
-    </div>
-    <div class="card-tags">
-      <span class="tag shelter-tag">🛡️ ממ"ד תקני</span>
-      <span class="tag">6 מזגנים</span>
-      <span class="tag">2 כניסות נוספות</span>
-      <span class="tag">מחסן</span>
-      <span class="tag">מתאים לעבודה מהבית</span>
-    </div>
-    <div class="card-desc">בית פרטי, במושב בעמק חפר, איכותי ומואר במיוחד, מתוכנן היטב, מתאים למשפחה גדולה או לעבודה מהבית. ממ"ד גדול תקני עם מזגן, חדר אורחים גדול ופינת אוכל, פינת משפחה, 2 פינות עבודה, מטבח, חדר כביסה, 2 חדרי רחצה, 6 מזגנים.</div>
-    <div class="card-actions">
-      <a href="https://www.madlan.co.il/listings/9YCbfwVl1gN" target="_blank" class="btn btn-primary">📋 צפה במודעה</a>
-    </div>
-  </div>
-
-  <!-- ID 3 - Hibat Zion - ₪14,000 -->
-  <div class="card" data-prop="3" data-area="emek-hefer">
-    <div class="card-gallery"><span class="gallery-icon">📷</span><a href="https://www.madlan.co.il/listings/qcaVCN5251v" target="_blank" class="gallery-btn">📸 צפה בתמונות · Madlan</a></div>
-    <div class="card-header"><span class="card-num">#8</span></div>
-    <div class="card-title">חיבת ציון — וילה חדשה 2026</div>
-    <div class="card-details">
-      <span class="card-label">מחיר:</span><span class="card-value card-price">₪14,000/חודש</span>
-      <span class="card-label">חדרים:</span><span class="card-value">7</span>
-      <span class="card-label">שטח בנוי:</span><span class="card-value">190 מ"ר</span>
-      <span class="card-label">שטח מגרש:</span><span class="card-value">250 מ"ר</span>
-    </div>
-    <div class="ratings">
-      <div class="rating-item">⭐ מצב הבית: 5/5</div>
-      <div class="rating-item">🌿 גינון: 4/5</div>
-    </div>
-    <div class="card-tags">
-      <span class="tag shelter-tag">🛡️ ממ"ד</span>
-      <span class="tag">חדש מקבלן 2026</span>
-      <span class="tag">כניסה נפרדת</span>
-      <span class="tag">4 כיווני אוויר</span>
-    </div>
-    <div class="card-desc">וילה חדשה ומעוצבת ברמת גימור גבוהה. 7 חדרים, כ-190 מ"ר בנוי. אופציה לכניסה נפרדת. נוף פתוח וירוק. שנת בנייה 2026, חדש מקבלן. שטח גינה 250 מ"ר, מרפסת 25 מ"ר. ממ"ד, 4 כיווני אוויר.</div>
-    <div class="card-actions">
-      <a href="https://www.madlan.co.il/listings/qcaVCN5251v" target="_blank" class="btn btn-primary">📋 צפה במודעה</a>
-    </div>
-  </div>
-
-  <!-- ID 4 - Hibat Zion - ₪18,000 -->
-  <div class="card" data-prop="4" data-area="emek-hefer">
-    <div class="card-gallery"><span class="gallery-icon">📷</span><a href="https://www.madlan.co.il/listings/aWj2wQKlRAJ" target="_blank" class="gallery-btn">📸 צפה בתמונות · Madlan</a></div>
-    <div class="card-header"><span class="card-num">#9</span></div>
-    <div class="card-title">חיבת ציון — וילה מושקעת 280 מ"ר</div>
-    <div class="card-details">
-      <span class="card-label">מחיר:</span><span class="card-value card-price">₪18,000/חודש</span>
-      <span class="card-label">חדרים:</span><span class="card-value">7</span>
-      <span class="card-label">שטח בנוי:</span><span class="card-value">280 מ"ר</span>
-    </div>
-    <div class="ratings">
-      <div class="rating-item">⭐ מצב הבית: 5/5</div>
-      <div class="rating-item">🌿 גינון: 4/5</div>
-    </div>
-    <div class="card-tags">
-      <span class="tag">סטנדרט בנייה גבוה</span>
-      <span class="tag">אופציה לקליניקה</span>
-      <span class="tag">גובלת בשטח ירוק</span>
-    </div>
-    <div class="card-desc">וילה חדישה ומושקעת מאוד, בנויה בסטנדרט בנייה גבוה, כ-280 מ"ר בנוי. כוללת אופציה לקליניקה נפרדת, גובלת בשטח ירוק. ממוקמת במועצה האזורית עמק חפר – יישוב קהילתי, איכותי, עם מערכת חינוך מצוינת.</div>
-    <div class="card-actions">
-      <a href="https://www.madlan.co.il/listings/aWj2wQKlRAJ" target="_blank" class="btn btn-primary">📋 צפה במודעה</a>
-    </div>
-  </div>
-
-  <!-- ID 7 - Hibat Zion - ₪20,000 -->
-  <div class="card" data-prop="7" data-area="emek-hefer">
-    <div class="card-gallery"><span class="gallery-icon">📷</span><a href="http://www.homee.co.il/חיבת-ציון/נכסים/?es=45636" target="_blank" class="gallery-btn">📸 צפה בתמונות</a></div>
-    <div class="card-header"><span class="card-num">#10</span></div>
-    <div class="card-title">חיבת ציון — בית פרטי 8.5 חדרים</div>
-    <div class="card-details">
-      <span class="card-label">מחיר:</span><span class="card-value card-price">₪20,000/חודש</span>
-      <span class="card-label">חדרים:</span><span class="card-value">8.5</span>
-    </div>
-    <div class="ratings">
-      <div class="rating-item">⭐ מצב הבית: 4/5</div>
-      <div class="rating-item">🌿 גינון: 4/5</div>
-    </div>
-    <div class="card-tags">
-      <span class="tag">8.5 חדרים</span>
-    </div>
-    <div class="card-desc">בית פרטי במושב חיבת ציון, 8.5 חדרים. מושב באזור עמק חפר.</div>
-    <div class="card-actions">
-      <a href="http://www.homee.co.il/חיבת-ציון/נכסים/?es=45636" target="_blank" class="btn btn-primary">📋 צפה במודעה</a>
-    </div>
-  </div>
-
-  <!-- ID 8 - Herev La'et - ₪20,000 -->
-  <div class="card" data-prop="8" data-area="emek-hefer">
-    <div class="card-gallery"><span class="gallery-icon">📷</span><a href="http://www.homee.co.il/חרב-לאת/נכסים/?es=45646" target="_blank" class="gallery-btn">📸 צפה בתמונות</a></div>
-    <div class="card-header"><span class="card-num">#11</span></div>
-    <div class="card-title">חרב לאת — בית פרטי 8.5 חדרים</div>
-    <div class="card-details">
-      <span class="card-label">מחיר:</span><span class="card-value card-price">₪20,000/חודש</span>
-      <span class="card-label">חדרים:</span><span class="card-value">8.5</span>
-    </div>
-    <div class="ratings">
-      <div class="rating-item">⭐ מצב הבית: 4/5</div>
-      <div class="rating-item">🌿 גינון: 4/5</div>
-    </div>
-    <div class="card-tags">
-      <span class="tag">8.5 חדרים</span>
-    </div>
-    <div class="card-desc">בית פרטי במושב חרב לאת, 8.5 חדרים. מושב באזור עמק חפר.</div>
-    <div class="card-actions">
-      <a href="http://www.homee.co.il/חרב-לאת/נכסים/?es=45646" target="_blank" class="btn btn-primary">📋 צפה במודעה</a>
-    </div>
-  </div>
-
-  <!-- ID 6 - Havatzelet HaSharon - ₪24,000 -->
-  <div class="card" data-prop="6" data-area="emek-hefer">
-    <div class="card-gallery"><span class="gallery-icon">📷</span><a href="http://www.homee.co.il/חבצלת-השרון/נכסים/?es=46549" target="_blank" class="gallery-btn">📸 צפה בתמונות</a></div>
-    <div class="card-header"><span class="card-num">#12</span></div>
-    <div class="card-title">חבצלת השרון — בית פרטי 8 חדרים</div>
-    <div class="card-details">
-      <span class="card-label">מחיר:</span><span class="card-value card-price">₪24,000/חודש</span>
-      <span class="card-label">חדרים:</span><span class="card-value">8</span>
-    </div>
-    <div class="ratings">
-      <div class="rating-item">⭐ מצב הבית: 4/5</div>
-      <div class="rating-item">🌿 גינון: 4/5</div>
-    </div>
-    <div class="card-tags">
-      <span class="tag">8 חדרים</span>
-      <span class="tag">מושב מבוקש</span>
-    </div>
-    <div class="card-desc">בית פרטי במושב חבצלת השרון, 8 חדרים. מושב בעמק חפר. פרטים נוספים דרך תיווך.</div>
-    <div class="card-actions">
-      <a href="http://www.homee.co.il/חבצלת-השרון/נכסים/?es=46549" target="_blank" class="btn btn-primary">📋 צפה במודעה</a>
-    </div>
-  </div>
-
-  <!-- ID 1 already in horses section - reference card -->
-</div>
-
-<!-- SHARON -->
-<div class="section" id="sharon">
-  <div class="section-title">🌿 השרון <span class="section-count">5 נכסים</span></div>
-
-  <!-- ID 9 - Harutzim - ₪9,900 -->
-  <div class="card" data-prop="9" data-area="sharon">
-    <div class="card-gallery"><span class="gallery-icon">📷</span><a href="http://www.homee.co.il/חרוצים/נכסים/?es=58413" target="_blank" class="gallery-btn">📸 צפה בתמונות</a></div>
-    <div class="card-header"><span class="card-num">#13</span></div>
-    <div class="card-title">חרוצים — בית פרטי</div>
-    <div class="card-details">
-      <span class="card-label">מחיר:</span><span class="card-value card-price">₪9,900/חודש</span>
-      <span class="card-label">חדרים:</span><span class="card-value">5</span>
-    </div>
-    <div class="ratings">
-      <div class="rating-item">⭐ מצב הבית: 3/5</div>
-      <div class="rating-item">🌿 גינון: 3/5</div>
-    </div>
-    <div class="card-tags">
-      <span class="tag">מושב בשרון</span>
-    </div>
-    <div class="card-desc">בית פרטי במושב חרוצים באזור השרון, 5 חדרים.</div>
-    <div class="card-actions">
-      <a href="http://www.homee.co.il/חרוצים/נכסים/?es=58413" target="_blank" class="btn btn-primary">📋 צפה במודעה</a>
-    </div>
-  </div>
-
-  <!-- ID 10 - Adanim - ₪14,000 -->
-  <div class="card" data-prop="10" data-area="sharon">
-    <div class="card-gallery"><span class="gallery-icon">📷</span><a href="http://www.homee.co.il/עדנים/נכסים/?es=57760" target="_blank" class="gallery-btn">📸 צפה בתמונות</a></div>
-    <div class="card-header"><span class="card-num">#14</span></div>
-    <div class="card-title">עדנים — בית פרטי</div>
-    <div class="card-details">
-      <span class="card-label">מחיר:</span><span class="card-value card-price">₪14,000/חודש</span>
-      <span class="card-label">חדרים:</span><span class="card-value">5</span>
-    </div>
-    <div class="ratings">
-      <div class="rating-item">⭐ מצב הבית: 3/5</div>
-      <div class="rating-item">🌿 גינון: 3/5</div>
-    </div>
-    <div class="card-tags">
-      <span class="tag">מושב בשרון</span>
-    </div>
-    <div class="card-desc">בית פרטי במושב עדנים באזור השרון, 5 חדרים.</div>
-    <div class="card-actions">
-      <a href="http://www.homee.co.il/עדנים/נכסים/?es=57760" target="_blank" class="btn btn-primary">📋 צפה במודעה</a>
-    </div>
-  </div>
-
-  <!-- ID 13 - Batzra - ₪35,000 -->
-  <div class="card" data-prop="13" data-area="sharon">
-    <div class="card-gallery"><span class="gallery-icon">📷</span><a href="https://www.madlan.co.il/listings/d40ZQM7p3UW" target="_blank" class="gallery-btn">📸 צפה בתמונות · Madlan</a></div>
-    <div class="card-header"><span class="card-num">#15</span></div>
-    <div class="card-title">בצרה — וילת יוקרה עם בריכה</div>
-    <div class="card-details">
-      <span class="card-label">מחיר:</span><span class="card-value card-price">₪35,000/חודש</span>
-      <span class="card-label">חדרים:</span><span class="card-value">6</span>
-      <span class="card-label">שטח בנוי:</span><span class="card-value">270 מ"ר</span>
-      <span class="card-label">שטח מגרש:</span><span class="card-value">500 מ"ר</span>
-    </div>
-    <div class="ratings">
-      <div class="rating-item">⭐ מצב הבית: 5/5</div>
-      <div class="rating-item">🌿 גינון: 5/5</div>
-    </div>
-    <div class="card-tags">
-      <span class="tag shelter-tag">🛡️ ממ"ד</span>
-      <span class="tag">בריכה 27 מ׳</span>
-      <span class="tag">ג׳קוזי</span>
-      <span class="tag">סוויטת הורים</span>
-      <span class="tag">3 קומות</span>
-    </div>
-    <div class="card-desc">במושב בצרה בית פרטי על מגרש 500 מטר, בנוי 270 מטר. בריכה 27 מטר + ג׳קוזי. קומת כניסה סלון + מטבח, יציאה לחצר היקפית. חצי קומה למטה: ממ"ד + חדר שירותים ומקלחת + פינת סלון. קומה אמצעית: 3 חדרי שינה, שירותים אמבטיה, חדר כביסה. קומה עליונה: סוויטת הורים גדולה.</div>
-    <div class="card-actions">
-      <a href="https://www.madlan.co.il/listings/d40ZQM7p3UW" target="_blank" class="btn btn-primary">📋 צפה במודעה</a>
-    </div>
-  </div>
-
-  <!-- ID 2 & 12 already in horses section -->
-</div>
-
-<!-- SHFELA -->
-<div class="section" id="shfela">
-  <div class="section-title">🏘️ השפלה <span class="section-count">3 נכסים</span></div>
-
-  <!-- ID 18 - Givat Koach - ₪12,000 -->
-  <div class="card" data-prop="18" data-area="shfela">
-    <div class="card-gallery"><span class="gallery-icon">📷</span><a href="http://homee.co.il/גבעת-כח/נכסים/?es=46194" target="_blank" class="gallery-btn">📸 צפה בתמונות</a></div>
-    <div class="card-header"><span class="card-num">#16</span></div>
-    <div class="card-title">גבעת כ"ח — בית פרטי 7 חדרים</div>
-    <div class="card-details">
-      <span class="card-label">מחיר:</span><span class="card-value card-price">₪12,000/חודש</span>
-      <span class="card-label">חדרים:</span><span class="card-value">7</span>
-    </div>
-    <div class="ratings">
-      <div class="rating-item">⭐ מצב הבית: 3/5</div>
-      <div class="rating-item">🌿 גינון: 3/5</div>
-    </div>
-    <div class="card-tags">
-      <span class="tag">7 חדרים</span>
-      <span class="tag">אזור השפלה</span>
-    </div>
-    <div class="card-desc">בית פרטי במושב גבעת כ"ח באזור השפלה, 7 חדרים. שתי מודעות דומות.</div>
-    <div class="card-actions">
-      <a href="http://homee.co.il/גבעת-כח/נכסים/?es=46194" target="_blank" class="btn btn-primary">📋 צפה במודעה</a>
-    </div>
-  </div>
-
-  <!-- ID 16 - Ginaton - ₪14,500 -->
-  <div class="card" data-prop="16" data-area="shfela">
-    <div class="card-gallery"><span class="gallery-icon">📷</span><a href="http://homee.co.il/גינתון/נכסים/?es=57715" target="_blank" class="gallery-btn">📸 צפה בתמונות</a></div>
-    <div class="card-header"><span class="card-num">#17</span></div>
-    <div class="card-title">גינתון — בית פרטי</div>
-    <div class="card-details">
-      <span class="card-label">מחיר:</span><span class="card-value card-price">₪14,500/חודש</span>
-      <span class="card-label">חדרים:</span><span class="card-value">4.5</span>
-    </div>
-    <div class="ratings">
-      <div class="rating-item">⭐ מצב הבית: 4/5</div>
-      <div class="rating-item">🌿 גינון: 3/5</div>
-    </div>
-    <div class="card-tags">
-      <span class="tag">אזור שפלה - 30 דק׳ מת"א</span>
-    </div>
-    <div class="card-desc">בית פרטי במושב גינתון באזור השפלה, 4.5 חדרים.</div>
-    <div class="card-actions">
-      <a href="http://homee.co.il/גינתון/נכסים/?es=57715" target="_blank" class="btn btn-primary">📋 צפה במודעה</a>
-    </div>
-  </div>
-
-  <!-- ID 17 - Yesharesh - ₪14,500 -->
-  <div class="card" data-prop="17" data-area="shfela">
-    <div class="card-gallery"><span class="gallery-icon">📷</span><a href="http://homee.co.il/ישרש/נכסים/?es=46231" target="_blank" class="gallery-btn">📸 צפה בתמונות</a></div>
-    <div class="card-header"><span class="card-num">#18</span></div>
-    <div class="card-title">ישרש — בית פרטי 6 חדרים</div>
-    <div class="card-details">
-      <span class="card-label">מחיר:</span><span class="card-value card-price">₪14,500/חודש</span>
-      <span class="card-label">חדרים:</span><span class="card-value">6</span>
-    </div>
-    <div class="ratings">
-      <div class="rating-item">⭐ מצב הבית: 3/5</div>
-      <div class="rating-item">🌿 גינון: 3/5</div>
-    </div>
-    <div class="card-tags">
-      <span class="tag">אזור שפלה</span>
-    </div>
-    <div class="card-desc">בית פרטי במושב ישרש באזור השפלה, 6 חדרים.</div>
-    <div class="card-actions">
-      <a href="http://homee.co.il/ישרש/נכסים/?es=46231" target="_blank" class="btn btn-primary">📋 צפה במודעה</a>
-    </div>
-  </div>
-</div>
-
-<!-- GUSH DAN -->
-<div class="section" id="gush-dan">
-  <div class="section-title">🏙️ גוש דן <span class="section-count">1 נכס</span></div>
-
-  <!-- ID 20 - Zeitan - ₪12,000 -->
-  <div class="card" data-prop="20" data-area="gush-dan">
-    <div class="card-gallery"><span class="gallery-icon">📷</span><a href="http://homee.co.il/זיתן/נכסים/?es=46275" target="_blank" class="gallery-btn">📸 צפה בתמונות</a></div>
-    <div class="card-header"><span class="card-num">#19</span></div>
-    <div class="card-title">זיתן — בית פרטי 6 חדרים</div>
-    <div class="card-details">
-      <span class="card-label">מחיר:</span><span class="card-value card-price">₪12,000/חודש</span>
-      <span class="card-label">חדרים:</span><span class="card-value">6</span>
-    </div>
-    <div class="ratings">
-      <div class="rating-item">⭐ מצב הבית: 3/5</div>
-      <div class="rating-item">🌿 גינון: 3/5</div>
-    </div>
-    <div class="card-tags">
-      <span class="tag">מושב קרוב לגוש דן</span>
-    </div>
-    <div class="card-desc">בית פרטי במושב זיתן באזור גוש דן, 6 חדרים.</div>
-    <div class="card-actions">
-      <a href="http://homee.co.il/זיתן/נכסים/?es=46275" target="_blank" class="btn btn-primary">📋 צפה במודעה</a>
-    </div>
-  </div>
-</div>
-
-<!-- OTHER -->
-<div class="section" id="other-section">
-  <div class="section-title">📍 אחר <span class="section-count">3 נכסים</span></div>
-
-  <!-- ID 14 - Arsuf - ₪54,000 -->
-  <div class="card" data-prop="14" data-area="other">
-    <div class="card-gallery"><span class="gallery-icon">📷</span><a href="https://www.madlan.co.il/listings/4zjuct9zryM" target="_blank" class="gallery-btn">📸 צפה בתמונות · Madlan</a></div>
-    <div class="card-header"><span class="card-num">#20</span></div>
-    <div class="card-title">ארסוף — וילה אדריכלית 100 מ׳ מהחוף</div>
-    <div class="card-details">
-      <span class="card-label">מחיר:</span><span class="card-value card-price">₪54,000/חודש</span>
-      <span class="card-label">חדרים:</span><span class="card-value">8</span>
-      <span class="card-label">שטח בנוי:</span><span class="card-value">550 מ"ר</span>
-    </div>
-    <div class="ratings">
-      <div class="rating-item">⭐ מצב הבית: 5/5</div>
-      <div class="rating-item">🌿 גינון: 5/5</div>
-    </div>
-    <div class="card-tags">
-      <span class="tag">100 מ׳ מהחוף</span>
-      <span class="tag">5 סוויטות מאסטר</span>
-      <span class="tag">בריכה פרטית</span>
-      <span class="tag">קו ראשון לים</span>
-      <span class="tag">יישוב מאובטח</span>
-    </div>
-    <div class="card-desc">וילה אדריכלית בארסוף - 100 מ׳ מהחוף. וילה יוקרתית עוצרת נשימה בקו ראשון לים. 5 סוויטות מאסטר מפוארות, חללי אירוח רחבים ובריכת שחייה פרטית מול נוף כחול אינסופי. עיצוב מוקפד המשלב חומרי גלם טבעיים ופרטיות מוחלטת. סטנדרט מגורים בינלאומי.</div>
-    <div class="card-actions">
-      <a href="https://www.madlan.co.il/listings/4zjuct9zryM" target="_blank" class="btn btn-primary">📋 צפה במודעה</a>
-    </div>
-  </div>
-
-  <!-- ID 11 & 19 already in horses section -->
-</div>
-
-<div class="footer">
-  נחלות ובתים פרטיים להשכרה — מרכז ישראל 2026<br>
-  מקורות: Madlan, Homee, Instagram, Monopoli
-</div>
-
+<div class="footer">נחלות להשכרה — מרכז ישראל 2026 | עודכן אוטומטית</div>
 <script>
-// Filter logic
-document.querySelectorAll('.filter-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    const filter = btn.dataset.filter;
-    const isAll = filter === 'all';
-    const isHorses = filter === 'horses';
-
-    // Show/hide summary
-    var summary = document.querySelector('.summary');
-    if (summary) summary.classList.toggle('hidden', !isAll);
-
-    // Show/hide horses section
-    var horsesSection = document.getElementById('horses-section');
-
-    if (isAll) {
-      // Show everything
-      document.querySelectorAll('.card').forEach(c => c.classList.remove('hidden'));
-      document.querySelectorAll('.section').forEach(s => s.classList.remove('hidden'));
-      return;
-    }
-
-    if (isHorses) {
-      // Show only horses
-      document.querySelectorAll('.card').forEach(c => {
-        c.classList.toggle('hidden', !c.hasAttribute('data-horses'));
-      });
-      document.querySelectorAll('.section').forEach(s => {
-        if (s.id === 'horses-section') { s.classList.remove('hidden'); }
-        else { s.classList.add('hidden'); }
-      });
-      return;
-    }
-
-    // Area filter
-    document.querySelectorAll('.card').forEach(c => {
-      c.classList.toggle('hidden', c.dataset.area !== filter);
-    });
-    document.querySelectorAll('.section').forEach(s => {
-      // Map section IDs to filter values
-      const sectionMap = {
-        'horses-section': null,
-        'emek-hefer': 'emek-hefer',
-        'sharon': 'sharon',
-        'shfela': 'shfela',
-        'gush-dan': 'gush-dan',
-        'other-section': 'other'
-      };
-      const sArea = sectionMap[s.id];
-      if (s.id === 'horses-section') {
-        // In area mode, show horses section if it has visible cards for this area
-        const visibleHorses = s.querySelectorAll('.card:not(.hidden)');
-        s.classList.toggle('hidden', visibleHorses.length === 0);
-      } else {
-        s.classList.toggle('hidden', sArea !== filter);
-      }
-    });
-
-    // Re-check horses section visibility after area filter
-    setTimeout(() => {
-      if (horsesSection) {
-        const visibleHorses = horsesSection.querySelectorAll('.card:not(.hidden)');
-        horsesSection.classList.toggle('hidden', visibleHorses.length === 0);
-      }
-    }, 10);
+function filterCards(area) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  event.target.classList.add('active');
+  document.querySelectorAll('.property-card').forEach(card => {
+    if (area === 'all') card.style.display = '';
+    else if (area === 'horse') card.style.display = card.querySelector('.horse-tag') ? '' : 'none';
+    else card.style.display = card.dataset.area === area ? '' : 'none';
   });
-});
-
-
-// Image data
-const propertyImages = {"1":[1],"2":[1],"6":[1,2],"8":[1,2],"9":[1,2],"11":[1,2],"12":[1,2,3,4],"15":[1,2],"16":[1,2],"19":[1]};
-const imgPrefix = '/images/rentals/';
-
-// Build carousels on load
-document.addEventListener('DOMContentLoaded', () => {
-  document.querySelectorAll('[data-prop]').forEach(card => {
-    const propId = card.dataset.prop;
-    const imgs = propertyImages[propId];
-    const gallery = card.querySelector('.card-gallery');
-    if (!gallery) return;
-
-    if (!imgs || !imgs.length) {
-      // Keep existing gallery link but style nicer
-      return;
-    }
-
-    // Build carousel HTML
-    const carousel = document.createElement('div');
-    carousel.className = 'card-carousel';
-    carousel.onclick = function(e) {
-      if (e.target.closest('.carousel-nav') || e.target.closest('.carousel-dot')) return;
-      openLightbox(propId);
-    };
-
-    let html = '<div class="carousel-slide">';
-    imgs.forEach((n, i) => {
-      html += '<img src="' + imgPrefix + propId + '/' + n + '.jpg" alt="תמונת נכס" loading="lazy" class="' + (i === 0 ? 'active' : '') + '" data-idx="' + i + '">';
-    });
-    html += '</div>';
-
-    if (imgs.length > 1) {
-      html += '<button class="carousel-nav carousel-prev" onclick="carouselNav(this, 1)">›</button>';
-      html += '<button class="carousel-nav carousel-next" onclick="carouselNav(this, -1)">‹</button>';
-      html += '<div class="carousel-dots">';
-      imgs.forEach((_, i) => {
-        html += '<button class="carousel-dot' + (i === 0 ? ' active' : '') + '" onclick="carouselGo(this, ' + i + ')"></button>';
-      });
-      html += '</div>';
-    }
-
-    html += '<div class="img-count">📷 ' + imgs.length + ' תמונות</div>';
-    carousel.innerHTML = html;
-    gallery.replaceWith(carousel);
+}
+function sortCards(field, asc, btn) {
+  const container = document.getElementById('cards-container');
+  const cards = [...container.querySelectorAll('.property-card')];
+  cards.sort((a, b) => {
+    const va = parseFloat(a.dataset[field]) || 0;
+    const vb = parseFloat(b.dataset[field]) || 0;
+    return asc ? va - vb : vb - va;
   });
-});
-
-// Carousel navigation
-function carouselNav(btn, dir) {
-  const carousel = btn.closest('.card-carousel');
-  const imgs = carousel.querySelectorAll('.carousel-slide img');
-  const dots = carousel.querySelectorAll('.carousel-dot');
-  let current = 0;
-  imgs.forEach((img, i) => { if (img.classList.contains('active')) current = i; });
-  imgs[current].classList.remove('active');
-  if (dots[current]) dots[current].classList.remove('active');
-  current = (current + dir + imgs.length) % imgs.length;
-  imgs[current].classList.add('active');
-  if (dots[current]) dots[current].classList.add('active');
+  cards.forEach(card => container.appendChild(card));
+  document.querySelectorAll('.sort-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
 }
-
-function carouselGo(dot, idx) {
-  const carousel = dot.closest('.card-carousel');
-  const imgs = carousel.querySelectorAll('.carousel-slide img');
-  const dots = carousel.querySelectorAll('.carousel-dot');
-  imgs.forEach(img => img.classList.remove('active'));
-  dots.forEach(d => d.classList.remove('active'));
-  imgs[idx].classList.add('active');
-  dots[idx].classList.add('active');
+function prevImg(btn) {
+  const container = btn.closest('.card-image');
+  const imgs = container.querySelectorAll('.gallery-img');
+  let cur = parseInt(container.dataset.current);
+  imgs[cur].classList.remove('active');
+  cur = (cur - 1 + imgs.length) % imgs.length;
+  imgs[cur].classList.add('active');
+  container.dataset.current = cur;
+  const count = container.querySelector('.img-count');
+  if (count) count.textContent = `${cur+1}/${imgs.length}`;
 }
-
-// Lightbox
-let lbImages = [], lbIdx = 0;
-
-function openLightbox(propId) {
-  const imgs = propertyImages[propId];
-  if (!imgs || !imgs.length) return;
-  lbImages = imgs.map(n => imgPrefix + propId + '/' + n + '.jpg');
-  lbIdx = 0;
-  // Find current active image in the carousel
-  const card = document.querySelector('[data-prop="' + propId + '"]');
-  if (card) {
-    const activeImg = card.querySelector('.carousel-slide img.active');
-    if (activeImg) lbIdx = parseInt(activeImg.dataset.idx) || 0;
-  }
-  showLbImage();
-  document.getElementById('lightbox').classList.add('active');
-  document.body.style.overflow = 'hidden';
+function nextImg(btn) {
+  const container = btn.closest('.card-image');
+  const imgs = container.querySelectorAll('.gallery-img');
+  let cur = parseInt(container.dataset.current);
+  imgs[cur].classList.remove('active');
+  cur = (cur + 1) % imgs.length;
+  imgs[cur].classList.add('active');
+  container.dataset.current = cur;
+  const count = container.querySelector('.img-count');
+  if (count) count.textContent = `${cur+1}/${imgs.length}`;
 }
-
-function closeLightbox() {
-  document.getElementById('lightbox').classList.remove('active');
-  document.body.style.overflow = '';
-}
-
-function navLightbox(dir) {
-  lbIdx = (lbIdx + dir + lbImages.length) % lbImages.length;
-  showLbImage();
-}
-
-function showLbImage() {
-  document.getElementById('lightbox-img').src = lbImages[lbIdx];
-  document.getElementById('lightbox-counter').textContent = (lbIdx + 1) + ' / ' + lbImages.length;
-}
-
-// Keyboard & touch for lightbox
-document.addEventListener('keydown', e => {
-  if (!document.getElementById('lightbox').classList.contains('active')) return;
-  if (e.key === 'Escape') closeLightbox();
-  if (e.key === 'ArrowLeft') navLightbox(1);
-  if (e.key === 'ArrowRight') navLightbox(-1);
-});
-let tsX = 0;
-document.getElementById('lightbox').addEventListener('touchstart', e => { tsX = e.changedTouches[0].screenX; });
-document.getElementById('lightbox').addEventListener('touchend', e => {
-  const d = e.changedTouches[0].screenX - tsX;
-  if (Math.abs(d) > 50) navLightbox(d > 0 ? 1 : -1);
-});
-
+// Default sort: price high to low
+sortCards('price', false, document.querySelector('.sort-btn'));
 </script>
-
-<!-- Lightbox -->
-<div class="lightbox" id="lightbox">
-  <button class="lightbox-close" onclick="closeLightbox()">✕</button>
-  <button class="lightbox-nav lightbox-next" onclick="navLightbox(-1)">‹</button>
-  <div class="lightbox-img-wrap">
-    <img id="lightbox-img" src="" alt="">
-  </div>
-  <button class="lightbox-nav lightbox-prev" onclick="navLightbox(1)">›</button>
-  <div class="lightbox-counter" id="lightbox-counter"></div>
-</div>
 </body>
 </html>
